@@ -22,8 +22,14 @@ const userSchema = new Schema({
         type: Number,
         required: true,
     },
-    createdCampaigns: [Campaign],
-    donatedCampaigns: [Campaign],
+    createdCampaigns: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Campaign',
+    }],
+    donatedCampaigns: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Campaign',
+    }],
 },
     {
         toJSON: {
