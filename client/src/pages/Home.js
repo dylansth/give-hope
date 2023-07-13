@@ -8,7 +8,7 @@ function Home() {
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
+            {/* <form onSubmit={handleSubmit}>
                 <label>Email</label>
                 <input
                     id="loginEmail"
@@ -25,7 +25,7 @@ function Home() {
                 />
 
                 <button type='submit'>Log In</button>
-            </form>
+            </form> */}
         </div>
     );
 };
