@@ -13,6 +13,10 @@ const calculationSeeds = require('./calculationSeeds.json')
 db.once('open', async () => {
   try {
     await User.deleteMany({});
+    await Campaign.deleteMany({});
+    await Donation.deleteMany({});
+    await Review.deleteMany({});
+    await Purchase_power.deleteMany({});
     const createdUsers = await User.create(userSeeds);
     console.log('Users seeded successfully');
 
@@ -50,7 +54,7 @@ db.once('open', async () => {
       return calculation;
     });
 
-    const createdCalculation = await Review.create(calculationWithId);
+    const createdCalculation = await Purchase_power.create(calculationWithId);
     console.log('Purchase_Power seeded successfully');
 
 
