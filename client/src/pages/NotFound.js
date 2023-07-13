@@ -1,11 +1,11 @@
 import React from 'react';
 
-function SignUp() {
+function NotFound() {
     return(
         <p>
-            SignUp
+            NotFound
         </p>
     )
 }
 
-export default SignUp;
+export default NotFound;
