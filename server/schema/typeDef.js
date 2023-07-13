@@ -31,6 +31,7 @@ type Donation {
     createdAt: String
 }
 type Purchase_power {
+    _id: ID!
     charity_portion: String
     userId: [User]
 }
@@ -47,7 +48,6 @@ type Auth {
 }
 
 input ReviewInput {
-  _id: ID!
   description: String
   creatorId: ID
   campaignId: ID
@@ -55,7 +55,6 @@ input ReviewInput {
 }
 
 input CampaignInput {
-  _id: ID!
   title: String!
   description: String!
   image: String
@@ -70,18 +69,18 @@ input CampaignInput {
 
 
 type Mutation {
-    addUser(username: String!, email: String!, password: String!): Auth
+    addUser(username: String!, email: String!, password: String!, annualSalary: Int!): Auth
     login(email: String!, password: String!): Auth
     # updateUser(firstName: String, lastName: String, email: String, password: String): User
     # deleteUser(userId: ID!): User
-    createCampaign(reviewData: CampaignInput!): Campaign
+    createCampaign(campaignData: CampaignInput!): Campaign
     updateCampaign(campaignData: CampaignInput!): Campaign
     deleteCampaign(campaignId: ID!): Campaign
     # saveReview(reviewData: ReviewInput!): Review
     # updateReview(reviewId: ID!, reviewData: ReviewInput!): Review
     # makeDonation(campaignId: ID!, amount: Int!): Donation
     # deleteReview(_id: String!): Review
-    # login(email: String!, password: String!): Auth
+   
 }
 type Query {
     me: User
