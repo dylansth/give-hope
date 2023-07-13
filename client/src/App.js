@@ -12,7 +12,7 @@ import NotFound from './pages/NotFound';
 function App() {
   return (
     <>
-      <div>
+      {/* <div>
         <TopNav />
       </div>
       <div>
@@ -35,37 +35,63 @@ function App() {
       </div>
       <div>
         <NotFound />
-      </div>
+      </div> */}
 
-    <div>
-      <Router>
-        <Routes>
-          <Route
-            path="/home"
-            element={<Home />}
-          />
-          <Route
-            path="/sign-up"
-            element={<SignUp />}
-          />
-          <Route
-            path="/explore"
-            element={<Explore />}
-          />
-          <Route
-            path="/fundraiser/:id"
-            element={<Fundraiser />}
-          />
-          <Route
-            path="/create-fundraiser"
-            element={<CreateFundraiser />}
-          />
-          <Route
-            path="*"
-            element={<NotFound />}
-          />
-        </Routes>
-      </Router>
+      <div>
+        <Router>
+          <Routes>
+            <Route
+              path="/"
+              element={<Home />}
+            />
+            <Route
+              path="/sign-up"
+              element={<SignUp />}
+            />
+            <Route
+              path="/explore"
+              element={<Explore />}
+            />
+            <Route
+              path="/fundraiser/:id"
+              element={<Fundraiser />}
+            />
+            <Route
+              path="/create-fundraiser"
+              element={<CreateFundraiser />}
+            />
+            <Route
+              path="*"
+              element={<NotFound />}
+            />
+          </Routes>
+
+          {/* Rendering Everything For Development */}
+          <div>
+            <TopNav />
+          </div>
+          <div>
+            <Home />
+          </div>
+          <div>
+            <SignUp />
+          </div>
+          <div>
+            <Explore />
+          </div>
+          <div>
+            <Fundraiser />
+          </div>
+          <div>
+            <CreateFundraiser />
+          </div>
+          <div>
+            <Footer />
+          </div>
+          <div>
+            <NotFound />
+          </div>
+        </Router>
       </div>
     </>
   );
