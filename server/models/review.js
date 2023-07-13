@@ -19,6 +19,10 @@ const reviewSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now
+    },
+    reviewId: {
+        type: String
+        required: true
     }
 });
 
