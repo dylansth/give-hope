@@ -1,31 +1,31 @@
 [
     {
-      "campaignId": "",
-      "donorId":"",
+      "campaignId": ["64afe8545675bcb8cdf09789"],
+      "donorId":"64afe8545675bcb8cdf09789",
       "amount": 100,
       "createdAt": "2023-07-13"
     },
     { 
-      "campaignId": "",
-      "donorId":"",
+      "campaignId": "64afe8545675bcb8cdf09789",
+      "donorId":["64afe8545675bcb8cdf09789"],
       "amount": 50,
       "createdAt": "2023-07-12"
     },
     {
-      "campaignId": "",
-      "donorId":"",
+      "campaignId": ["64afe8545675bcb8cdf09789"],
+      "donorId":["64afe8545675bcb8cdf09789"],
       "amount": 200,
       "createdAt": "2023-07-11"
     },
     {     
-      "campaignId": "",
-      "donorId":"",
+      "campaignId": ["64afe8545675bcb8cdf09789"],
+      "donorId":["64afe8545675bcb8cdf09789"],
       "amount": 75,
       "createdAt": "2023-07-10"
     },
     {
-      "campaignId": "",
-      "donorId":"",
+      "campaignId": ["64afe8545675bcb8cdf09789"],
+      "donorId":["64afe8545675bcb8cdf09789"],
       "amount": 150,
       "createdAt": "2023-07-09"
     }
