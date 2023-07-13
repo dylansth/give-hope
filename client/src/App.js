@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import TopNav from './components/TopNav';
 import Footer from './components/Footer';
 import Home from './pages/Home';
+import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Explore from './pages/Explore';
 import Fundraiser from './pages/Fundraiser';
@@ -45,6 +46,10 @@ function App() {
               element={<Home />}
             />
             <Route
+              path="/sign-in"
+              element={<SignIn />}
+            />
+            <Route
               path="/sign-up"
               element={<SignUp />}
             />
@@ -72,6 +77,9 @@ function App() {
           </div>
           <div>
             <Home />
+          </div>
+          <div>
+            <SignIn />
           </div>
           <div>
             <SignUp />
