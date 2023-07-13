@@ -1,0 +1,32 @@
+[
+    {
+      "campaignId": "",
+      "donorId":"",
+      "amount": 100,
+      "createdAt": "2023-07-13"
+    },
+    { 
+      "campaignId": "",
+      "donorId":"",
+      "amount": 50,
+      "createdAt": "2023-07-12"
+    },
+    {
+      "campaignId": "",
+      "donorId":"",
+      "amount": 200,
+      "createdAt": "2023-07-11"
+    },
+    {     
+      "campaignId": "",
+      "donorId":"",
+      "amount": 75,
+      "createdAt": "2023-07-10"
+    },
+    {
+      "campaignId": "",
+      "donorId":"",
+      "amount": 150,
+      "createdAt": "2023-07-09"
+    }
+  ]
