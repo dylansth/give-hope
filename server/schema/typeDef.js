@@ -49,7 +49,7 @@ input ReviewInput{
 type Mutation {
     createUser(username: String!, email: String!, password: String!): Auth
     saveReview(reviewData: ReviewInput!): User
-    deleteReview(reviewId: String!): User
+    deleteReview(_id: String!): User
     login(email: String!, password: String!): Auth
 }
 type Query {

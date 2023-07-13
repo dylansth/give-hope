@@ -14,16 +14,12 @@ const reviewSchema = new Schema({
     },
     campaignId: {
         type: Schema.Types.ObjectId,
-    ref: 'Campaign',
+        ref: 'Campaign',
     },
     createdAt: {
         type: Date,
         default: Date.now
     },
-    reviewId: {
-        type: String
-        required: true
-    }
 });
 
 const Review = model('Review', reviewSchema);
