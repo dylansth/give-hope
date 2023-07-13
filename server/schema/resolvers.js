@@ -25,8 +25,8 @@ const resolvers = {
       },
     
       Mutation: {
-        addUser: async (parent, { username, email, password }) => {
-          const user = await User.create({ username, email, password });
+        addUser: async (parent, { username, email, password, annualSalary }) => {
+          const user = await User.create({ username, email, password, annualSalary });
           const token = signToken(user);
           return { token, user };
         },
@@ -49,24 +49,25 @@ const resolvers = {
         },
     
         createCampaign: async (parent, {campaignData}, context) => {
+          // console.log(context);
           if (!context.user) {
             throw new Error('User not authenticated.');
           }
-        
+        console.log(campaignData)
           try {
             const createCampaign = await Campaign.create({ 
-                _id: campaignData._id,
                 title: campaignData.title,
                 description: campaignData.description,
                 image: campaignData.image,
-                creatorId: campaignData.creatorId,
+                creatorId: context.user._id,
                 targetAmount: campaignData.targetAmount,
                 currentAmount: campaignData.currentAmount,
                 endDate: campaignData.endDate,
                 donations: campaignData.donations,
                 createdAt: campaignData.createdAt,
                 reviews: campaignData.reviews}
-            );
+          );
+        
         
             return createCampaign;
           } catch (error) {
@@ -79,7 +80,7 @@ const resolvers = {
               { _id: id }, 
               { description: campaignData.description,
                 image: campaignData.image,
-                creatorId: campaignData.creatorId,
+                creatorId: context.user._id,
                 targetAmount: campaignData.targetAmount,
                 currentAmount: campaignData.currentAmount,
                 endDate: campaignData.endDate,
