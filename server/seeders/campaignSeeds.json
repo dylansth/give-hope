@@ -1,0 +1,58 @@
+[
+    {
+      "title": "Helping Hands for Children",
+      "description": "Support underprivileged children by providing them with education and healthcare.",
+      "creatorId": "614f9e1a8f4c3f001ff354bd",
+      "targetAmount": 10000,
+      "currentAmount": 5000,
+      "endDate": "2023-12-31",
+      "donations": [],
+      "createdAt": "2023-07-13",
+      "reviews": []
+    },
+    {
+      "title": "Save the Rainforest",
+      "description": "Contribute to the preservation of the Amazon rainforest and protect its diverse ecosystem.",
+      "creatorId": "614f9e1a8f4c3f001ff354bd",
+      "targetAmount": 5000,
+      "currentAmount": 2500,
+      "endDate": "2023-11-30",
+      "donations": [],
+      "createdAt": "2023-07-12",
+      "reviews": []
+    },
+    {
+      "title": "Clean Water Initiative",
+      "description": "Provide clean and safe drinking water to communities in need around the world.",
+      "creatorId": "614f9e1a8f4c3f001ff354bd",
+      "targetAmount": 8000,
+      "currentAmount": 4000,
+      "endDate": "2023-10-31",
+      "donations": [],
+      "createdAt": "2023-07-11",
+      "reviews": []
+    },
+    {
+      "title": "Support Local Animal Shelter",
+      "description": "Help local animal shelters provide care and find loving homes for abandoned and stray animals.",
+      "creatorId": "614f9e1a8f4c3f001ff354bd",
+      "targetAmount": 2000,
+      "currentAmount": 1000,
+      "endDate": "2023-09-30",
+      "donations": [],
+      "createdAt": "2023-07-10",
+      "reviews": []
+    },
+    {
+      "title": "Disaster Relief Fund",
+      "description": "Assist communities affected by natural disasters by providing emergency relief and support.",
+      "creatorId": "614f9e1a8f4c3f001ff354bd",
+      "targetAmount": 15000,
+      "currentAmount": 7500,
+      "endDate": "2023-08-31",
+      "donations": [],
+      "createdAt": "2023-07-09",
+      "reviews": []
+    }
+  ]
+  
