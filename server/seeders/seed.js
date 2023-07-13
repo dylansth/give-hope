@@ -1,10 +1,11 @@
 const db = require('../config/connection');
 const axios = require('axios')
-const { User, Campaign, Donation } = require('../models');
+const { User, Campaign, Donation, Review, Purchase_power } = require('../models');
 const userSeeds = require('./userSeeds.json');
 const campaignSeeds = require('./campaignSeeds.json');
 const donationSeeds = require('./donationSeeds.json');
-
+const reviewSeeds = require('./reviewSeeds.json');
+const calculationSeeds = require('./calculationSeeds.json')
 
 
 
@@ -25,7 +26,7 @@ db.once('open', async () => {
 
     const donationsWithId = donationSeeds.map(donation => {
       donation.donorId = [createdUsers[0]._id];
-      donation.campaignId = createdUsers[0]._id;
+      donation.campaignId = createdCampaigns[0]._id;
       return donation;
     });
 
@@ -33,7 +34,25 @@ db.once('open', async () => {
     console.log('Donations seeded successfully');
    
 
+    const reviewWithId = reviewSeeds.map(review => {
+      review.creatorId = createdUsers[0]._id;
+      review.campaignId = createdCampaigns[0]._id;
+      return review;
+    });
+
+    const createdReviews = await Review.create(reviewWithId);
+    console.log('Donations seeded successfully');
+
     
+    const calculationWithId = calculationSeeds.map(calculation => {
+      calculation.userId = createdUsers[0]._id;
+    
+      return calculation;
+    });
+
+    const createdCalculation = await Review.create(calculationWithId);
+    console.log('Purchase_Power seeded successfully');
+
 
     // for (let i = 0; i < campaignSeeds.length; i++) {
     //   const campaign = await Campaign.findById(campaignSeeds[i]._id);
