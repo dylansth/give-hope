@@ -4,15 +4,15 @@ const { Schema, model } = require('mongoose');
 const User = require('./user');
 
 const purPowerSchema = new Schema({
-    annualSalary: {
-        type: Number,
-        required: true,
-    },
-    calcultion: {
-        type: Number,
-    },
+
+    // we will get this value from user
+    // annualSalary: {
+    //     type: Number,
+    //     required: true,
+    // },
     charity_portion: {
-        type: Number,
+        // type: Number,should be a string because we gonna use % 
+           type: String,
     },
     userId: {
         type: Schema.Types.ObjectId,

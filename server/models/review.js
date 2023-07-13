@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
-const Campaign = require('./campaign');
+// const Campaign = require('./campaign');
 
-const User = require('./user');
+// const User = require('./user');
 
 
 const reviewSchema = new Schema({
