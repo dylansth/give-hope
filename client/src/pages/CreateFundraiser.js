@@ -1,11 +1,92 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useMutation } from 'apollo-client';
+import { CREATE_CAMPAIGN } from '../utils/mutations';
 
-function CreateFundraiser() {
-    return(
-        <p>
-            CreateFundraiser
-        </p>
-    )
-}
+const CampaignForm = () => {
+    const [formData, setFormData] = useState({
+        title: '',
+        description: '',
+        endDate: '',
+        targetAmount: '',
+        image: ''
+        // Add more fields here according to your requirements
+    });
 
-export default CreateFundraiser;
+    const [createCampaign] = useMutation(CREATE_CAMPAIGN);
+
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
+
+    const handleFormSubmit = async (event) => {
+        event.preventDefault();
+
+        try {
+            const { data } = await createCampaign({
+                variables: {
+                    ...formData,
+                },
+            });
+            console.log(data); // Handle success response
+
+            // Reset the form
+            setFormData({
+                title: '',
+                description: '',
+                endDate: '',
+                targetAmount: '',
+                image: ''
+                // Reset other fields as well
+            });
+        } catch (error) {
+            console.error(error); // Handle error response
+        }
+    };
+
+    return (
+        <div>
+            <h1>Create Campaign</h1>
+            <form onSubmit={handleFormSubmit}>
+                <label>Title:</label>
+                <input
+                    type="text"
+                    name="title"
+                    value={formData.title}
+                    onChange={handleInputChange}
+                />
+
+                <label>Description:</label>
+                <input
+                    type="text"
+                    name="description"
+                    value={formData.description}
+                    onChange={handleInputChange}
+                />
+
+                <label>endDate:</label>
+                <input
+                    type="text"
+                    name="description"
+                    value={formData.endDate}
+                    onChange={handleInputChange}
+                />
+                <label>Target Amount:</label>
+                <input
+                    type="text"
+                    name="description"
+                    value={formData.targetAmount}
+                    onChange={handleInputChange}
+                />
+                {/* Add more input fields for other campaign fields */}
+
+                <button type="submit">Create Campaign</button>
+            </form>
+        </div>
+    );
+};
+
+export default CampaignForm;
