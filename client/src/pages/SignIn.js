@@ -7,7 +7,7 @@ import Auth from '../utils/auth';
 
 const SignIn = () => {
     const [formState, setFormState] = useState({ email: '', password: '' });
-    //   const [login, { error, data }] = useMutation(LOGIN_USER);
+      const [login, { error, data }] = useMutation(LOGIN_USER);
 
     // update state based on form input changes
     const handleChange = (event) => {
@@ -23,15 +23,15 @@ const SignIn = () => {
     const handleFormSubmit = async (event) => {
         event.preventDefault();
         console.log(formState);
-        // try {
-        //   const { data } = await login({
-        //     variables: { ...formState },
-        //   });
+        try {
+          const { data } = await login({
+            variables: { ...formState },
+          });
 
-        //   Auth.login(data.login.token);
-        // } catch (e) {
-        //   console.error(e);
-        // }
+          Auth.login(data.login.token);
+        } catch (e) {
+          console.error(e);
+        }
 
         // clear form values
         setFormState({
@@ -45,12 +45,12 @@ const SignIn = () => {
         <div>
             <p>Login</p>
             <div>
-                {/* {data ? (
+                {data ? (
               <p>
                 Success! You may now head{' '}
                 <Link to="/">back to the homepage.</Link>
               </p>
-            ) : ( */}
+            ) : (
                 <form onSubmit={handleFormSubmit}>
                     <input
                         className="form-input"
@@ -76,13 +76,13 @@ const SignIn = () => {
                         Submit
                     </button>
                 </form>
-                {/* )} */}
+                )}
 
-                {/* {error && (
+                {error && (
               <div className="my-3 p-3 bg-danger text-white">
                 {error.message}
               </div>
-            )} */}
+            )}
             </div>
         </div>
     );
