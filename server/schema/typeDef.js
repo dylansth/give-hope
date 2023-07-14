@@ -92,7 +92,7 @@ type Mutation {
     # updateReview(reviewId: ID!, reviewData: ReviewInput!): Review
     # makeDonation(campaignId: ID!, amount: Int!): Donation
     createReview(campaignId: ID!, description:String!, creatorId:ID, createdAt:String ): Review
-    # deleteReview(_id: String!): Review
+    deleteReview(reviewId: ID!): Review
    
 }
 type Query {
