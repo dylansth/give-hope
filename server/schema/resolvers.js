@@ -97,6 +97,21 @@ const resolvers = {
       );
     },
 
+    deleteCampaign: async (parent, { campaignId }, context) => {
+      if (!context.user) {
+        throw new Error('User not authenticated.');
+      }
+      
+      const review = await Campaign.findById(campaignId)
+      if (!campaignId) {
+        throw new Error('Review not found');
+      }
+        const deleteCampaign = await Campaign.findOneAndDelete(
+          { _id: campaignId },
+        )
+        return deleteCampaign;
+      },
+
     createReview: async (parent, { campaignId, description }, context) => {
       if (!context.user) {
         throw new Error('User not authenticated.');
