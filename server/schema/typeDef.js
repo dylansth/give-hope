@@ -88,9 +88,7 @@ type Mutation {
     createCampaign(campaignData: CampaignInput!): Campaign
     updateCampaign(_id:ID!, campaignData: updateCampaignInput!): Campaign
     deleteCampaign(campaignId: ID!): Campaign
-    # saveReview(reviewData: ReviewInput!): Review
-    # updateReview(reviewId: ID!, reviewData: ReviewInput!): Review
-    # makeDonation(campaignId: ID!, amount: Int!): Donation
+    makeDonation(campaignId: ID!, amount: Int!): Donation
     createReview(campaignId: ID!, description:String!, creatorId:ID, createdAt:String ): Review
     deleteReview(reviewId: ID!): Review
    

@@ -54,13 +54,13 @@ const resolvers = {
       if (!context.user) {
         throw new Error('User not authenticated.');
       }
-
+      const userId = context.user._id
       try {
         const createCampaign = await Campaign.create({
           title: campaignData.title,
           description: campaignData.description,
           image: campaignData.image,
-          creatorId: context.user._id,
+          creatorId: userId,
           targetAmount: campaignData.targetAmount,
           currentAmount: campaignData.currentAmount,
           endDate: campaignData.endDate,
@@ -70,6 +70,9 @@ const resolvers = {
         }
         );
 
+        const user = await User.findById(userId);
+        user.createdCampaigns.push(createCampaign._id);
+        await user.save();
 
         return createCampaign;
       } catch (error) {
@@ -101,15 +104,57 @@ const resolvers = {
       if (!context.user) {
         throw new Error('User not authenticated.');
       }
-      
-      const review = await Campaign.findById(campaignId)
-      if (!campaignId) {
-        throw new Error('Review not found');
+      const userId = context.user._id;
+    
+      const campaign = await Campaign.findById(campaignId);
+      if (!campaign) {
+        throw new Error('Campaign not found');
       }
-        const deleteCampaign = await Campaign.findOneAndDelete(
-          { _id: campaignId },
-        )
-        return deleteCampaign;
+    
+      const deleteCampaign = await Campaign.findOneAndDelete({ _id: campaignId });
+    
+      const user = await User.findById(userId);
+      user.createdCampaigns.pull(deleteCampaign._id);
+      await user.save();
+    console.log(deleteCampaign)
+    
+      return deleteCampaign;
+    },
+
+      
+      makeDonation: async (parent, { campaignId, amount }, context) => {
+        if (!context.user) {
+          throw new Error('User not authenticated.');
+        }
+      
+        const userId = context.user._id;
+        
+        const campaign = await Campaign.findById(campaignId);
+        
+        if (!campaign) {
+          throw new Error('Campaign not found');
+        }
+        
+        try {
+          const createDonation = await Donation.create({
+            amount: amount,
+            creatorId: userId,
+            campaignId: campaign._id,
+            createdAt: new Date().toISOString(),
+          });
+      
+          campaign.donations.push(createDonation._id);
+          await campaign.save();
+          
+          const user = await User.findById(userId);
+          user.donatedCampaigns.push(createDonation._id);
+          await user.save();
+      
+          return createDonation;
+        } catch (error) {
+          console.error(error);
+          throw new Error('Failed to save donation.');
+        }
       },
 
     createReview: async (parent, { campaignId, description }, context) => {
