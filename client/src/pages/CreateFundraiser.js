@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useMutation } from 'apollo-client';
+import { useMutation } from '@apollo/client';
 import { CREATE_CAMPAIGN } from '../utils/mutations';
 
 const CampaignForm = () => {
