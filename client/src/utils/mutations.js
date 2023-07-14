@@ -54,10 +54,10 @@ mutation UpdateCampaign($id: ID!, $campaignData: updateCampaignInput!) {
 }
 `;
 
-=======
-const LOGIN_USER = () => {
-    console.log("UserTest")
-}
+
+let LOGIN_USER = () => {
+  console.log("UserTest")
+};
 
 export default LOGIN_USER;
 
