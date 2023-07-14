@@ -7,7 +7,7 @@ const donationSeeds = require('./donationSeeds.json');
 const reviewSeeds = require('./reviewSeeds.json');
 const calculationSeeds = require('./calculationSeeds.json')
 
-
+//p
 const apiKey = 'Ye2UshXYnHmNK57q4gdWYAVanWcVnieomiPaZ2vgEY9t31mbHCLYvChY';
 const searchQuery = 'person'; 
 const apiUrl = `https://api.pexels.com/v1/search?query=${encodeURIComponent(searchQuery)}`;
