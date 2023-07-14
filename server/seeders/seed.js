@@ -7,27 +7,45 @@ const donationSeeds = require('./donationSeeds.json');
 const reviewSeeds = require('./reviewSeeds.json');
 const calculationSeeds = require('./calculationSeeds.json')
 
-//p
+const { createClient }= require('pexels');
+const { listenerCount } = require('../models/user');
+
 const apiKey = 'Ye2UshXYnHmNK57q4gdWYAVanWcVnieomiPaZ2vgEY9t31mbHCLYvChY';
 const searchQuery = 'person'; 
 const apiUrl = `https://api.pexels.com/v1/search?query=${encodeURIComponent(searchQuery)}`;
-fetch(apiUrl, {
-  headers: {
-    Authorization: apiKey
-  }
-})
-  .then(response => response.json())
-  .then(data => {
-    console.log(data);
-  })
-  .catch(error => {
-  
-    console.error('Error:', error);
-  });
+
 
 
 db.once('open', async () => {
-  
+
+
+ async function fetchData() {
+    try {
+      const response = await axios.get(apiUrl, {
+        headers: {
+          Authorization: apiKey
+        }
+      });
+
+      if (response.status !== 200) {
+        throw new Error('Request failed with status ' + response.status);
+      }
+
+      const data = response.data;
+      displayImage(data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
+  let pictureSeed = [];
+  function displayImage(data) {
+    const campaignPictures = data.photos.map(photo => photo.url);
+    pictureSeed.push(campaignPictures);
+  }
+  fetchData();
+
+
   try {
     await User.deleteMany({});
     await Campaign.deleteMany({});
@@ -43,7 +61,12 @@ db.once('open', async () => {
       return campaign;
     });
 
-    const createdCampaigns = await Campaign.create(campaignsWithCreatorId);
+    const campaignImage1 = campaignsWithCreatorId.map((campaign, index) => {
+      campaign.image = pictureSeed[0][index];
+      return campaign;
+    });
+
+    const createdCampaigns = await Campaign.create(campaignImage1);
     console.log('Campaigns seeded successfully');
 
     const donationsWithId = donationSeeds.map(donation => {
@@ -74,6 +97,7 @@ db.once('open', async () => {
 
     const createdCalculation = await Purchase_power.create(calculationWithId);
     console.log('Purchase_Power seeded successfully');
+    process.exit(0);
 
 
     // for (let i = 0; i < campaignSeeds.length; i++) {
@@ -92,5 +116,6 @@ db.once('open', async () => {
     // }
   } catch (error) {
     console.error('Error seeding data:', error);
+    process.exit(1)
   }
 });
