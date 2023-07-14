@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client';
 
 
+
 export const LOGIN_USER = gql`
  mutation Mutation($email: String!, $password: String!) {
   login(email: $email, password: $password) {
@@ -80,6 +81,7 @@ mutation Mutation($campaignId: ID!, $amount: Int!) {
 }
 `;
 
+
 export const ADD_REVIEW = gql`
 mutation Mutation($campaignId: ID!, $description: String!) {
   createReview(campaignId: $campaignId, description: $description) {
@@ -100,3 +102,5 @@ mutation DeleteReview($reviewId: ID!) {
   }
 }
 `;
+
+
