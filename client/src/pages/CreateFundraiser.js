@@ -70,20 +70,21 @@ const CampaignForm = () => {
                 <label>endDate:</label>
                 <input
                     type="text"
-                    name="description"
+                    name="endDate"  // Updated field name
                     value={formData.endDate}
                     onChange={handleInputChange}
                 />
+
                 <label>Target Amount:</label>
                 <input
                     type="text"
-                    name="description"
+                    name="targetAmount"  // Updated field name
                     value={formData.targetAmount}
                     onChange={handleInputChange}
                 />
                 {/* Add more input fields for other campaign fields */}
 
-                <button type="submit">Create Campaign</button>
+                <button type="submit" className="bg-indigo-600 px-4 py-3 text-center text-sm">Create Campaign</button>
             </form>
         </div>
     );
