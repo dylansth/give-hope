@@ -8,9 +8,26 @@ const reviewSeeds = require('./reviewSeeds.json');
 const calculationSeeds = require('./calculationSeeds.json')
 
 
+const apiKey = 'Ye2UshXYnHmNK57q4gdWYAVanWcVnieomiPaZ2vgEY9t31mbHCLYvChY';
+const searchQuery = 'person'; 
+const apiUrl = `https://api.pexels.com/v1/search?query=${encodeURIComponent(searchQuery)}`;
+fetch(apiUrl, {
+  headers: {
+    Authorization: apiKey
+  }
+})
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => {
+  
+    console.error('Error:', error);
+  });
 
 
 db.once('open', async () => {
+  
   try {
     await User.deleteMany({});
     await Campaign.deleteMany({});
@@ -19,6 +36,7 @@ db.once('open', async () => {
     await Purchase_power.deleteMany({});
     const createdUsers = await User.create(userSeeds);
     console.log('Users seeded successfully');
+
 
     const campaignsWithCreatorId = campaignSeeds.map(campaign => {
       campaign.creatorId = createdUsers[0]._id;
