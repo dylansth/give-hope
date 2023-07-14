@@ -39,7 +39,7 @@ type Review {
     _id: ID!
     description: String
     creatorId: [User]
-    campaignId: [Campaign]
+    campaigns: [Campaign]
     createdAt: String
 }
 type Auth {
@@ -55,8 +55,8 @@ input ReviewInput {
 }
 
 input CampaignInput {
-  title: String!
-  description: String!
+  title: String
+  description: String
   image: String
   creatorId: ID
   targetAmount: Int
@@ -68,17 +68,30 @@ input CampaignInput {
 }
 
 
+input updateCampaignInput {
+  title: String
+  description: String
+  image: String
+  targetAmount: Int
+  currentAmount: Int
+  creatorId: ID
+  endDate: String
+  donations: [ID]
+  reviews: [ID] 
+}
+
 type Mutation {
     addUser(username: String!, email: String!, password: String!, annualSalary: Int!): Auth
     login(email: String!, password: String!): Auth
     # updateUser(firstName: String, lastName: String, email: String, password: String): User
     # deleteUser(userId: ID!): User
     createCampaign(campaignData: CampaignInput!): Campaign
-    updateCampaign(campaignData: CampaignInput!): Campaign
+    updateCampaign(_id:ID!, campaignData: updateCampaignInput!): Campaign
     deleteCampaign(campaignId: ID!): Campaign
     # saveReview(reviewData: ReviewInput!): Review
     # updateReview(reviewId: ID!, reviewData: ReviewInput!): Review
     # makeDonation(campaignId: ID!, amount: Int!): Donation
+    createReview(campaignId: ID!, description:String!, creatorId:ID, createdAt:String ): Review
     # deleteReview(_id: String!): Review
    
 }

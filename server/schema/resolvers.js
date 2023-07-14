@@ -1,4 +1,5 @@
 const { Campaign, User, Donation, Purchase_power, Review } = require('../models');
+const { ObjectId } = require('mongoose')
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
 
@@ -53,7 +54,7 @@ const resolvers = {
           if (!context.user) {
             throw new Error('User not authenticated.');
           }
-        console.log(campaignData)
+       
           try {
             const createCampaign = await Campaign.create({ 
                 title: campaignData.title,
@@ -64,7 +65,7 @@ const resolvers = {
                 currentAmount: campaignData.currentAmount,
                 endDate: campaignData.endDate,
                 donations: campaignData.donations,
-                createdAt: campaignData.createdAt,
+                createdAt: new Date().toISOString(),
                 reviews: campaignData.reviews}
           );
         
@@ -75,24 +76,55 @@ const resolvers = {
           }
         },
         
-        updateCampaign: async (parent, { id, campaignData }) => {
-            return await Class.findOneAndUpdate(
-              { _id: id }, 
-              { description: campaignData.description,
+        updateCampaign: async (parent, { _id, campaignData}, context) => {
+          if (!context.user) {
+            throw new Error('User not authenticated.');
+          }
+            return await Campaign.findOneAndUpdate(
+              {_id:_id}, 
+              { title: campaignData.title,
+                description: campaignData.description,
                 image: campaignData.image,
-                creatorId: context.user._id,
                 targetAmount: campaignData.targetAmount,
                 currentAmount: campaignData.currentAmount,
                 endDate: campaignData.endDate,
                 donations: campaignData.donations,
-                createdAt: campaignData.createdAt,
                 reviews: campaignData.reviews },
               { new: true }
             );
           },
 
+          createReview: async (parent, { campaignId, description }, context) => {
+            if (!context.user) {
+              throw new Error('User not authenticated.');
+            }
+            
+            const campaign = await Campaign.findById(campaignId)
+            if (!campaign) {
+              throw new Error('Campaign not found');
+            }
+            // console.log(campaign._id)
+            try {
+              const createReview = await Review.create({ 
+                  description: description,
+                  creatorId: context.user._id, 
+                  campaignId:campaign._id,  
+                  createdAt: new Date().toISOString(),
+                  }
+            );
+            
+            campaign.reviews.push(createReview);
+            await campaign.save();
+          
+              return createReview;
+            } catch (error) {
+              console.error(error);
+              throw new Error('Failed to save review.');
+            }
+            
+          }
 
-      //   removeBook: async (parent, { bookId }, context) => {
+      //   deleteReview: async (parent, { bookId }, context) => {
       //     if (context.user) {
       //         const updatedUser = await User.findByIdAndUpdate(
       //             { _id: context.user._id },
@@ -104,7 +136,7 @@ const resolvers = {
       //     throw new AuthenticationError ('You need to be log in first.');
       // }
       // } 
+      //   }
         }
-}
-
+        }
 module.exports = resolvers;
