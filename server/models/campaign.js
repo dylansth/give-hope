@@ -27,7 +27,6 @@ const campaignSchema = new Schema({
     },
     endDate: {
         type: Date,
-        get: (timestamp) => dateFormat(timestamp),
     },
     donations: [{
         type: Schema.Types.ObjectId,
@@ -43,6 +42,7 @@ const campaignSchema = new Schema({
         ref: 'Review'
     }]
 });
+
 
 const Campaign = model('Campaign', campaignSchema);
 
