@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const dateFormat = require('../utils/dateFormat');
 const Review = require('./review');
 
 const campaignSchema = new Schema({
@@ -33,12 +34,15 @@ const campaignSchema = new Schema({
     }],
     createdAt: {
         type: Date,
+        default: Date.now,
+        get: (timestamp) => dateFormat(timestamp),
     },
     reviews: [{
         type: Schema.Types.ObjectId,
         ref: 'Review'
     }]
 });
+
 
 const Campaign = model('Campaign', campaignSchema);
 

@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const dateFormat = require('../utils/dateFormat');
 // const Campaign = require('./campaign');
 
 // const User = require('./user');
@@ -18,7 +19,8 @@ const reviewSchema = new Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+         get: (timestamp) => dateFormat(timestamp)
     },
 });
 

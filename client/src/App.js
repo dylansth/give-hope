@@ -7,7 +7,6 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
 import TopNav from './components/TopNav';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -17,7 +16,7 @@ import Explore from './pages/Explore';
 import Fundraiser from './pages/Fundraiser';
 import CreateFundraiser from './pages/CreateFundraiser';
 import NotFound from './pages/NotFound';
-
+// import '../src/styles/style.css'
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
