@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { CREATE_CAMPAIGN } from '../utils/mutations';
+// import '../styles/style.css'
 
 const CampaignForm = () => {
     const [formData, setFormData] = useState({
