@@ -33,7 +33,7 @@ db.once('open', async () => {
 
       const data = response.data;
       displayImage(data);
-      console.log (data)
+
     } catch (error) {
       console.error('Error:', error);
     }
@@ -41,7 +41,9 @@ db.once('open', async () => {
 
   let pictureSeed = [];
   function displayImage(data) {
+
     const campaignPictures = data.photos.map(photo => photo.src.original);
+
     pictureSeed.push(campaignPictures);
   }
   fetchData();
