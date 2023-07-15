@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useQuery } from '@apollo/client';
 import { QUERY_CAMPAIGN } from '../utils/queries';
 import '../styles/style.css'
