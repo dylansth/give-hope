@@ -30,7 +30,10 @@ export const QUERY_CAMPAIGN = gql`
       _id
     }
     endDate
-    image   
+    image {
+      contentType
+      data
+    }  
     title
     currentAmount
     targetAmount

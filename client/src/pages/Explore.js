@@ -31,6 +31,8 @@ function Explore() {
   );
   const campaignList = data?.campaigns || [];
 
+  console.log(campaignList)
+
   const USDollar = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
@@ -69,6 +71,25 @@ function Explore() {
           const today = Date.now();
           const isCampaignDisplaying  = campaign.currentAmount < campaign.targetAmount;
       
+
+
+        /// Thanks to https://stackoverflow.com/questions/21797299/convert-base64-string-to-arraybuffer and Cam Sloan 
+            const base64String = campaign.image.data;
+
+            const binaryData = atob(base64String);
+
+            // Create an array buffer from the binary data
+            const arrayBuffer = new ArrayBuffer(binaryData.length);
+            const view = new Uint8Array(arrayBuffer);
+            for (let i = 0; i < binaryData.length; i++) {
+              view[i] = binaryData.charCodeAt(i);
+            }
+          
+            // Create a Blob object from the array buffer
+            const blob = new Blob([arrayBuffer], { type: 'image/jpeg' });
+
+            const imageUrl = URL.createObjectURL(blob);
+
           return (
             (isCampaignDisplaying) && (
               <div className="sm:w-1/4 w-1/4 p-4 m-5 border-solid border-2 border-indigo-600" key={campaign.title}>
@@ -76,7 +97,7 @@ function Explore() {
                   <img
                     alt="gallery"
                     className="w-full h-full object-cover object-center"
-                    src={campaign.image}
+                    src={imageUrl}
                   />
                 </div>
                 <div className="bottom-0 left-0 right-0 bg-gray-600 text-white p-0">

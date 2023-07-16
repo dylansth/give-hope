@@ -11,8 +11,12 @@ const campaignSchema = new Schema({
         type: String,
         required: true,
     },
-    image: {
-        type: String,
+    image:  {
+        data: {
+            type: String, // Store the image data as a string
+            required: true,
+        },
+        contentType: String,
     },
     creatorId: {
         type: Schema.Types.ObjectId,
