@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { CREATE_CAMPAIGN } from '../utils/mutations';
-// import '../styles/style.css'
 
 const CampaignForm = () => {
     const [formData, setFormData] = useState({
@@ -17,11 +16,23 @@ const CampaignForm = () => {
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
-    };
+        if (event.target.name === "targetAmount") {
+            setFormData({
+                ...formData,
+                [event.target.name]: parseInt(event.target.value)
+            })
+
+        }
+        else {
+            setFormData((prevData) => ({
+                ...prevData,
+                [name]: value,
+            }));
+
+        }
+    }
+
+
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
@@ -29,7 +40,7 @@ const CampaignForm = () => {
         try {
             const { data } = await createCampaign({
                 variables: {
-                    ...formData,
+                    campaignData: formData,
                 },
             });
             console.log(data); // Handle success response
@@ -47,6 +58,7 @@ const CampaignForm = () => {
             console.error(error); // Handle error response
         }
     };
+
 
     return (
         <div>
@@ -71,21 +83,20 @@ const CampaignForm = () => {
                 <label>endDate:</label>
                 <input
                     type="text"
-                    name="endDate"  // Updated field name
+                    name="endDate"
                     value={formData.endDate}
                     onChange={handleInputChange}
                 />
-
                 <label>Target Amount:</label>
                 <input
                     type="text"
-                    name="targetAmount"  // Updated field name
-                    value={formData.targetAmount}
+                    name="targetAmount"
+                    defaultValue={formData.targetAmount}
                     onChange={handleInputChange}
                 />
                 {/* Add more input fields for other campaign fields */}
 
-                <button type="submit" className="bg-indigo-600 px-4 py-3 text-center text-sm">Create Campaign</button>
+                <button type="submit">Create Campaign</button>
             </form>
         </div>
     );
