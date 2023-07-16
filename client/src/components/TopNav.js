@@ -26,23 +26,30 @@ function TopNav() {
                         </li>
                         <li className="nav-item">
                             <Link className="" to="/sign-in">
-                                <button className="" onClick="">
+                            <p className="" style={{ fontSize: '1.5rem' }}>
                                     Sign In
-                                </button>
+                                </p>
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="" to="/create-fundraiser">
+                            <p className="" style={{ fontSize: '1.5rem' }}>
+                                    Create Fundraiser
+                                </p>
                             </Link>
                         </li>
                         <li className="nav-item">
                             <Link className="" to="/">
-                                <button className="">
-                                    Log Out
-                                </button>
+                            <p className="" style={{ fontSize: '1.5rem' }}>
+                                    Sign Out
+                                </p>
                             </Link>
                         </li>
                         <li className="nav-item">
                             <Link className="" to="/sign-up">
-                                <button className="">
+                            <p className="" style={{ fontSize: '1.5rem' }}>
                                     Sign Up
-                                </button>
+                                </p>
                             </Link>
                         </li>
                     </ul>

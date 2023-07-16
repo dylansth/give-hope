@@ -41,38 +41,21 @@ const client = new ApolloClient({
 function App() {
   return (
     <>
-      {/* <div>
-        <TopNav />
-      </div>
-      <div>
-        <Home />
-      </div>
-      <div>
-        <SignUp />
-      </div>
-      <div>
-        <Explore />
-      </div>
-      <div>
-        <Fundraiser />
-      </div>
-      <div>
-        <CreateFundraiser />
-      </div>
-      <div>
-        <Footer />
-      </div>
-      <div>
-        <NotFound />
-      </div> */}
 
       <div>
         <ApolloProvider client={client}>
           <Router>
+            <div>
+              <TopNav />
+            </div>
             <Routes>
               <Route
                 path="/"
                 element={<Home />}
+              />
+              <Route
+                path="/explore"
+                element={<Explore />}
               />
               <Route
                 path="/sign-in"
@@ -81,10 +64,6 @@ function App() {
               <Route
                 path="/sign-up"
                 element={<SignUp />}
-              />
-              <Route
-                path="/explore"
-                element={<Explore />}
               />
               <Route
                 path="/fundraiser/:id"
@@ -99,34 +78,7 @@ function App() {
                 element={<NotFound />}
               />
             </Routes>
-            {/* Rendering Everything For Development */}
-            <div>
-              <TopNav />
-            </div>
-            <div>
-              <Home />
-            </div>
-            <div>
-              <SignIn />
-            </div>
-            <div>
-              <SignUp />
-            </div>
-            <div>
-              <Explore />
-            </div>
-            <div>
-              <Fundraiser />
-            </div>
-            <div>
-              <CreateFundraiser />
-            </div>
-            <div>
-              <Footer />
-            </div>
-            <div>
-              <NotFound />
-            </div>
+
           </Router>
         </ApolloProvider>
       </div>
