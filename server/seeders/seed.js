@@ -7,12 +7,14 @@ const donationSeeds = require('./donationSeeds.json');
 const reviewSeeds = require('./reviewSeeds.json');
 const calculationSeeds = require('./calculationSeeds.json')
 
+
 const { createClient }= require('pexels');
 const { listenerCount } = require('../models/user');
 
 const apiKey = 'Ye2UshXYnHmNK57q4gdWYAVanWcVnieomiPaZ2vgEY9t31mbHCLYvChY';
 const searchQuery = 'person'; 
-const apiUrl = `https://api.pexels.com/v1/search?query=${encodeURIComponent(searchQuery)}`;
+const offset = 10;
+const apiUrl = `https://api.pexels.com/v1/search?query=${encodeURIComponent(searchQuery)}&per_page=20&page=${offset}}`;
 
 
 
@@ -33,6 +35,7 @@ db.once('open', async () => {
 
       const data = response.data;
       displayImage(data);
+      
 
     } catch (error) {
       console.error('Error:', error);
@@ -43,10 +46,26 @@ db.once('open', async () => {
   function displayImage(data) {
 
     const campaignPictures = data.photos.map(photo => photo.src.original);
+   
 
     pictureSeed.push(campaignPictures);
+    console.log(campaignPictures)
   }
   fetchData();
+  
+
+  // handle img
+
+  async function convertImageToBase64(url) {
+    try {
+      const response = await axios.get(url, { responseType: 'arraybuffer' });
+      const base64Data = Buffer.from(response.data, 'binary').toString('base64');
+      return base64Data;
+    } catch (error) {
+      console.error('Error fetching image:', error);
+      return null;
+    }
+  }
 
 
   try {
@@ -64,11 +83,21 @@ db.once('open', async () => {
       return campaign;
     });
 
-    const campaignImage1 = campaignsWithCreatorId.map((campaign, index) => {
-      campaign.image = pictureSeed[0][index];
-      return campaign;
-    });
+    // const campaignImage1 = campaignsWithCreatorId.map((campaign, index) => {
+    //   campaign.image = pictureSeed[0][index];
+    //   return campaign;
+    // });
 
+    const campaignImage1 = await Promise.all(campaignsWithCreatorId.map(async (campaign, index) => {
+      const imageData = await convertImageToBase64(pictureSeed[0][index]);
+      campaign.image = {
+        data: imageData,
+        contentType: 'image/jpeg', 
+      };
+      return campaign;
+    }));
+
+    console.log(campaignImage1)
     const createdCampaigns = await Campaign.create(campaignImage1);
     console.log('Campaigns seeded successfully');
 

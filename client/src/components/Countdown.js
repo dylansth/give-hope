@@ -11,7 +11,7 @@ const Countdown = ({ dateString }) => {
       
       if (remainingTime <= 0) {
         clearInterval(interval);
-        setCountdown('Countdown ended!');
+        setCountdown('😟Countdown ended! Create new one to achieve the goal!');
       } else {
         const remaining = new Date(remainingTime);
         const days = Math.floor(remaining / (1000 * 60 * 60 * 24));

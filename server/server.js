@@ -4,6 +4,11 @@ const db = require('./config/connection');
 const { ApolloServer } = require('apollo-server-express');
 const { typeDefs, resolvers } = require('./schema');
 const { authMiddleware } = require('./utils/auth');
+const bodyParser = require('body-parser');
+const multer = require('multer');
+const { constants } = require('buffer');
+var imgSchema = require('./models/campaign.js');
+
 
 
 const PORT = process.env.PORT || 3001;
@@ -16,6 +21,60 @@ const server = new ApolloServer({
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+
+/// handle images
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+ 
+app.set("view engine", "ejs");
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+      cb(null, 'uploads')
+  },
+  filename: (req, file, cb) => {
+      cb(null, file.fieldname + '-' + Date.now())
+  }
+});
+
+const upload = multer({ storage: storage });
+
+app.get('/', (req, res) => {
+  imgSchema.find({})
+  .then((data, err)=>{
+      if(err){
+          console.log(err);
+      }
+      res.render('imagepage',{items: data})
+  })
+});
+
+
+app.post('/', upload.single('image'), (req, res, next) => {
+
+  var obj = {
+      name: req.body.name,
+      desc: req.body.desc,
+      image: {
+          data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+          contentType: 'image/png'
+      }
+  }
+  imgSchema.create(obj)
+  .then ((err, item) => {
+      if (err) {
+          console.log(err);
+      }
+      else {
+          // item.save();
+          res.redirect('/');
+      }
+  });
+});
+
+
+////
+
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
