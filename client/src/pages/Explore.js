@@ -31,6 +31,10 @@ function Explore() {
   );
   const campaignList = data?.campaigns || [];
 
+  if (loading) {
+    return <div>Loading...</div>
+  }
+
   console.log(campaignList)
 
   const USDollar = new Intl.NumberFormat('en-US', {
