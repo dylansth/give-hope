@@ -45,8 +45,8 @@ const SignUp = () => {
       <div>
         {data ? (
           <p>
-            Success! You may now head{' '}
-            <Link to="/">back to the homepage.</Link>
+            Success! Redirecting{' '}
+            <Link to="/">Home</Link>
           </p>
         ) : (
           <form onSubmit={handleFormSubmit} className="w-full max-w-md">

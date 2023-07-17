@@ -78,7 +78,9 @@ function App() {
                 element={<NotFound />}
               />
             </Routes>
-
+            <div>
+              <Footer />
+            </div>
           </Router>
         </ApolloProvider>
       </div>
