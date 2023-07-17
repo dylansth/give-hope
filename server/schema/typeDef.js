@@ -29,10 +29,7 @@ const typeDef = gql`
     contentType: String
   }
 
-  input CampaignImageInput {
-    data: String
-    contentType: String
-  }
+ 
 
   type Donation {
     _id: ID!
@@ -71,7 +68,7 @@ const typeDef = gql`
   input CampaignInput {
     title: String
     description: String
-    image: String
+    image: CampaignImageInput
     creatorId: ID
     targetAmount: Int
     currentAmount: Int
@@ -81,10 +78,14 @@ const typeDef = gql`
     reviews: [ID]
   }
 
+  input CampaignImageInput {
+    data: String
+    contentType: String
+  }
+
   input UpdateCampaignInput {
     title: String
     description: String
-    image: CampaignImageInput
     targetAmount: Int
     currentAmount: Int
     creatorId: ID
