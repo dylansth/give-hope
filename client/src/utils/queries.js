@@ -2,8 +2,8 @@ import { gql } from '@apollo/client';
 
 
 export const QUERY_GET_ME = gql`
-  me {
-    _id
+   {
+    me { _id
     username
     annualSalary
      email
@@ -13,7 +13,7 @@ export const QUERY_GET_ME = gql`
     donatedCampaigns {
       _id
     }
-  }
+  }}
 `;
 
 export const QUERY_CAMPAIGN = gql`
@@ -53,7 +53,7 @@ export const QUERY_CAMPAIGN = gql`
 
 
 export const QUERY_DONATION = gql`
-donations {
+ { donations{
   _id
   amount
   campaignId {
@@ -63,5 +63,5 @@ donations {
   donorId {
     _id
   }
-}
+}}
 `
