@@ -12,6 +12,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import Profile from './pages/Profile';
 import Explore from './pages/Explore';
 import Fundraiser from './pages/Fundraiser';
 import CreateFundraiser from './pages/CreateFundraiser';
@@ -64,6 +65,10 @@ function App() {
               <Route
                 path="/sign-up"
                 element={<SignUp />}
+              />
+              <Route
+                path="/me"
+                element={<Profile />}
               />
               <Route
                 path="/fundraiser/:id"
