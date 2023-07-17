@@ -15,16 +15,17 @@ export const LOGIN_USER = gql`
 `;
 
 export const ADD_USER = gql`
-  mutation AddUser($username: String!, $email: String!, $password: String!, $annualSalary: Int!) {
+  mutation Mutation($username: String!, $email: String!, $password: String!, $annualSalary: Int!) {
   addUser(username: $username, email: $email, password: $password, annualSalary: $annualSalary) {
     token
     user {
-      username
       _id
+      annualSalary
+      email
+      username
     }
   }
-}
-`;
+}`
 
 export const CREATE_CAMPAIGN = gql`
 mutation CreateCampaign($campaignData: CampaignInput!) {

@@ -6,10 +6,10 @@ import Auth from '../utils/auth';
 
 const SignUp = () => {
   const [formState, setFormState] = useState({
-    name: '',
+    username: '',
     email: '',
     password: '',
-    salary: '',
+    annualSalary: '',
   });
   const [addUser, { error, data }] = useMutation(ADD_USER);
 
@@ -30,7 +30,7 @@ const SignUp = () => {
 
     try {
       const { data } = await addUser({
-        variables: { ...formState },
+        variables: { ...formState, annualSalary: parseInt(formState.annualSalary) },
       });
 
       Auth.login(data.addUser.token);
@@ -53,9 +53,9 @@ const SignUp = () => {
             <input
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 mb-4"
               placeholder="Your username"
-              name="name"
+              name="username"
               type="text"
-              value={formState.name}
+              value={formState.username}
               onChange={handleChange}
             />
             <input
@@ -77,9 +77,9 @@ const SignUp = () => {
             <input
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 mb-4"
               placeholder="Salary"
-              name="salary"
-              type="text"
-              value={formState.salary}
+              name="annualSalary"
+              type="number"
+              value={formState.annualSalary}
               onChange={handleChange}
             />
             <button
