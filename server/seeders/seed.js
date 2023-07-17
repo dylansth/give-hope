@@ -11,10 +11,12 @@ const calculationSeeds = require('./calculationSeeds.json')
 const { createClient }= require('pexels');
 const { listenerCount } = require('../models/user');
 
-const apiKey = 'Ye2UshXYnHmNK57q4gdWYAVanWcVnieomiPaZ2vgEY9t31mbHCLYvChY';
-const searchQuery = 'person'; 
-const offset = 10;
-const apiUrl = `https://api.pexels.com/v1/search?query=${encodeURIComponent(searchQuery)}&per_page=20&page=${offset}}`;
+const client = createClient('vxI9VIXjoPg1mbZuoRuV05yUUpqzVJSJ4QQg253KXabgiArZhw5MUQn8');
+
+const apiKey = 'vxI9VIXjoPg1mbZuoRuV05yUUpqzVJSJ4QQg253KXabgiArZhw5MUQn8';
+const searchQuery = 'poverty'; 
+const offset =0;
+const apiUrl = `https://api.pexels.com/v1/search?query=${encodeURIComponent(searchQuery)}&per_page=20&page=${offset}`;
 
 
 
@@ -36,6 +38,7 @@ db.once('open', async () => {
       const data = response.data;
       displayImage(data);
       
+      
 
     } catch (error) {
       console.error('Error:', error);
@@ -45,7 +48,7 @@ db.once('open', async () => {
   let pictureSeed = [];
   function displayImage(data) {
 
-    const campaignPictures = data.photos.map(photo => photo.src.original);
+    const campaignPictures = data.photos.map(photo => photo.src.medium);
    
 
     pictureSeed.push(campaignPictures);
@@ -78,15 +81,13 @@ db.once('open', async () => {
     console.log('Users seeded successfully');
 
 
-    const campaignsWithCreatorId = campaignSeeds.map(campaign => {
-      campaign.creatorId = createdUsers[0]._id;
+
+    // CREATE CAMPAIGN 
+    const campaignsWithCreatorId = campaignSeeds.map((campaign, index) => {
+      const creatorIndex = index % createdUsers.length; // Get the index of the user in a circular manner
+      campaign.creatorId = createdUsers[creatorIndex]._id;
       return campaign;
     });
-
-    // const campaignImage1 = campaignsWithCreatorId.map((campaign, index) => {
-    //   campaign.image = pictureSeed[0][index];
-    //   return campaign;
-    // });
 
     const campaignImage1 = await Promise.all(campaignsWithCreatorId.map(async (campaign, index) => {
       const imageData = await convertImageToBase64(pictureSeed[0][index]);
@@ -101,8 +102,19 @@ db.once('open', async () => {
     const createdCampaigns = await Campaign.create(campaignImage1);
     console.log('Campaigns seeded successfully');
 
-    const donationsWithId = donationSeeds.map(donation => {
-      donation.donorId = [createdUsers[0]._id];
+    for (const campaign of createdCampaigns) {
+      const campaignId = campaign._id;
+      const creatorId = campaign.creatorId;
+    
+      await User.updateOne(
+        { _id: creatorId },
+        { $push: { createdCampaigns: campaignId } }
+      );
+    }
+    // CREATE DONATION
+    const donationsWithId = donationSeeds.map((donation, index) => {
+      const donorIndex = index % createdUsers.length; // Get the index of the user in a circular manner
+      donation.donorId = [createdUsers[donorIndex]._id];
       donation.campaignId = createdCampaigns[0]._id;
       return donation;
     });
@@ -110,9 +122,19 @@ db.once('open', async () => {
     const createdDonations = await Donation.create(donationsWithId);
     console.log('Donations seeded successfully');
    
-
-    const reviewWithId = reviewSeeds.map(review => {
-      review.creatorId = createdUsers[0]._id;
+    for (const donation of createdDonations) {
+      const donationId = donation._id;
+      const donorId = donation.donorId[0];
+    
+      await User.updateOne(
+        { _id: donorId },
+        { $push: { donatedCampaigns: donationId } }
+      );
+      };
+    // CREATE REVIEW
+    const reviewWithId = reviewSeeds.map((review, index) => {
+      const creatorIndex = index % createdUsers.length; // Get the index of the user in a circular manner
+      review.creatorId = createdUsers[creatorIndex]._id;
       review.campaignId = createdCampaigns[0]._id;
       return review;
     });
@@ -121,11 +143,11 @@ db.once('open', async () => {
     console.log('Donations seeded successfully');
 
     
-    const calculationWithId = calculationSeeds.map(calculation => {
-      calculation.userId = createdUsers[0]._id;
-    
-      return calculation;
-    });
+ const calculationWithId = calculationSeeds.map((calculation, index) => {
+  const userIndex = index % createdUsers.length; // Get the index of the user in a circular manner
+  calculation.userId = createdUsers[userIndex]._id;
+  return calculation;
+});
 
     const createdCalculation = await Purchase_power.create(calculationWithId);
     console.log('Purchase_Power seeded successfully');

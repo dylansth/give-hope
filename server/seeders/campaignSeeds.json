@@ -1,74 +1,228 @@
 [
   {
-    "title": "Helping Hands for Children",
-    "description": "Support underprivileged children by providing them with education and healthcare.",
-    "creatorId": "",
-    "targetAmount": 10000,
-    "currentAmount": 10000,
-    "endDate": "2023-12-31",
-    "donations": [],
-    "createdAt": "2023-07-13",
-    "reviews": [], 
-    "image": "base64-encoded-image-data"
-  },
-  {
-    "title": "Save the Rainforest",
-    "description": "Contribute to the preservation of the Amazon rainforest and protect its diverse ecosystem.",
-    "creatorId": "",
-    "targetAmount": 5000,
-    "currentAmount": 4500,
-    "endDate": "2023-07-15",
-    "donations": [],
-    "createdAt": "2023-07-12",
-    "reviews": [], 
-    "image":  {
-      "data": "",
-      "contentType": "" 
-    }
-  },
-  {
-    "title": "Clean Water Initiative",
-    "description": "Provide clean and safe drinking water to communities in need around the world.",
-    "creatorId": "",
-    "targetAmount": 8000,
-    "currentAmount": 2000,
-    "endDate": "2023-10-31",
-    "donations": [],
-    "createdAt": "2023-07-11",
-    "reviews": [], 
-    "image":  {
-      "data": "",
-      "contentType": "" 
-    }
-  },
-  {
-    "title": "Support Local Animal Shelter",
-    "description": "Help local animal shelters provide care and find loving homes for abandoned and stray animals.",
-    "creatorId": "",
-    "targetAmount": 2000,
-    "currentAmount": 1000,
-    "endDate": "2023-09-30",
-    "donations": [],
-    "createdAt": "2023-07-10",
-    "reviews": [], 
-    "image":  {
-      "data": "",
-      "contentType": "" 
-    }
-  },
-  {
-    "title": "Disaster Relief Fund",
-    "description": "Assist communities affected by natural disasters by providing emergency relief and support.",
+    "title": "Education Fund for Maria's College",
+    "description": "Support Maria's dream of attending college by contributing to her education fund.",
     "creatorId": "",
     "targetAmount": 15000,
-    "currentAmount": 1500,
+    "currentAmount": 8000,
+    "endDate": "2023-09-15",
+    "donations": [],
+    "createdAt": "2023-07-16",
+    "reviews": [],
+    "image": {
+      "data": "",
+      "contentType": ""
+    }
+  },
+  {
+    "title": "Rebuilding James' Home",
+    "description": "Assist James in rebuilding his home that was destroyed by a natural disaster.",
+    "creatorId": "",
+    "targetAmount": 20000,
+    "currentAmount": 21000,
     "endDate": "2023-08-31",
     "donations": [],
-    "createdAt": "2023-07-09",
-    "reviews": [], 
-    "image":  {
+    "createdAt": "2023-07-16",
+    "reviews": [],
+    "image": {
       "data": "",
-      "contentType": "" 
+      "contentType": ""
     }
-  }
-]
+  },
+  {
+    "title": "Support for Emily's Medical Expenses",
+    "description": "Help cover Emily's ongoing medical expenses as she battles a chronic illness.",
+    "creatorId": "",
+    "targetAmount": 5000,
+    "currentAmount": 2500,
+    "endDate": "2023-10-31",
+    "donations": [],
+    "createdAt": "2023-07-16",
+    "reviews": [],
+    "image": {
+      "data": "",
+      "contentType": ""
+    }
+  },
+  {
+    "title": "Job Training for Michael's Career",
+    "description": "Provide job training and skill development to help Michael secure stable employment.",
+    "creatorId": "",
+    "targetAmount": 10000,
+    "currentAmount": 5000,
+    "endDate": "2023-09-30",
+    "donations": [],
+    "createdAt": "2023-07-16",
+    "reviews": [],
+    "image": {
+      "data": "",
+      "contentType": ""
+    }
+  },
+  {
+    "title": "Assistance for Samantha's Orphanage",
+    "description": "Support Samantha in running an orphanage, providing care and education to vulnerable children.",
+    "creatorId": "",
+    "targetAmount": 20000,
+    "currentAmount": 15000,
+    "endDate": "2023-08-31",
+    "donations": [],
+    "createdAt": "2023-07-16",
+    "reviews": [],
+    "image": {
+      "data": "",
+      "contentType": ""
+    }
+  },
+    {
+      "title": "Support Mike's Education",
+      "description": "Fund Mike's education to help him pursue his dreams and break the cycle of poverty.",
+      "creatorId": "",
+      "targetAmount": 8000,
+      "currentAmount": 3000,
+      "endDate": "2023-09-30",
+      "donations": [],
+      "createdAt": "2023-07-16",
+      "reviews": [],
+      "image": {
+        "data": "",
+        "contentType": ""
+      }
+    },
+    {
+      "title": "Medical Treatment for Emily",
+      "description": "Provide financial assistance for Emily's critical medical treatment and recovery.",
+      "creatorId": "",
+      "targetAmount": 15000,
+      "currentAmount": 5000,
+      "endDate": "2023-08-31",
+      "donations": [],
+      "createdAt": "2023-07-16",
+      "reviews": [],
+      "image": {
+        "data": "",
+        "contentType": ""
+      }
+    },
+    {
+      "title": "A Home for David",
+      "description": "Raise funds to secure a permanent home for David, who is currently living in temporary shelters.",
+      "creatorId": "",
+      "targetAmount": 10000,
+      "currentAmount": 2500,
+      "endDate": "2023-10-31",
+      "donations": [],
+      "createdAt": "2023-07-16",
+      "reviews": [],
+      "image": {
+        "data": "",
+        "contentType": ""
+      }
+    },
+    {
+      "title": "Assistance for Sarah's Recovery",
+      "description": "Support Sarah's recovery from a life-changing accident by providing necessary medical treatments and therapies.",
+      "creatorId": "",
+      "targetAmount": 20000,
+      "currentAmount": 8000,
+      "endDate": "2023-09-15",
+      "donations": [],
+      "createdAt": "2023-07-16",
+      "reviews": [],
+      "image": {
+        "data": "",
+        "contentType": ""
+      }
+    },
+    {
+      "title": "Financial Aid for Alex's Education",
+      "description": "Help Alex pursue higher education by providing financial assistance for tuition and related expenses.",
+      "creatorId": "",
+      "targetAmount": 12000,
+      "currentAmount": 4000,
+      "endDate": "2023-12-31",
+      "donations": [],
+      "createdAt": "2023-07-16",
+      "reviews": [],
+      "image": {
+        "data": "",
+        "contentType": ""
+      }
+    },
+    {
+      "title": "Rebuilding Amy's Home",
+      "description": "Raise funds to rebuild Amy's home, which was destroyed in a natural disaster.",
+      "creatorId": "",
+      "targetAmount": 25000,
+      "currentAmount": 10000,
+      "endDate": "2023-08-15",
+      "donations": [],
+      "createdAt": "2023-07-16",
+      "reviews": [],
+      "image": {
+        "data": "",
+        "contentType": ""
+      }
+    },
+    {
+      "title": "Support John's Cancer Treatment",
+      "description": "Provide financial support for John's cancer treatment and care to improve his chances of recovery.",
+      "creatorId": "",
+      "targetAmount": 30000,
+      "currentAmount": 15000,
+      "endDate": "2023-11-30",
+      "donations": [],
+      "createdAt": "2023-07-16",
+      "reviews": [],
+      "image": {
+        "data": "",
+        "contentType": ""
+      }
+    },
+    {
+      "title": "Assist Maria's Entrepreneurial Journey",
+      "description": "Help Maria start her own business by providing seed funding and mentorship.",
+      "creatorId": "",
+      "targetAmount": 15000,
+      "currentAmount": 5000,
+      "endDate": "2023-10-01",
+      "donations": [],
+      "createdAt": "2023-07-16",
+      "reviews": [],
+      "image": {
+        "data": "",
+        "contentType": ""
+      }
+    },
+    {
+      "title": "Support Mark's Career Training",
+      "description": "Fund career training programs for Mark to enhance his employability and secure a stable job.",
+      "creatorId": "",
+      "targetAmount": 10000,
+      "currentAmount": 3000,
+      "endDate": "2023-09-30",
+      "donations": [],
+      "createdAt": "2023-07-16",
+      "reviews": [],
+      "image": {
+        "data": "",
+        "contentType": ""
+      }
+    },
+    {
+      "title": "Assistance for Lucy's Medical Expenses",
+      "description": "Provide financial support for Lucy's ongoing medical expenses and treatments.",
+      "creatorId": "",
+      "targetAmount": 20000,
+      "currentAmount": 8000,
+      "endDate": "2023-12-31",
+      "donations": [],
+      "createdAt": "2023-07-16",
+      "reviews": [],
+      "image": {
+        "data": "",
+        "contentType": ""
+      }
+    }
+  ]
+  

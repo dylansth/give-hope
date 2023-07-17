@@ -92,7 +92,7 @@ function Explore() {
 
           return (
             (isCampaignDisplaying) && (
-              <div className="sm:w-1/4 w-1/4 p-4 m-5 border-solid border-2 border-indigo-600" key={campaign.title}>
+              <div className="campaign-card sm:w-1/4 w-1/4 p-4 m-5 border-solid border-2 border-indigo-600" key={campaign.title}>
                 <div className="h-80 relative bg-slate-400">
                   <img
                     alt="gallery"
@@ -100,8 +100,8 @@ function Explore() {
                     src={imageUrl}
                   />
                 </div>
-                <div className="bottom-0 left-0 right-0 bg-gray-600 text-white p-0">
-                  <h1 className="text-white title-font text-lg font-medium mb-3 text-center">
+                <div className="campaign-text bottom-0 left-0 right-0 bg-gray-600 text-white p-0">
+                  <h1 className="text-white title-font text-3xl font-medium mb-3 text-center">
                     {campaign.title}
                   </h1>
                   <p className="text-white leading-relaxed text-center">

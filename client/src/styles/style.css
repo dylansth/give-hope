@@ -3,4 +3,33 @@
 @tailwind utilities;
 
 
+/* Home.css */
+.home-container {
+    background-image: url(http://localhost:3000/background.jpg);
+    width: 100%;
+    height: 900px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: -100px;
+
+    /* Additional styles for the div element */
+  
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      height: 600px;
+    }
+  
+    @media (max-width: 480px) {
+      height: 400px;
+    }
+  }
+
+
+  .campaign-text {
+    font-size: 20px!important;
+  }
+
+  .campaign-card {
+   padding: 5px;
+  }
 

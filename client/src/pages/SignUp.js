@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
-
 import Auth from '../utils/auth';
-// import '../styles/style.css'
 
 const SignUp = () => {
   const [formState, setFormState] = useState({
@@ -43,9 +40,8 @@ const SignUp = () => {
   };
 
   return (
-
-    <div>
-      <p>Sign Up</p>
+    <div className="flex flex-col items-center mt-8">
+      <h1 className="text-2xl font-bold mb-4">Sign Up</h1>
       <div>
         {data ? (
           <p>
@@ -53,9 +49,9 @@ const SignUp = () => {
             <Link to="/">back to the homepage.</Link>
           </p>
         ) : (
-          <form onSubmit={handleFormSubmit}>
+          <form onSubmit={handleFormSubmit} className="w-full max-w-md">
             <input
-              className="form-input"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 mb-4"
               placeholder="Your username"
               name="name"
               type="text"
@@ -63,7 +59,7 @@ const SignUp = () => {
               onChange={handleChange}
             />
             <input
-              className="form-input"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 mb-4"
               placeholder="Your email"
               name="email"
               type="email"
@@ -71,7 +67,7 @@ const SignUp = () => {
               onChange={handleChange}
             />
             <input
-              className="form-input"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 mb-4"
               placeholder="******"
               name="password"
               type="password"
@@ -79,15 +75,15 @@ const SignUp = () => {
               onChange={handleChange}
             />
             <input
-              className="form-input"
-              placeholder="salary"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 mb-4"
+              placeholder="Salary"
               name="salary"
-              type="salary"
+              type="text"
               value={formState.salary}
               onChange={handleChange}
             />
             <button
-              className="btn btn-block btn-info"
+              className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600"
               style={{ cursor: 'pointer' }}
               type="submit"
             >

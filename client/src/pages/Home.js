@@ -1,13 +1,13 @@
 import React from 'react';
-// import '../styles/style.css'
+import '../styles/style.css'
 
 function Home() {
-
-    return (
-        <div>
-            Home
-        </div>
-    );
-};
+ 
+  return (
+    <div className="home-container">
+    
+    </div>
+  );
+}
 
 export default Home;
