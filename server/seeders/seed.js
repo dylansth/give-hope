@@ -11,10 +11,12 @@ const calculationSeeds = require('./calculationSeeds.json')
 const { createClient }= require('pexels');
 const { listenerCount } = require('../models/user');
 
-const apiKey = 'Ye2UshXYnHmNK57q4gdWYAVanWcVnieomiPaZ2vgEY9t31mbHCLYvChY';
-const searchQuery = 'person'; 
-const offset = 10;
-const apiUrl = `https://api.pexels.com/v1/search?query=${encodeURIComponent(searchQuery)}&per_page=20&page=${offset}}`;
+const client = createClient('vxI9VIXjoPg1mbZuoRuV05yUUpqzVJSJ4QQg253KXabgiArZhw5MUQn8');
+
+const apiKey = 'vxI9VIXjoPg1mbZuoRuV05yUUpqzVJSJ4QQg253KXabgiArZhw5MUQn8';
+const searchQuery = 'poverty'; 
+const offset =0;
+const apiUrl = `https://api.pexels.com/v1/search?query=${encodeURIComponent(searchQuery)}&per_page=20&page=${offset}`;
 
 
 
@@ -36,6 +38,7 @@ db.once('open', async () => {
       const data = response.data;
       displayImage(data);
       
+      
 
     } catch (error) {
       console.error('Error:', error);
@@ -45,7 +48,7 @@ db.once('open', async () => {
   let pictureSeed = [];
   function displayImage(data) {
 
-    const campaignPictures = data.photos.map(photo => photo.src.original);
+    const campaignPictures = data.photos.map(photo => photo.src.medium);
    
 
     pictureSeed.push(campaignPictures);
