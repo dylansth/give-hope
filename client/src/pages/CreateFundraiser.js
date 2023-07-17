@@ -18,39 +18,45 @@ const CampaignForm = () => {
     description: '',
     endDate: '',
     targetAmount: '',
-    image: { data: '', contentType: '' },
+    image: { data: '', contentType: 'image/jpeg' },
     
   });
 
   const [createCampaign] = useMutation(CREATE_CAMPAIGN);
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
+  // const handleTitleChange = (e) => {
+  //   console.log(e)
 
-    if (name === 'targetAmount') {
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: parseInt(value),
-      }));
-    } else if (name === 'image') {
-      setFormData((prevData) => ({
-        ...prevData,
-        image: {
-          ...prevData.image,
-          data: value,
-        },
-      }));
-    } else {
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    }
-  };
-  console.log('Context:', client);
+  // }
+
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   console.log(e)
+  //   if (name === 'targetAmount') {
+  //     setFormData((prevData) => ({
+  //       ...prevData,
+  //       [name]: parseInt(value),
+  //     }));
+  //   } else if (name === 'image') {
+  //     setFormData((prevData) => ({
+  //       ...prevData,
+  //       image: {
+  //         ...prevData.image,
+  //         data: value,
+  //       },
+  //     }));
+  //   } else {
+  //     setFormData((prevData) => ({
+  //       ...prevData,
+  //       [name]: value,
+  //     }));
+  //   }
+  // };
+  
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     console.log('Form submit triggered');
+    console.log(formData)
     try {
       const { data } = await createCampaign({
         variables: {
@@ -92,7 +98,7 @@ const CampaignForm = () => {
     reader.readAsDataURL(e.target.files[0]);
 
     reader.onload = () => {
-      console.log(reader.result); // string to save in MongoDB
+      // console.log(reader.result); // string to save in MongoDB
       setImage(reader.result);
       setFormData((prevData) => ({
         ...prevData,
@@ -118,10 +124,12 @@ const CampaignForm = () => {
     setEndDate(date);
     setFormData((prevData) => ({
       ...prevData,
-      endDate: date,
+      endDate: new Date(date),
     }));
+    console.log(date)
   };
 
+  
   return (
     <div className="flex flex-col items-center mt-8">
       <h1 className="text-2xl font-bold mb-4">Create Campaign</h1>
@@ -135,7 +143,7 @@ const CampaignForm = () => {
             type="text"
             name="title"
             value={formData.title}
-            onChange={handleInputChange}
+            onChange={(e) => setFormData({...formData, title:e.target.value})}
             placeholder="Enter a title"
           />
         </div>
@@ -147,7 +155,7 @@ const CampaignForm = () => {
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
             name="description"
             value={formData.description}
-            onChange={handleInputChange}
+            onChange={(e) => setFormData({...formData, description:e.target.value})}
             placeholder="Enter a description"
           />
         </div>
@@ -156,12 +164,14 @@ const CampaignForm = () => {
             End Date:
           </label>
           <DatePicker
+            dateFormat="yyyy/MM/dd"
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
             selected={endDate}
             name="endDate"
             value={formData.endDate}
-            onChange={handleDateInputChange}
+            onChange={(e) => handleDateInputChange(e)}
             placeholder="Enter an end date"
+            
           />
         </div>
         <div className="mb-4">
@@ -173,7 +183,7 @@ const CampaignForm = () => {
             type="text"
             name="targetAmount"
             value={formData.targetAmount}
-            onChange={handleInputChange}
+            onChange={(e) => setFormData({...formData, targetAmount:e.target.value})}
             placeholder="Enter a target amount"
           />
         </div>
@@ -197,7 +207,6 @@ const CampaignForm = () => {
             />
           )}
         </div>
-        {/* Add more input fields for other campaign fields */}
         <button
           type="submit"
           className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600"
