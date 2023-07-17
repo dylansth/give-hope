@@ -1,28 +1,39 @@
 import React, { useState } from 'react';
-import { useMutation } from '@apollo/client';
+import { useMutation, useApolloClient } from '@apollo/client';
 import { CREATE_CAMPAIGN } from '../utils/mutations';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
+
 const CampaignForm = () => {
+  const client = useApolloClient();
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     endDate: '',
     targetAmount: '',
-    image: '',
-    // Add more fields here according to your requirements
+    image: { data: '', contentType: '' },
+    
   });
 
   const [createCampaign] = useMutation(CREATE_CAMPAIGN);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    if (event.target.name === 'targetAmount') {
-      setFormData({
-        ...formData,
-        [event.target.targetAmount]: parseInt(event.target.value),
-      });
+
+    if (name === 'targetAmount') {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: parseInt(value),
+      }));
+    } else if (name === 'image') {
+      setFormData((prevData) => ({
+        ...prevData,
+        image: {
+          ...prevData.image,
+          data: value,
+        },
+      }));
     } else {
       setFormData((prevData) => ({
         ...prevData,
@@ -30,17 +41,29 @@ const CampaignForm = () => {
       }));
     }
   };
-
+  console.log('Context:', client);
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
+    console.log('Form submit triggered');
     try {
       const { data } = await createCampaign({
         variables: {
-          title:formData.title, description:formData.description, endDate:formData.endDate, targetAmount:formData.targetAmount, image:formData.image
+          campaignData: {
+            title: formData.title,
+            description: formData.description,
+            image: {
+              data: formData.image.data,
+              contentType: 'image/jpeg',
+            },
+            endDate:formData.endDate,
+            targetAmount:formData.targetAmount,
+            // creatorId:context.user._id,
+          },
         },
       });
-      console.log(data); // Handle success response
+
+      console.log('Form data:', formData); // Log form data before reset
+      console.log('Response data:', data);
 
       // Reset the form
       setFormData({
@@ -48,7 +71,7 @@ const CampaignForm = () => {
         description: '',
         endDate: '',
         targetAmount: '',
-        image: '',
+        image: { data: '', contentType: 'image/jpeg' },
         // Reset other fields as well
       });
     } catch (error) {
@@ -66,6 +89,13 @@ const CampaignForm = () => {
     reader.onload = () => {
       console.log(reader.result); // string to save in MongoDB
       setImage(reader.result);
+      setFormData((prevData) => ({
+        ...prevData,
+        image: {
+          ...prevData.image,
+          data: reader.result,
+        },
+      }));
     };
 
     reader.onerror = (error) => {
@@ -78,6 +108,7 @@ const CampaignForm = () => {
   const handleDateChange = (date) => {
     setEndDate(date);
   };
+
   const handleDateInputChange = (date) => {
     setEndDate(date);
     setFormData((prevData) => ({
@@ -124,7 +155,7 @@ const CampaignForm = () => {
             selected={endDate}
             name="endDate"
             value={formData.endDate}
-            onChange={(date) => handleDateInputChange(date)} 
+            onChange={handleDateInputChange}
             placeholder="Enter an end date"
           />
         </div>
@@ -136,7 +167,7 @@ const CampaignForm = () => {
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
             type="text"
             name="targetAmount"
-            defaultValue={formData.targetAmount}
+            value={formData.targetAmount}
             onChange={handleInputChange}
             placeholder="Enter a target amount"
           />
@@ -149,13 +180,16 @@ const CampaignForm = () => {
             accept="image/*"
             type="file"
             name="image"
-            defaultValue={formData.image}
             onChange={convertToBase64}
             className="mb-2"
             placeholder="Choose an image"
           />
           {image !== '' && (
-            <img src={image} alt="Uploaded" className="w-24 h-24 rounded-md" />
+            <img
+              src={image}
+              alt="Uploaded"
+              className="w-24 h-24 rounded-md"
+            />
           )}
         </div>
         {/* Add more input fields for other campaign fields */}
