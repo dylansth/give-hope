@@ -2,18 +2,32 @@ import { gql } from '@apollo/client';
 
 
 export const QUERY_GET_ME = gql`
-   {
-    me { _id
-    username
+ {  me {
+    _id
     annualSalary
-     email
-    createdCampaigns {
-      _id
+    email
+    username
+  }
+  campaigns {
+    _id
+    createdAt
+    currentAmount
+    description
+    endDate
+    reviews {
+      description
     }
-    donatedCampaigns {
-      _id
+    image {
+      data
+      contentType
     }
-  }}
+    title
+    targetAmount
+    donations {
+      amount
+    }
+  }
+ }
 `;
 
 export const QUERY_CAMPAIGN = gql`

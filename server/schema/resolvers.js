@@ -3,6 +3,8 @@ const { ObjectId } = require('mongoose')
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
 
+
+
 const resolvers = {
   Query: {
     users: async () => {
@@ -13,8 +15,26 @@ const resolvers = {
     },
     me: async (parent, args, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user._id });
+        return User.findOne({ _id: context.user._id }).populate({
+          path: 'createdCampaigns',
+          populate: [
+            { path: 'creatorId', model: 'User' },
+            { path: 'donations', model: 'Donation' },
+            { path: 'reviews', model: 'Review' },
+          ],
+        })
+        .populate({
+          path: 'donatedCampaigns',
+          populate: [
+            { path: 'creatorId', model: 'User' },
+            { path: 'donations', model: 'Donation' },
+            { path: 'reviews', model: 'Review' },
+          ],
+        })
+
+;
       }
+      
       throw new AuthenticationError('You need to be logged in!');
     },
     campaigns: async () => {

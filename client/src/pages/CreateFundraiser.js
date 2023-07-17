@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
-import { useMutation, useApolloClient } from '@apollo/client';
+import { useMutation, useApolloClient, useQuery } from '@apollo/client';
 import { CREATE_CAMPAIGN } from '../utils/mutations';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { QUERY_GET_ME } from '../utils/queries';
 
 
 const CampaignForm = () => {
+  const { data, loading } = useQuery(QUERY_GET_ME);
+  const username = data?.me?._id || [];
+
+  console.log(username)
+
   const client = useApolloClient();
   const [formData, setFormData] = useState({
     title: '',
@@ -52,12 +58,11 @@ const CampaignForm = () => {
             title: formData.title,
             description: formData.description,
             image: {
-              data: formData.image.data,
+              data: formData.image,
               contentType: 'image/jpeg',
             },
             endDate:formData.endDate,
-            targetAmount:formData.targetAmount,
-            // creatorId:context.user._id,
+            targetAmount:parseInt(formData.targetAmount),
           },
         },
       });

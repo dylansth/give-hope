@@ -31,12 +31,11 @@ export const CREATE_CAMPAIGN = gql`
 mutation CreateCampaign($campaignData: CampaignInput!) {
   createCampaign(campaignData: $campaignData) {
     description
-    createdAt
-    creatorId {
-      _id
-    }
     endDate
-    image
+    image {
+      data
+      contentType
+    }
     targetAmount
     title
   }
