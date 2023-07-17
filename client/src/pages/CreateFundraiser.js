@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { CREATE_CAMPAIGN } from '../utils/mutations';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const CampaignForm = () => {
   const [formData, setFormData] = useState({
@@ -19,7 +21,7 @@ const CampaignForm = () => {
     if (event.target.name === 'targetAmount') {
       setFormData({
         ...formData,
-        [event.target.name]: parseInt(event.target.value),
+        [event.target.targetAmount]: parseInt(event.target.value),
       });
     } else {
       setFormData((prevData) => ({
@@ -35,7 +37,7 @@ const CampaignForm = () => {
     try {
       const { data } = await createCampaign({
         variables: {
-          campaignData: formData,
+          title:formData.title, description:formData.description, endDate:formData.endDate, targetAmount:formData.targetAmount, image:formData.image
         },
       });
       console.log(data); // Handle success response
@@ -71,6 +73,19 @@ const CampaignForm = () => {
     };
   }
 
+  const [endDate, setEndDate] = useState(null);
+
+  const handleDateChange = (date) => {
+    setEndDate(date);
+  };
+  const handleDateInputChange = (date) => {
+    setEndDate(date);
+    setFormData((prevData) => ({
+      ...prevData,
+      endDate: date,
+    }));
+  };
+
   return (
     <div className="flex flex-col items-center mt-8">
       <h1 className="text-2xl font-bold mb-4">Create Campaign</h1>
@@ -104,12 +119,12 @@ const CampaignForm = () => {
           <label className="block font-semibold mb-1" htmlFor="endDate">
             End Date:
           </label>
-          <input
+          <DatePicker
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
-            type="text"
+            selected={endDate}
             name="endDate"
             value={formData.endDate}
-            onChange={handleInputChange}
+            onChange={(date) => handleDateInputChange(date)} 
             placeholder="Enter an end date"
           />
         </div>

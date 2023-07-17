@@ -59,7 +59,10 @@ const resolvers = {
         const createCampaign = await Campaign.create({
           title: campaignData.title,
           description: campaignData.description,
-          image: campaignData.image.data,
+          image: {
+            data: campaignData.image.data,
+            contentType: campaignData.image.contentType,
+          },
           creatorId: userId,
           targetAmount: campaignData.targetAmount,
           currentAmount: campaignData.currentAmount,
@@ -89,7 +92,6 @@ const resolvers = {
         {
           title: campaignData.title,
           description: campaignData.description,
-          image: campaignData.image.data,
           targetAmount: campaignData.targetAmount,
           currentAmount: campaignData.currentAmount,
           endDate: campaignData.endDate,
