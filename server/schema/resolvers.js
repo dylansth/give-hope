@@ -85,11 +85,8 @@ const resolvers = {
           },
           creatorId: userId,
           targetAmount: campaignData.targetAmount,
-          currentAmount: campaignData.currentAmount,
           endDate: campaignData.endDate,
-          donations: campaignData.donations,
           createdAt: new Date().toISOString(),
-          reviews: campaignData.reviews
         }
         );
 

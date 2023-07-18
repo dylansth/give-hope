@@ -18,39 +18,45 @@ const CampaignForm = () => {
     description: '',
     endDate: '',
     targetAmount: '',
-    image: { data: '', contentType: '' },
+    image: { data: '', contentType: 'image/jpeg' },
     
   });
 
   const [createCampaign] = useMutation(CREATE_CAMPAIGN);
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
+  // const handleTitleChange = (e) => {
+  //   console.log(e)
 
-    if (name === 'targetAmount') {
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: parseInt(value),
-      }));
-    } else if (name === 'image') {
-      setFormData((prevData) => ({
-        ...prevData,
-        image: {
-          ...prevData.image,
-          data: value,
-        },
-      }));
-    } else {
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    }
-  };
-  console.log('Context:', client);
+  // }
+
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   console.log(e)
+  //   if (name === 'targetAmount') {
+  //     setFormData((prevData) => ({
+  //       ...prevData,
+  //       [name]: parseInt(value),
+  //     }));
+  //   } else if (name === 'image') {
+  //     setFormData((prevData) => ({
+  //       ...prevData,
+  //       image: {
+  //         ...prevData.image,
+  //         data: value,
+  //       },
+  //     }));
+  //   } else {
+  //     setFormData((prevData) => ({
+  //       ...prevData,
+  //       [name]: value,
+  //     }));
+  //   }
+  // };
+  
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     console.log('Form submit triggered');
+    console.log(formData)
     try {
       const { data } = await createCampaign({
         variables: {
@@ -62,7 +68,7 @@ const CampaignForm = () => {
               contentType: 'image/jpeg',
             },
             endDate:formData.endDate,
-            targetAmount:parseInt(formData.targetAmount),
+            targetAmount: parseInt(formData.targetAmount, 10),
           },
         },
       });
@@ -85,24 +91,26 @@ const CampaignForm = () => {
   };
 
   // Handle image
+  // Handle image
   const [image, setImage] = useState('');
 
   function convertToBase64(e) {
     let reader = new FileReader();
     reader.readAsDataURL(e.target.files[0]);
-
+  
     reader.onload = () => {
-      console.log(reader.result); // string to save in MongoDB
+      const base64String = reader.result.split(',')[1]; // Extract the base64 string without the prefix
       setImage(reader.result);
       setFormData((prevData) => ({
         ...prevData,
         image: {
-          ...prevData.image,
-          data: reader.result,
+          // ...prevData.image,
+          data: base64String,
+          contentType: 'image/jpeg'
         },
       }));
     };
-
+  
     reader.onerror = (error) => {
       console.log('Error:', error);
     };
@@ -110,18 +118,24 @@ const CampaignForm = () => {
 
   const [endDate, setEndDate] = useState(null);
 
-  const handleDateChange = (date) => {
-    setEndDate(date);
-  };
-
   const handleDateInputChange = (date) => {
     setEndDate(date);
+    const formattedDate = date ? date.toISOString().slice(0, 10).replace(/-/g, '/') : '';
     setFormData((prevData) => ({
       ...prevData,
-      endDate: date,
+      endDate: formattedDate,
     }));
+    console.log(date);
   };
+  
 
+  
+  
+
+  
+  
+
+  
   return (
     <div className="flex flex-col items-center mt-8">
       <h1 className="text-2xl font-bold mb-4">Create Campaign</h1>
@@ -135,7 +149,7 @@ const CampaignForm = () => {
             type="text"
             name="title"
             value={formData.title}
-            onChange={handleInputChange}
+            onChange={(e) => setFormData({...formData, title:e.target.value})}
             placeholder="Enter a title"
           />
         </div>
@@ -147,7 +161,7 @@ const CampaignForm = () => {
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
             name="description"
             value={formData.description}
-            onChange={handleInputChange}
+            onChange={(e) => setFormData({...formData, description:e.target.value})}
             placeholder="Enter a description"
           />
         </div>
@@ -156,12 +170,14 @@ const CampaignForm = () => {
             End Date:
           </label>
           <DatePicker
+            dateFormat="yyyy/MM/dd"
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
             selected={endDate}
             name="endDate"
             value={formData.endDate}
-            onChange={handleDateInputChange}
+            onChange={(e) => handleDateInputChange(e)}
             placeholder="Enter an end date"
+            
           />
         </div>
         <div className="mb-4">
@@ -170,10 +186,15 @@ const CampaignForm = () => {
           </label>
           <input
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
-            type="text"
+            type="number"
             name="targetAmount"
             value={formData.targetAmount}
-            onChange={handleInputChange}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                targetAmount: parseInt(e.target.value, 10),
+              })
+            }
             placeholder="Enter a target amount"
           />
         </div>
@@ -197,7 +218,6 @@ const CampaignForm = () => {
             />
           )}
         </div>
-        {/* Add more input fields for other campaign fields */}
         <button
           type="submit"
           className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600"
