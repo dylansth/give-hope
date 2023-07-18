@@ -1,72 +1,69 @@
 import React from 'react';
-import Card from 'react-bootstrap/Card';
 import Auth from '../utils/auth';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_GET_ME } from '../utils/queries';
 import { Link } from 'react-router-dom';
-import ListGroup from 'react-bootstrap/ListGroup';
 import { DELETE_CAMPAIGN } from '../utils/mutations';
-import Button from 'react-bootstrap/Button';
 
 function Profile() {
     const { data, loading } = useQuery(QUERY_GET_ME);
     const [deleteCampaign, { error }] = useMutation(DELETE_CAMPAIGN);
-  
+
     const username = data?.me?.username || [];
     const userCampaigns = data?.campaigns || [];
-  
+
     const handleDeleteCampaign = async (campaignId) => {
-      try {
-        const { data } = await deleteCampaign({
-          variables: { campaignId },
-          // refetchQueries: update other queries in the application
-          refetchQueries: [{ query: QUERY_GET_ME }],
-        });
-        console.log('Deleted campaign:', data.deleteCampaign);
-      } catch (err) {
-        console.error(err);
-      }
+        try {
+            const { data } = await deleteCampaign({
+                variables: { campaignId },
+                // refetchQueries: update other queries in the application
+                refetchQueries: [{ query: QUERY_GET_ME }],
+            });
+            console.log('Deleted campaign:', data.deleteCampaign);
+        } catch (err) {
+            console.error(err);
+        }
     };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
-  return (
-    <div>
-      {Auth.loggedIn() ? (
-        <>
-          <Card body>Your Profile: {username}</Card>
-          <Card style={{ width: '18rem' }}>
-            <Card.Header>Your Campaigns</Card.Header>
-            <ListGroup variant="flush">
-              {userCampaigns.map((campaign) => (
-                <ListGroup.Item key={campaign._id}>
-                  {campaign.title}{' '}
-                  <Button 
-                  variant="danger"
-                  className="ml-2"
-                  onClick={() => handleDeleteCampaign(campaign._id)}>
-                    Delete
-                  </Button>
-                </ListGroup.Item>
-              ))}
-            </ListGroup>
-          </Card>
-        </>
-      ) : (
-        <>
-          <p>
-            Please <Link to="/sign-in">Sign In</Link> Or{' '}
-            <Link to="/sign-up">Sign Up</Link> to View your Profile.
-          </p>
-        </>
-      )}
-      {error && (
-        <div className="my-3 p-3 bg-danger text-white">{error.message}</div>
-      )}
-    </div>
-  );
+    return (
+        <div className=''>
+            {Auth.loggedIn() ? (
+                <div className='flex flex-col'>
+
+                    <p>Your Profile: {username}</p>
+                    <p>Your Campaigns</p>
+
+                    {userCampaigns.map((campaign) => (
+                        <div key={campaign._id} className='flex flex-col justify-center items-center py-2 border-2 border-black rounded-xl w-1/3 mx-auto my-2'>
+                            <p>{campaign.title}</p>
+                            <button
+                                className="bg-red-600 w-1/4 rounded-xl"
+                                onClick={() => handleDeleteCampaign(campaign._id)}>
+                                Delete
+                            </button>
+                        </div>
+
+                    ))}
+
+
+                </div>
+            ) : (
+                <>
+                    <p>
+                        Please <Link to="/sign-in">Sign In</Link> Or{' '}
+                        <Link to="/sign-up">Sign Up</Link> to View your Profile.
+                    </p>
+                </>
+            )}
+            {error && (
+                <div className="my-3 p-3 bg-danger text-white">{error.message}</div>
+            )}
+        </div>
+    );
 }
 
 export default Profile;
