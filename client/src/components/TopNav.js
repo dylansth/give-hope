@@ -8,74 +8,83 @@ import '../styles/style.css'
 
 
 const TopNav = () => {
-    
+
     const logout = (event) => {
         event.preventDefault();
         Auth.logout();
     };
     return (
-        <Container fluid >
+        <Container fluid>
             <Nav className="justify-between">
-                    <NavLink
-                        className="text-2xl font-semibold text-black hover:text-gray-900 hover:bg-indigo-100 hover:no-underline px-4 py-2 rounded-lg"
-                        to="/"
-                    >
-                <Nav.Item className="">
+                <NavLink
+                    className="hover:scale-105 text-lg font-medium text-black hover:text-gray-900 hover:bg-indigo-100 no-underline px-2 py-1 rounded-lg"
+                    to="/"
+                >
+                    <Nav.Item className="">
                         Home
-                </Nav.Item>
-                    </NavLink>
-                    <NavLink
-                        className="text-2xl font-semibold text-black hover:text-gray-900 hover:bg-indigo-100 hover:no-underline px-4 py-2 rounded-lg"
-                        to="/explore"
-                    >
-                <Nav.Item className="">
+                    </Nav.Item>
+                </NavLink>
+                <NavLink
+                    className="hover:scale-105 text-lg font-medium text-black hover:text-gray-900 hover:bg-indigo-100 no-underline px-2 py-1 rounded-lg"
+                    to="/explore"
+                >
+                    <Nav.Item className="">
                         Explore
-                </Nav.Item>
-                    </NavLink>
+                    </Nav.Item>
+                </NavLink>
 
                 {Auth.loggedIn() ? (
                     <>
+                        <div className='flex items-center gap-2 text-lg font-medium'>
                             <NavLink
-                                className="text-2xl font-semibold text-black hover:text-gray-900 hover:bg-indigo-100 hover:no-underline px-4 py-2 rounded-lg"
+                                className="text-black hover:scale-105 hover:text-gray-900 hover:bg-indigo-100 no-underline rounded-lg px-2 py-1"
                                 to="/me"
                             >
-                        <Nav.Item className="w-full md:w-auto">
-                                My Profile
-                        </Nav.Item>
+                                <Nav.Item className="">
+                                    My Profile
+                                </Nav.Item>
                             </NavLink>
                             <NavLink
-                                className="text-2xl font-semibold text-black hover:text-gray-900 hover:bg-indigo-100 hover:no-underline px-4 py-2 rounded-lg"
+                                className="text-black hover:scale-105 hover:text-gray-900 hover:bg-indigo-100 no-underline rounded-lg px-2 py-1"
                                 to="/create-fundraiser"
                             >
-                            <Nav.Item className="w-full md:w-auto">
-                                Create Fundraiser
-                        </Nav.Item>
+                                <Nav.Item className="">
+                                    Create Fundraiser
+                                </Nav.Item>
                             </NavLink>
-                        <Nav.Item className="w-full md:w-auto">
-                            <button onClick={logout}>
-                                Logout
-                            </button>
-                        </Nav.Item>
-
+                            <Nav.Item className="px-2 py-1 hover:scale-105 hover:bg-indigo-100 rounded-lg">
+                                <button onClick={logout}>
+                                    Logout
+                                </button>
+                            </Nav.Item>
+                        </div>
                     </>
                 ) : (
                     <>
+
+                        <div className='flex items-center gap-2 text-lg font-medium'>
                             <NavLink
-                                className="text-2xl font-semibold text-black hover:text-gray-900 hover:bg-indigo-100 hover:no-underline px-4 py-2 rounded-lg"
+                                className="text-black px-2 py-1 hover:scale-105 hover:bg-indigo-100 rounded-lg no-underline"
                                 to="/sign-in"
                             >
-                        <Nav.Item className="">
-                                Sign In
-                        </Nav.Item>
+                                <Nav.Item>
+                                    Sign In
+                                </Nav.Item>
+
+
                             </NavLink>
                             <NavLink
-                                className="text-2xl font-semibold text-black hover:text-gray-900 hover:bg-indigo-100 hover:no-underline px-4 py-2 rounded-lg"
-                                to="/sign-up"
+                                className="text-black no-underline px-2 py-1 hover:scale-105 hover:bg-indigo-100 rounded-lg"
+                                to="/sign-un"
                             >
-                        <Nav.Item className="">
-                                Sign Up
-                        </Nav.Item>
+                                <Nav.Item>
+                                    Sign Up
+                                </Nav.Item>
+
+
                             </NavLink>
+                        </div>
+
                     </>
                 )}
             </Nav>
