@@ -23,10 +23,23 @@ const SignUp = () => {
     });
   };
 
+
+    // email validation using regex
+    const isEmailValid = (email) => {
+      const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+      return emailRegex.test(email);
+    };
+
+    
   // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     console.log(formState);
+
+    if (!isEmailValid(formState.email)) {
+      console.log('Invalid email format');
+      return;
+    }
 
     try {
       const { data } = await addUser({
@@ -37,6 +50,17 @@ const SignUp = () => {
     } catch (e) {
       console.error(e);
     }
+  };
+
+  // button - form
+  const isFormValid = () => {
+    return (
+      formState.username &&
+      formState.name &&
+      formState.email &&
+      formState.annualSalary  &&
+      isEmailValid(formState.email)
+    );
   };
 
   return (
@@ -57,6 +81,7 @@ const SignUp = () => {
               type="text"
               value={formState.username}
               onChange={handleChange}
+              required
             />
             <input
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 mb-4"
@@ -65,6 +90,7 @@ const SignUp = () => {
               type="email"
               value={formState.email}
               onChange={handleChange}
+              required
             />
             <input
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 mb-4"
@@ -73,14 +99,16 @@ const SignUp = () => {
               type="password"
               value={formState.password}
               onChange={handleChange}
+              required
             />
             <input
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 mb-4"
-              placeholder="Salary"
+              placeholder="Annual Salary"
               name="annualSalary"
               type="number"
               value={formState.annualSalary}
               onChange={handleChange}
+              required
             />
             <button
               className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600"
@@ -89,6 +117,9 @@ const SignUp = () => {
             >
               Submit
             </button>
+            {!isFormValid() && (
+  <p className="text-red-500">Please fill in all the required fields before submitting.</p>
+)}
           </form>
         )}
 

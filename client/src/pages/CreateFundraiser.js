@@ -74,25 +74,6 @@ const CampaignForm = () => {
 
     
        
-  // const handleFormSubmit = async (event) => {
-  //   event.preventDefault();
-  //   console.log('Form submit triggered');
-  //   console.log(formData)
-  //   try {
-  //     const { data } = await createCampaign({
-  //       variables: {
-  //         campaignData: {
-  //           title: formData.title,
-  //           description: formData.description,
-  //           image: {
-  //             data: "ziasadasdsa",
-  //             contentType: 'image/jpeg',
-  //           },
-  //           endDate:formData.endDate,
-  //           targetAmount: formData.targetAmount,
-  //         },
-  //       },
-  //     });
 
 
       console.log('Form data:', formData); // Log form data before reset
@@ -150,6 +131,24 @@ const CampaignForm = () => {
   };
   
 
+// button - form
+  const isFormValid = () => {
+    return (
+      formData.title &&
+      formData.description &&
+      formData.endDate &&
+      formData.targetAmount &&
+      image !== ''
+    );
+  };
+  
+  
+  
+  
+  
+  
+  
+  
   
   
 
@@ -184,6 +183,7 @@ const CampaignForm = () => {
             value={formData.description}
             onChange={(e) => setFormData({...formData, description:e.target.value})}
             placeholder="Enter a description"
+            required
           />
         </div>
         <div className="mb-4">
@@ -198,7 +198,7 @@ const CampaignForm = () => {
             value={formData.endDate}
             onChange={(e) => handleDateInputChange(e)}
             placeholder="Enter an end date"
-            
+            required
           />
         </div>
         <div className="mb-4">
@@ -217,6 +217,7 @@ const CampaignForm = () => {
               })
             }
             placeholder="Enter a target amount"
+            required
           />
         </div>
         <div className="mb-4">
@@ -230,6 +231,7 @@ const CampaignForm = () => {
             onChange={(e) => convertToBase64 (e)}
             className="mb-2"
             placeholder="Choose an image"
+            required
           />
           {image !== '' && (
             <img
@@ -240,11 +242,15 @@ const CampaignForm = () => {
           )}
         </div>
         <button
+        disabled={!isFormValid()} 
           type="submit"
           className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600"
         >
           Create Campaign
         </button>
+        {!isFormValid() && (
+  <p className="text-red-500">Please fill in all the required fields before submitting.</p>
+)}
       </form>
     </div>
   );

@@ -13,7 +13,7 @@ function Footer() {
                     </a>
                 </div>
                 <div className='pr-3 pl-3 font-bold '>
-                    <p className='justify-center flex flex-wrap pt-2 text-2xl '>Join us in making a difference. Together, we can create a brighter future. Your support matters!</p>
+                    <p className='p-footer justify-center flex flex-wrap pt-2 '>Join us in making a difference. Together, we can create a brighter future. Your support matters!</p>
                 </div>
                 <div className="social-icons w-14 pt-2">
                     <a href="https://www.instagram.com/give__hope/?hl=en" target="_blank" rel="noopener noreferrer">
