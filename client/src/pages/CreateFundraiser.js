@@ -68,7 +68,7 @@ const CampaignForm = () => {
               contentType: 'image/jpeg',
             },
             endDate:formData.endDate,
-            targetAmount:parseInt(formData.targetAmount),
+            targetAmount: parseInt(formData.targetAmount, 10),
           },
         },
       });
@@ -91,24 +91,26 @@ const CampaignForm = () => {
   };
 
   // Handle image
+  // Handle image
   const [image, setImage] = useState('');
 
   function convertToBase64(e) {
     let reader = new FileReader();
     reader.readAsDataURL(e.target.files[0]);
-
+  
     reader.onload = () => {
-      // console.log(reader.result); // string to save in MongoDB
+      const base64String = reader.result.split(',')[1]; // Extract the base64 string without the prefix
       setImage(reader.result);
       setFormData((prevData) => ({
         ...prevData,
         image: {
-          ...prevData.image,
-          data: reader.result,
+          // ...prevData.image,
+          data: base64String,
+          contentType: 'image/jpeg'
         },
       }));
     };
-
+  
     reader.onerror = (error) => {
       console.log('Error:', error);
     };
@@ -116,18 +118,22 @@ const CampaignForm = () => {
 
   const [endDate, setEndDate] = useState(null);
 
-  const handleDateChange = (date) => {
-    setEndDate(date);
-  };
-
   const handleDateInputChange = (date) => {
     setEndDate(date);
+    const formattedDate = date ? date.toISOString().slice(0, 10).replace(/-/g, '/') : '';
     setFormData((prevData) => ({
       ...prevData,
-      endDate: new Date(date),
+      endDate: formattedDate,
     }));
-    console.log(date)
+    console.log(date);
   };
+  
+
+  
+  
+
+  
+  
 
   
   return (
@@ -180,10 +186,15 @@ const CampaignForm = () => {
           </label>
           <input
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
-            type="text"
+            type="number"
             name="targetAmount"
             value={formData.targetAmount}
-            onChange={(e) => setFormData({...formData, targetAmount:e.target.value})}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                targetAmount: parseInt(e.target.value, 10),
+              })
+            }
             placeholder="Enter a target amount"
           />
         </div>
