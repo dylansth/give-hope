@@ -55,8 +55,7 @@ const CampaignForm = () => {
   
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log('Form submit triggered');
-    console.log(formData)
+   
     try {
       const { data } = await createCampaign({
         variables: {
@@ -64,7 +63,7 @@ const CampaignForm = () => {
             title: formData.title,
             description: formData.description,
             image: {
-              data: formData.image,
+              data: formData.image.data,
               contentType: 'image/jpeg',
             },
             endDate:formData.endDate,
@@ -72,6 +71,29 @@ const CampaignForm = () => {
           },
         },
       });
+
+    
+       
+  // const handleFormSubmit = async (event) => {
+  //   event.preventDefault();
+  //   console.log('Form submit triggered');
+  //   console.log(formData)
+  //   try {
+  //     const { data } = await createCampaign({
+  //       variables: {
+  //         campaignData: {
+  //           title: formData.title,
+  //           description: formData.description,
+  //           image: {
+  //             data: "ziasadasdsa",
+  //             contentType: 'image/jpeg',
+  //           },
+  //           endDate:formData.endDate,
+  //           targetAmount: formData.targetAmount,
+  //         },
+  //       },
+  //     });
+
 
       console.log('Form data:', formData); // Log form data before reset
       console.log('Response data:', data);
@@ -91,13 +113,12 @@ const CampaignForm = () => {
   };
 
   // Handle image
-  // Handle image
   const [image, setImage] = useState('');
 
   function convertToBase64(e) {
     let reader = new FileReader();
     reader.readAsDataURL(e.target.files[0]);
-  
+   console.log(e.target, 'event picture')
     reader.onload = () => {
       const base64String = reader.result.split(',')[1]; // Extract the base64 string without the prefix
       setImage(reader.result);
@@ -206,7 +227,7 @@ const CampaignForm = () => {
             accept="image/*"
             type="file"
             name="image"
-            onChange={convertToBase64}
+            onChange={(e) => convertToBase64 (e)}
             className="mb-2"
             placeholder="Choose an image"
           />
