@@ -1,36 +1,18 @@
-import React, { useState } from 'react';
-// import '../styles/style.css'
+import React from 'react';
+import '../styles/style.css'
+import { useQuery } from '@apollo/client';
+import { QUERY_CAMPAIGN } from '../utils/queries';
 
 const CampaignData = () => {
-    const [campaigns, setCampaigns] = useState([{
-        "title": "Helping Hands for Children",
-        "description": "Support underprivileged children by providing them with education and healthcare.",
-        "creatorId": "",
-        "targetAmount": 10000,
-        "currentAmount": 5000,
-        "endDate": "2023-12-31",
-        "donations": [],
-        "createdAt": "2023-07-13",
-        "reviews": [],
-        "image": ""
-    },
-    {
-        "title": "Save the Rainforest",
-        "description": "Contribute to the preservation of the Amazon rainforest and protect its diverse ecosystem.",
-        "creatorId": "",
-        "targetAmount": 5000,
-        "currentAmount": 2500,
-        "endDate": "2023-11-30",
-        "donations": [],
-        "createdAt": "2023-07-12",
-        "reviews": [],
-        "image": ""
-    }]
-    )
+    const { loading, data } = useQuery(QUERY_CAMPAIGN
+    );
+    const campaignList = data?.campaigns || [];
+
+    console.log(campaignList)
 
     return (
         <div>
-            {campaigns.map((campaign, index) => (
+            {campaignList.map((campaign, index) => (
                 <div key={index}>
                     <h1>{campaign.title}</h1>
                     <p>{campaign.description}</p>

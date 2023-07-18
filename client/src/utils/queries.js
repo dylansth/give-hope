@@ -22,6 +22,14 @@ export const QUERY_GET_ME = gql`
     }
 `;
 
+export const QUERY_DONATION = gql`
+  query getdonation($donations: [DonationInput]) {
+    checkout(donations: $donations) {
+      session
+    }
+  }
+`;
+
 export const QUERY_CAMPAIGN = gql`
     {
   campaigns {
@@ -42,9 +50,7 @@ export const QUERY_CAMPAIGN = gql`
       _id
       amount
       createdAt
-      donorId {
-        _id
-      }
+      donorId
     }
     reviews {
       createdAt

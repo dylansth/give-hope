@@ -2,6 +2,7 @@ const { Campaign, User, Donation, Purchase_power, Review } = require('../models'
 const { ObjectId } = require('mongoose')
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
+const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
 const resolvers = {
   Query: {
@@ -105,57 +106,80 @@ const resolvers = {
         throw new Error('User not authenticated.');
       }
       const userId = context.user._id;
-    
+
       const campaign = await Campaign.findById(campaignId);
       if (!campaign) {
         throw new Error('Campaign not found');
       }
-    
+
       const deleteCampaign = await Campaign.findOneAndDelete({ _id: campaignId });
-    
+
       const user = await User.findById(userId);
       user.createdCampaigns.pull(deleteCampaign._id);
       await user.save();
-    console.log(deleteCampaign)
-    
+      console.log(deleteCampaign)
+
       return deleteCampaign;
     },
 
-      
-      makeDonation: async (parent, { campaignId, amount }, context) => {
-        if (!context.user) {
-          throw new Error('User not authenticated.');
-        }
-      
-        const userId = context.user._id;
-        
-        const campaign = await Campaign.findById(campaignId);
-        
-        if (!campaign) {
-          throw new Error('Campaign not found');
-        }
-        
-        try {
-          const createDonation = await Donation.create({
-            amount: amount,
-            creatorId: userId,
-            campaignId: campaign._id,
-            createdAt: new Date().toISOString(),
-          });
-      
-          campaign.donations.push(createDonation._id);
-          await campaign.save();
-          
-          const user = await User.findById(userId);
-          user.donatedCampaigns.push(createDonation._id);
-          await user.save();
-      
-          return createDonation;
-        } catch (error) {
-          console.error(error);
-          throw new Error('Failed to save donation.');
-        }
-      },
+
+    makeDonation: async (parent, args, context) => {
+      if (!context.user) {
+        throw new Error('User not authenticated.');
+      }
+      console.log(args.donationData.campaignId);
+      const userId = context.user._id;
+      const { campaignId, amount } = args.donationData;
+      const campaign = await Campaign.findById(campaignId);
+      console.log(campaign, "data");
+
+      if (!campaign) {
+        throw new Error('Campaign not found');
+      }
+
+      try {
+        // const session = await stripe.checkout.sessions.create({
+        //   payment_method_types: ['card'],
+        //   line_item: [
+        //     {
+        //       price_data: {
+        //         currency: 'usd',
+        //         product_data: {
+        //           name: campaign.title,
+        //         },
+        //         unit_amount: amount * 100, // Stripe expects the amount in cents
+        //       },
+        //       quantity: 1,
+        //     },
+        //   ],
+        //   mode: 'payment',
+        //   // success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
+        //   // cancel_url: `${url}/`,
+        // });
+
+        const createDonation = await Donation.create({
+          amount: amount,
+          creatorId: userId,
+          campaignId: campaign._id,
+          // createdAt: new Date().toISOString(),
+          // paymentSessionId: session.id,
+        });
+
+        campaign.donations.push(createDonation._id);
+        await campaign.save();
+
+        const user = await User.findById(userId);
+        console.log(user);
+        user.donatedCampaigns.push(createDonation._id);
+
+        await user.save();
+
+        return createDonation;
+      } catch (error) {
+        console.error(error);
+        throw new Error('Failed to save donation.');
+      }
+    },
 
     createReview: async (parent, { campaignId, description }, context) => {
       if (!context.user) {
@@ -191,17 +215,17 @@ const resolvers = {
       if (!context.user) {
         throw new Error('User not authenticated.');
       }
-      
+
       const review = await Review.findById(reviewId)
       if (!reviewId) {
         throw new Error('Review not found');
       }
-        const deleteReview = await Review.findOneAndDelete(
-          { _id: reviewId },
-        )
-        return deleteReview;
-      }
-  
+      const deleteReview = await Review.findOneAndDelete(
+        { _id: reviewId },
+      )
+      return deleteReview;
+    }
+
   }
 }
 module.exports = resolvers;

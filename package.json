@@ -24,6 +24,7 @@
     "axios": "^1.4.0",
     "graphql": "^15.8.0",
     "jsonwebtoken": "^9.0.1",
-    "pexels": "^1.4.0"
+    "pexels": "^1.4.0",
+    "stripe": "^12.13.0"
   }
 }

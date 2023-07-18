@@ -5,6 +5,8 @@ import '../styles/style.css'
 import Countdown from '../components/Countdown';
 import { ProgressBar, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
+// import { loadStripe } from '@stripe/stripe-js';
+// const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
 
 const millisecondsToDateString = (milliseconds) => {
@@ -37,6 +39,12 @@ function Explore() {
     style: 'currency',
     currency: 'USD',
   });
+
+
+
+
+
+
   return (
     <div className="flex flex-col">
       <div className="flex flex-wrap -m-4 justify-center ">
@@ -46,19 +54,19 @@ function Explore() {
           // Format timer
           const milliseconds = campaign.endDate;
           const dateString = millisecondsToDateString(milliseconds);
-  
+
           // Hover progress bar and see the amount 
           const tooltip = (
             <Tooltip id="tooltip">
               Current Amount: {`$${campaign.currentAmount}`}
             </Tooltip>
           );
-  
+
           // Format % and color  progress bar
           const percentageDifference = (campaign.currentAmount / campaign.targetAmount) * 100;
-  
+
           let variant = 'success';
-  
+
           if (percentageDifference >= 65) {
             variant = 'success';
           } else if (percentageDifference >= 40) {
@@ -66,29 +74,27 @@ function Explore() {
           } else {
             variant = 'danger';
           }
-  
+
           // conditional rendering
           const today = Date.now();
-          const isCampaignDisplaying  = campaign.currentAmount < campaign.targetAmount;
-      
+          const isCampaignDisplaying = campaign.currentAmount < campaign.targetAmount;
 
+          /// Thanks to https://stackoverflow.com/questions/21797299/convert-base64-string-to-arraybuffer and Cam Sloan 
+          const base64String = campaign.image.data;
 
-        /// Thanks to https://stackoverflow.com/questions/21797299/convert-base64-string-to-arraybuffer and Cam Sloan 
-            const base64String = campaign.image.data;
+          const binaryData = atob(base64String);
 
-            const binaryData = atob(base64String);
+          // Create an array buffer from the binary data
+          const arrayBuffer = new ArrayBuffer(binaryData.length);
+          const view = new Uint8Array(arrayBuffer);
+          for (let i = 0; i < binaryData.length; i++) {
+            view[i] = binaryData.charCodeAt(i);
+          }
 
-            // Create an array buffer from the binary data
-            const arrayBuffer = new ArrayBuffer(binaryData.length);
-            const view = new Uint8Array(arrayBuffer);
-            for (let i = 0; i < binaryData.length; i++) {
-              view[i] = binaryData.charCodeAt(i);
-            }
-          
-            // Create a Blob object from the array buffer
-            const blob = new Blob([arrayBuffer], { type: 'image/jpeg' });
+          // Create a Blob object from the array buffer
+          const blob = new Blob([arrayBuffer], { type: 'image/jpeg' });
 
-            const imageUrl = URL.createObjectURL(blob);
+          const imageUrl = URL.createObjectURL(blob);
 
           return (
             (isCampaignDisplaying) && (
@@ -115,13 +121,22 @@ function Explore() {
                   <div className="text-white leading-relaxed text-center">
                     <p>⌛End:<Countdown dateString={dateString} /></p>
                   </div>
+
+                </div>
+                <div>
+                  $<input type="number" placeholder="amount" />
+                  <button className="inline-block border-e p-3 text-gray-700 hover:bg-indigo-50 focus:relative tx-center"> Make a donation
+                  </button>
+
                 </div>
               </div>
             )
-          );
-        })}
+          )
+        })};
       </div>
     </div>
   );
 }
+
+
 export default Explore;

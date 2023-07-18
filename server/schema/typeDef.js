@@ -36,8 +36,8 @@ const typeDef = gql`
 
   type Donation {
     _id: ID!
-    campaignId: [Campaign]
-    donorId: [User]
+    campaignId: ID
+    donorId: ID
     amount: Int
     createdAt: String
   }
@@ -61,10 +61,18 @@ const typeDef = gql`
     user: User
   }
 
+
   input ReviewInput {
     description: String
     creatorId: ID
     campaignId: ID
+    createdAt: String
+  }
+
+  input DonationInput {
+    campaignId: ID
+    donorId: ID
+    amount: Int
     createdAt: String
   }
 
@@ -99,7 +107,7 @@ const typeDef = gql`
     createCampaign(campaignData: CampaignInput!): Campaign
     updateCampaign(_id: ID!, campaignData: UpdateCampaignInput!): Campaign
     deleteCampaign(campaignId: ID!): Campaign
-    makeDonation(campaignId: ID!, amount: Int!): Donation
+    makeDonation(donationData: DonationInput, amount: Int): Donation
     createReview(campaignId: ID!, description: String!, creatorId: ID, createdAt: String): Review
     deleteReview(reviewId: ID!): Review
   }
