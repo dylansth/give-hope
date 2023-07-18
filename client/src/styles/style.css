@@ -25,15 +25,41 @@
   }
 
 
+ .p-home{
+  font-size: 25px;
+ }
+
+ @keyframes letterAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(50%);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50%);
+  }
+}
+
+.typewriter-text {
+  display: inline-block;
+  animation-name: letterAnimation;
+  animation-duration: 2s;
+  animation-fill-mode: both;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
   .campaign-text {
     font-size: 20px!important;
   }
 
   .campaign-card {
-   padding: 5px;
+   padding: 5px!important;
   }
-
-
 
 /* .background-image {
   background-image: url("../../public/home-picture.svg");
@@ -48,3 +74,55 @@
   max-height: 250%;
 }
 
+=======
+.homeDiv {
+  justify-content: center;
+  max-width: 50%;
+  position: relative;
+}
+
+.nav {
+  background-color: rgb(76, 125, 208) ;
+  font-size: 22px;
+  padding: 10px;
+  width: 100%;
+}
+
+.container-fluid {
+  background-color: rgb(76, 125, 208) ;
+}
+
+.card-body {
+  font-size: 18px;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.progress-bar {
+  font-size: 17px;
+  font-weight: bolder;
+}
+
+
+
+
+.custom-label {
+ color: black;
+}
+
+.profile-card {
+  width: auto!important;
+}
+
+footer {
+  background-color: rgb(76, 125, 208) ;
+  margin-top: 50px;
+    height: 70px;
+}
+.p-footer {
+  font-size: 22px;
+}
+
+form {
+  font-size: 18px;
+}

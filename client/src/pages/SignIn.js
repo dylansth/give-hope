@@ -39,6 +39,16 @@ const SignIn = () => {
     });
   };
 
+
+  // button - form
+  const isFormValid = () => {
+    return (
+      formState.email &&
+      formState.password
+   
+    );
+  };
+  
   return (
     <div className="flex flex-col items-center mt-8">
       <h1 className="text-2xl font-bold mb-4">Login</h1>
@@ -57,6 +67,7 @@ const SignIn = () => {
               type="email"
               value={formState.email}
               onChange={handleChange}
+              required
             />
             <input
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 mb-4"
@@ -65,14 +76,19 @@ const SignIn = () => {
               type="password"
               value={formState.password}
               onChange={handleChange}
+              required
             />
             <button
+            disabled={!isFormValid()} 
               className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600"
               style={{ cursor: 'pointer' }}
               type="submit"
             >
               Submit
             </button>
+            {!isFormValid() && (
+  <p className="text-red-500">Please fill in all the required fields before submitting.</p>
+)}
           </form>
         )}
 

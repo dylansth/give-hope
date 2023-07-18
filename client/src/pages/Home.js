@@ -3,7 +3,9 @@ import Auth from '../utils/auth';
 import { useQuery } from '@apollo/client';
 import { QUERY_GET_ME } from '../utils/queries';
 import { Link } from 'react-router-dom';
+
 import HomeSVG from '../assets/home-picture.svg'
+
 import '../styles/style.css'
 
 function Home() {

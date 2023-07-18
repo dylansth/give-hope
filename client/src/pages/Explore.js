@@ -96,7 +96,7 @@ function Explore() {
 
           return (
             (isCampaignDisplaying) && (
-              <div className="campaign-card sm:w-1/4 w-1/4 p-4 m-5 border-solid border-2 border-indigo-600" key={campaign.title}>
+              <div className="campaign-card sm:w-1/4 w-1/4 p-4 m-5 border-solid border-3 border-indigo-600" key={campaign.title}>
                 <div className="h-80 relative bg-slate-400">
                   <img
                     alt="gallery"
@@ -104,7 +104,7 @@ function Explore() {
                     src={imageUrl}
                   />
                 </div>
-                <div className="campaign-text bottom-0 left-0 right-0 bg-gray-600 text-white p-0">
+                <div className="campaign-text bottom-0 left-0 right-0 bg-sky-600 text-white p-0">
                   <h1 className="text-white title-font text-3xl font-medium mb-3 text-center">
                     {campaign.title}
                   </h1>
@@ -113,7 +113,7 @@ function Explore() {
                   </p>
                   <div className="px-5 pb-2">
                     <OverlayTrigger placement="top" overlay={tooltip}>
-                      <ProgressBar animated={true} max={campaign.targetAmount} now={campaign.currentAmount} label={`$${campaign.currentAmount}`} variant={variant} striped={true} />
+                      <ProgressBar  animated={true} max={campaign.targetAmount} now={campaign.currentAmount} label={<span className="custom-label"> {`$${campaign.currentAmount}`}</span>} variant={variant} striped={true} />
                     </OverlayTrigger>
                   </div>
                   <div className="text-white leading-relaxed text-center">

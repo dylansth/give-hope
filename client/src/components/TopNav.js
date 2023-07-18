@@ -15,7 +15,7 @@ const TopNav = () => {
     };
     return (
         <Container fluid>
-            <Nav className="justify-between">
+            <Nav className="justify-between nav">
                 <NavLink
                     activeClassName="bg-indigo-100"
                     className="hover:scale-105 text-lg font-medium text-black hover:text-gray-900 hover:bg-indigo-100 no-underline px-2 py-1 rounded-lg"

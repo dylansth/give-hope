@@ -64,7 +64,6 @@ function Profile() {
 
                     ))}
 
-
                 </div>
             ) : (
                 <>
