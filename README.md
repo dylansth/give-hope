@@ -7,12 +7,13 @@ A purpose driven web application designed to improve sponsor-style fundraising, 
 <details open>
 <summary>Table Of Contents</summary>
 
-1. [Usage](##-usage)
-2. [Installation](##-installation)
-3. [Development](##-development)
-4. [Contribution Guidelines](##-contribution-guidelines)
-5. [License](##-license)
-6. [Developers & Contact](##-developers-&-contact)
+- [GiveHope](#givehope)
+  - [Usage](#usage)
+  - [Installation](#installation)
+  - [Development](#development)
+  - [Contribution Guidelines](#contribution-guidelines)
+  - [License](#license)
+  - [Developers \& Contact](#developers--contact)
 </details>
 
 ## Usage
@@ -94,5 +95,5 @@ Gabriel<br>
 
 Github: [gabrielparada05](https://github.com/gabrielparada05)<br>
 Mail: gabrielparada05@gmail.com<br>
-LinkedIn:  [gabriel-parada-moreno](https://www.linkedin.com/in/gabriel-parada-moreno-78b8083b/)<br>
+LinkedIn:  [gabriel-parada-moreno](https://www.linkedin.com/in/gabriel-parada-moreno-78b8083b/).<br>
 
