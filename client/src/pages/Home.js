@@ -16,12 +16,14 @@ function Home() {
     return (
 
         <Container fluid>
-            <h1 class="my-6 ml-6">
-                GiveHope
-            </h1>
+       <div>
+      <p className='text-center text-5xl text-white p-2'>
+      <span className="typewriter-text">🕊️ Give Hope, Uniting Hearts 💖 </span>
+      </p>
+    </div>
             {Auth.loggedIn() ? (
                 <div>
-                        <p>
+                        <p className='p-home pb-2'>
                             Welcome, {username}
                         </p>
                 </div>

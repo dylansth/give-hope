@@ -25,9 +25,33 @@
   }
 
 
-  p{
-    font-size: 16px;
+ .p-home{
+  font-size: 25px;
+ }
+
+ @keyframes letterAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(50%);
   }
+  50% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50%);
+  }
+}
+
+.typewriter-text {
+  display: inline-block;
+  animation-name: letterAnimation;
+  animation-duration: 2s;
+  animation-fill-mode: both;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
 
   .campaign-text {
     font-size: 20px!important;
