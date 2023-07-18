@@ -20,7 +20,7 @@ function Home() {
             </h1>
             {Auth.loggedIn() ? (
                 <div>
-                    <p>
+                    <p className="ml-4">
                         Welcome, {username}
                     </p>
                 </div>

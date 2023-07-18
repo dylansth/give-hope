@@ -10,7 +10,17 @@ function Profile() {
     const [deleteCampaign, { error }] = useMutation(DELETE_CAMPAIGN);
 
     const username = data?.me?.username || [];
+    const annualSalary = data?.me?.annualSalary || [];
     const userCampaigns = data?.campaigns || [];
+
+    function divideSalary() {
+        // Calculate 2% of the annual salary
+        const twoPercent = annualSalary * 0.02;
+      
+        return twoPercent;
+      }
+      const dividedSalaray = divideSalary(annualSalary);
+    
 
     const handleDeleteCampaign = async (campaignId) => {
         try {
@@ -30,12 +40,17 @@ function Profile() {
     }
 
     return (
-        <div className=''>
+        <div>
             {Auth.loggedIn() ? (
                 <div className='flex flex-col'>
 
-                    <p>Your Profile: {username}</p>
-                    <p>Your Campaigns</p>
+                    <p className="mt-4 mx-auto" >Hello {username}</p>
+                    <p className="mx-auto" > Your Annual Salary: {annualSalary}</p>
+                    <p className="mx-auto" > 2% of your Annual Saray is {dividedSalaray}</p>
+
+                    <h3 className="py-2 mx-auto">
+                    Your Campaigns
+                    </h3>
 
                     {userCampaigns.map((campaign) => (
                         <div key={campaign._id} className='flex flex-col justify-center items-center py-2 border-2 border-black rounded-xl w-1/3 mx-auto my-2'>
