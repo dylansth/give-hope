@@ -4,7 +4,6 @@ import Auth from '../utils/auth';
 import { useQuery } from '@apollo/client';
 import { QUERY_GET_ME } from '../utils/queries';
 import { Link } from 'react-router-dom';
-
 import '../styles/style.css'
 
 function Home() {
@@ -24,11 +23,12 @@ function Home() {
             ) : (
                 <>
                     <Card body><p>
-                        Please <Link to="/sign-in">Sign In</Link> Or{' '}
+                        Welcome to GiveHope! Please <Link to="/sign-in">Sign In</Link> Or{' '}
                         <Link to="/sign-up">Sign Up</Link> to Donate or Create a Fundraiser.
                     </p></Card>
                 </>
             )}
+            <img src ="home-picture-png.png" alt="nature"/>
         </div>
     );
 }
