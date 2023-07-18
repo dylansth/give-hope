@@ -6,6 +6,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { QUERY_GET_ME } from '../utils/queries';
 
 
+
+
 const CampaignForm = () => {
   const { data, loading } = useQuery(QUERY_GET_ME);
   const username = data?.me?._id || [];
@@ -23,36 +25,8 @@ const CampaignForm = () => {
   });
 
   const [createCampaign] = useMutation(CREATE_CAMPAIGN);
-
-  // const handleTitleChange = (e) => {
-  //   console.log(e)
-
-  // }
-
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   console.log(e)
-  //   if (name === 'targetAmount') {
-  //     setFormData((prevData) => ({
-  //       ...prevData,
-  //       [name]: parseInt(value),
-  //     }));
-  //   } else if (name === 'image') {
-  //     setFormData((prevData) => ({
-  //       ...prevData,
-  //       image: {
-  //         ...prevData.image,
-  //         data: value,
-  //       },
-  //     }));
-  //   } else {
-  //     setFormData((prevData) => ({
-  //       ...prevData,
-  //       [name]: value,
-  //     }));
-  //   }
-  // };
   
+
   const handleFormSubmit = async (event) => {
     event.preventDefault();
    
@@ -73,9 +47,7 @@ const CampaignForm = () => {
       });
 
     
-       
-
-
+      
       console.log('Form data:', formData); // Log form data before reset
       console.log('Response data:', data);
 
@@ -88,6 +60,7 @@ const CampaignForm = () => {
         image: { data: '', contentType: 'image/jpeg' },
         // Reset other fields as well
       });
+      window.location.href = '/explore'
     } catch (error) {
       console.error(error); // Handle error response
     }
@@ -142,19 +115,6 @@ const CampaignForm = () => {
     );
   };
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-  
-  
-
   
   return (
     <div className="flex flex-col items-center mt-8">
@@ -241,6 +201,7 @@ const CampaignForm = () => {
             />
           )}
         </div>
+    
         <button
         disabled={!isFormValid()} 
           type="submit"
@@ -248,6 +209,7 @@ const CampaignForm = () => {
         >
           Create Campaign
         </button>
+      
         {!isFormValid() && (
   <p className="text-red-500">Please fill in all the required fields before submitting.</p>
 )}

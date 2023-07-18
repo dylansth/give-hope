@@ -11,10 +11,13 @@ import '../styles/style.css';
 
 function Profile() {
   const { data, loading } = useQuery(QUERY_GET_ME);
+  const { data1, loading1 } = useQuery(QUERY_GET_ME);
   const [deleteCampaign, { error }] = useMutation(DELETE_CAMPAIGN);
 
   const username = data?.me?.username || [];
   const userCampaigns = data?.campaigns || [];
+
+  console.log(userCampaigns)
 
   const handleDeleteCampaign = async (campaignId) => {
     try {
