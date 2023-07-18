@@ -78,3 +78,10 @@ footer {
   margin-top: 50px;
     height: 70px;
 }
+.p-footer {
+  font-size: 22px;
+}
+
+form {
+  font-size: 18px;
+}
