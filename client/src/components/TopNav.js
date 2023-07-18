@@ -1,80 +1,93 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Auth from '../utils/auth';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 
+import '../styles/style.css'
+
+
 const TopNav = () => {
+
     const logout = (event) => {
         event.preventDefault();
         Auth.logout();
     };
     return (
         <Container fluid>
-            <Nav className="justify-between md:justify-center space-x-4 py-4">
-                <Nav.Item className="w-full md:w-auto">
-                    <Link
-                        className="text-2xl font-semibold text-black hover:text-gray-900 hover:bg-indigo-100 hover:no-underline px-4 py-2 rounded-lg"
-                        to="/"
-                    >
+            <Nav className="justify-between">
+                <NavLink
+                    className="hover:scale-105 text-lg font-medium text-black hover:text-gray-900 hover:bg-indigo-100 no-underline px-2 py-1 rounded-lg"
+                    to="/"
+                >
+                    <Nav.Item className="">
                         Home
-                    </Link>
-                </Nav.Item>
-                <Nav.Item className="w-full md:w-auto">
-                    <Link
-                        className="text-2xl font-semibold text-black hover:text-gray-900 hover:bg-indigo-100 hover:no-underline px-4 py-2 rounded-lg"
-                        to="/explore"
-                    >
+                    </Nav.Item>
+                </NavLink>
+                <NavLink
+                    className="hover:scale-105 text-lg font-medium text-black hover:text-gray-900 hover:bg-indigo-100 no-underline px-2 py-1 rounded-lg"
+                    to="/explore"
+                >
+                    <Nav.Item className="">
                         Explore
-                    </Link>
-                </Nav.Item>
-            
+                    </Nav.Item>
+                </NavLink>
+
                 {Auth.loggedIn() ? (
                     <>
-                        <Nav.Item className="w-full md:w-auto">
-                            <Link
-                                className="text-2xl font-semibold text-black hover:text-gray-900 hover:bg-indigo-100 hover:no-underline px-4 py-2 rounded-lg"
+                        <div className='flex items-center gap-2 text-lg font-medium'>
+                            <NavLink
+                                className="text-black hover:scale-105 hover:text-gray-900 hover:bg-indigo-100 no-underline rounded-lg px-2 py-1"
                                 to="/me"
                             >
-                                My Profile
-                            </Link>
-                        </Nav.Item>
-                <Nav.Item className="w-full md:w-auto">
-                    <Link
-                        className="text-2xl font-semibold text-black hover:text-gray-900 hover:bg-indigo-100 hover:no-underline px-4 py-2 rounded-lg"
-                        to="/create-fundraiser"
-                    >
-                        Create Fundraiser
-                    </Link>
-                </Nav.Item>
-                        <Nav.Item className="w-full md:w-auto">
-                            <button onClick={logout}>
-                                Logout
-                            </button>
-                        </Nav.Item>
-
+                                <Nav.Item className="">
+                                    My Profile
+                                </Nav.Item>
+                            </NavLink>
+                            <NavLink
+                                className="text-black hover:scale-105 hover:text-gray-900 hover:bg-indigo-100 no-underline rounded-lg px-2 py-1"
+                                to="/create-fundraiser"
+                            >
+                                <Nav.Item className="">
+                                    Create Fundraiser
+                                </Nav.Item>
+                            </NavLink>
+                            <Nav.Item className="px-2 py-1 hover:scale-105 hover:bg-indigo-100 rounded-lg">
+                                <button onClick={logout}>
+                                    Logout
+                                </button>
+                            </Nav.Item>
+                        </div>
                     </>
                 ) : (
                     <>
-                        <Nav.Item className="w-full md:w-auto">
-                            <Link
-                                className="text-2xl font-semibold text-black hover:text-gray-900 hover:bg-indigo-100 hover:no-underline px-4 py-2 rounded-lg"
+
+                        <div className='flex items-center gap-2 text-lg font-medium'>
+                            <NavLink
+                                className="text-black px-2 py-1 hover:scale-105 hover:bg-indigo-100 rounded-lg no-underline"
                                 to="/sign-in"
                             >
-                                Sign In
-                            </Link>
-                        </Nav.Item>
-                        <Nav.Item className="w-full md:w-auto">
-                            <Link
-                                className="text-2xl font-semibold text-black hover:text-gray-900 hover:bg-indigo-100 hover:no-underline px-4 py-2 rounded-lg"
-                                to="/sign-up"
+                                <Nav.Item>
+                                    Sign In
+                                </Nav.Item>
+
+
+                            </NavLink>
+                            <NavLink
+                                className="text-black no-underline px-2 py-1 hover:scale-105 hover:bg-indigo-100 rounded-lg"
+                                to="/sign-un"
                             >
-                                Sign Up
-                            </Link>
-                        </Nav.Item>
+                                <Nav.Item>
+                                    Sign Up
+                                </Nav.Item>
+
+
+                            </NavLink>
+                        </div>
+
                     </>
                 )}
-                </Nav>
+            </Nav>
         </Container>
     );
 }

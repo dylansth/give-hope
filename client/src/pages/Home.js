@@ -3,16 +3,16 @@ import Card from 'react-bootstrap/Card';
 import Auth from '../utils/auth';
 import { useQuery } from '@apollo/client';
 import { QUERY_GET_ME } from '../utils/queries';
-
+import { Link } from 'react-router-dom';
 import '../styles/style.css'
 
 function Home() {
     const { data, loading } = useQuery(QUERY_GET_ME);
     const username = data?.me?.username || [];
 
-  if (loading) {
-    return <div>Loading...</div>
-  }
+    if (loading) {
+        return <div>Loading...</div>
+    }
     return (
 
         <div>
@@ -22,9 +22,13 @@ function Home() {
                 </>
             ) : (
                 <>
-                    <Card body>Log In or Sign Up to Start a Fundraiser or Begin Donating</Card>
+                    <Card body><p>
+                        Welcome to GiveHope! Please <Link to="/sign-in">Sign In</Link> Or{' '}
+                        <Link to="/sign-up">Sign Up</Link> to Donate or Create a Fundraiser.
+                    </p></Card>
                 </>
             )}
+            <img src ="home-picture.svg" alt="nature"/>
         </div>
     );
 }
