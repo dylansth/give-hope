@@ -19,7 +19,7 @@ function Profile() {
       try {
         const { data } = await deleteCampaign({
           variables: { campaignId },
-          // refetchQueries to update other queries in the application
+          // refetchQueries: update other queries in the application
           refetchQueries: [{ query: QUERY_GET_ME }],
         });
         console.log('Deleted campaign:', data.deleteCampaign);
