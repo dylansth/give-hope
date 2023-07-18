@@ -6,14 +6,15 @@ const campaignSeeds = require('./campaignSeeds.json');
 const donationSeeds = require('./donationSeeds.json');
 const reviewSeeds = require('./reviewSeeds.json');
 const calculationSeeds = require('./calculationSeeds.json')
+require('dotenv').config();
 
 
 const { createClient }= require('pexels');
 const { listenerCount } = require('../models/user');
 
-const client = createClient('vxI9VIXjoPg1mbZuoRuV05yUUpqzVJSJ4QQg253KXabgiArZhw5MUQn8');
+const client = createClient(process.env.API_KEY);
 
-const apiKey = 'vxI9VIXjoPg1mbZuoRuV05yUUpqzVJSJ4QQg253KXabgiArZhw5MUQn8';
+const apiKey = process.env.API_KEY;
 const searchQuery = 'poverty'; 
 const offset =0;
 const apiUrl = `https://api.pexels.com/v1/search?query=${encodeURIComponent(searchQuery)}&per_page=20&page=${offset}`;
