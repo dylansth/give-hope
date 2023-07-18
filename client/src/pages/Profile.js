@@ -57,7 +57,7 @@ function Profile() {
       ) : (
         <>
           <p>
-            Please <Link to="/sign-in">Log In</Link> Or{' '}
+            Please <Link to="/sign-in">Sign In</Link> Or{' '}
             <Link to="/sign-up">Sign Up</Link> to View your Profile.
           </p>
         </>
