@@ -28,7 +28,7 @@ function Home() {
                     </p></Card>
                 </>
             )}
-            <img src ="home-picture-png.png" alt="nature"/>
+            <img src ="home-picture.svg" alt="nature"/>
         </div>
     );
 }
