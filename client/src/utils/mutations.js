@@ -57,7 +57,7 @@ mutation UpdateCampaign($id: ID!, $campaignData: updateCampaignInput!) {
 `;
 
 export const DELETE_CAMPAIGN = gql`
-mutation Mutation($campaignId: ID!) {
+mutation DeleteCampaign($campaignId: ID!) {
   deleteCampaign(campaignId: $campaignId) {
     creatorId {
       _id
