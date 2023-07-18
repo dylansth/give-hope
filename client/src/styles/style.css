@@ -30,10 +30,42 @@
   }
 
   .campaign-card {
-   padding: 5px;
+   padding: 5px!important;
   }
 
 .active {
   background-color: #f0f0f0;
   color: #333;
+}
+
+.nav {
+  background-color: rgb(76, 125, 208) ;
+  font-size: 22px;
+  padding: 10px;
+  width: 100%;
+}
+
+.container-fluid {
+  background-color: rgb(76, 125, 208) ;
+}
+
+.card-body {
+  font-size: 18px;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.progress-bar {
+  font-size: 17px;
+  font-weight: bolder;
+}
+
+
+
+.custom-label {
+ color: black;
+}
+
+.profile-card {
+  width: auto!important;
 }
