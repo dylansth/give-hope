@@ -34,8 +34,17 @@
   }
 
 
-.homeDiv {
-  justify-content: center;
-  max-width: 50%;
-  position: relative;
+
+/* .background-image {
+  background-image: url("../../public/home-picture.svg");
+  background-position: center;
+  background-size: 500%;
+  max-width: 100%;
+  max-height: 500%;
+} */
+
+.bgimageDiv {
+  max-width: 500%;
+  max-height: 250%;
 }
+
