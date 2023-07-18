@@ -64,10 +64,17 @@
 
 
 
+
 .custom-label {
  color: black;
 }
 
 .profile-card {
   width: auto!important;
+}
+
+footer {
+  background-color: rgb(76, 125, 208) ;
+  margin-top: 50px;
+    height: 70px;
 }
