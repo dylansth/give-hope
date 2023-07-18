@@ -75,7 +75,7 @@ const TopNav = () => {
                             </NavLink>
                             <NavLink
                                 className="text-black no-underline px-2 py-1 hover:scale-105 hover:bg-indigo-100 rounded-lg"
-                                to="/sign-un"
+                                to="/sign-up"
                             >
                                 <Nav.Item>
                                     Sign Up
