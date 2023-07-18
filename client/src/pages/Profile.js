@@ -10,6 +10,7 @@ function Profile() {
     const [deleteCampaign, { error }] = useMutation(DELETE_CAMPAIGN);
 
     const username = data?.me?.username || [];
+    const userId = data?.me?._id || [];
     const annualSalary = data?.me?.annualSalary || [];
     const userCampaigns = data?.campaigns || [];
 
@@ -52,32 +53,52 @@ function Profile() {
                     Your Campaigns
                     </h3>
 
-                    {userCampaigns.map((campaign) => (
-                        <div key={campaign._id} className='flex flex-col justify-center items-center py-2 border-2 border-black rounded-xl w-1/3 mx-auto my-2'>
-                            <p>{campaign.title}</p>
-                            <button
-                                className="bg-red-600 w-1/4 rounded-xl"
-                                onClick={() => handleDeleteCampaign(campaign._id)}>
-                                Delete
-                            </button>
+                    {userCampaigns.filter(campaign => campaign.creatorId._id === userId).map((campaign) => {
+    const base64String = campaign.image.data;
+    const binaryData = atob(base64String);
+
+    const arrayBuffer = new ArrayBuffer(binaryData.length);
+    const view = new Uint8Array(arrayBuffer);
+    for (let i = 0; i < binaryData.length; i++) {
+        view[i] = binaryData.charCodeAt(i);
+    }
+
+    const blob = new Blob([arrayBuffer], { type: 'image/jpeg' });
+    const imageUrl = URL.createObjectURL(blob);
+
+    return (
+        <div key={campaign._id} className='flex flex-col justify-center items-center py-2 border-2 border-black rounded-xl w-1/3 mx-auto my-2'>
+          <div className="h-80 relative bg-slate-400">
+                          <img
+                            alt="gallery"
+                            className="w-full h-full object-cover object-center"
+                            src={imageUrl}
+                          />
                         </div>
 
-                    ))}
-
-                </div>
-            ) : (
-                <>
-                    <p>
-                        Please <Link to="/sign-in">Sign In</Link> Or{' '}
-                        <Link to="/sign-up">Sign Up</Link> to View your Profile.
-                    </p>
-                </>
-            )}
-            {error && (
-                <div className="my-3 p-3 bg-danger text-white">{error.message}</div>
-            )}
+            <p>{campaign.title}</p>
+            <button
+                className="bg-red-600 w-1/4 rounded-xl"
+                onClick={() => handleDeleteCampaign(campaign._id)}>
+                Delete
+            </button>
         </div>
     );
+})}
+</div>
+) : (
+<>
+    <p>
+        Please <Link to="/sign-in">Sign In</Link> Or{' '}
+        <Link to="/sign-up">Sign Up</Link> to View your Profile.
+    </p>
+</>
+)}
+{error && (
+<div className="my-3 p-3 bg-danger text-white">{error.message}</div>
+)}
+</div>
+);
 }
 
 export default Profile;

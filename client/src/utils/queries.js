@@ -21,6 +21,9 @@ export const QUERY_GET_ME = gql`
       data
       contentType
     }
+    creatorId {
+      _id
+    }
     title
     targetAmount
     donations {
