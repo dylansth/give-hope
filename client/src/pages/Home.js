@@ -16,14 +16,14 @@ function Home() {
         return <div>Loading...</div>
     }
     return (
-        <div className=''>
-            <h1 class="my-6 ml-6">
-                GiveHope
-            </h1>
+        <div className='text-center'>
+            <div className="typewriter-text">
+                <h1 className='text-center p-5'>🕊️ Give Hope, Uniting Hearts 💖</h1>
+            </div>
             {Auth.loggedIn() ? (
                 <div>
-                    <p className="ml-4">
-                        Welcome, {username}
+                    <p className="ml-4 text-2xl font-semibold">
+                        Welcome, {username.toUpperCase()}
                     </p>
                 </div>
             ) : (
@@ -35,12 +35,12 @@ function Home() {
                 </div>
             )}
 
-            <div class="h-60 flex flex-col justify-end border-y-2 border-y-black" style={{ backgroundImage: `url(${HomeSVG})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+            <div className="h-60 flex flex-col justify-end border-y-2 border-y-black" style={{ backgroundImage: `url(${HomeSVG})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
                 {/* <img src="home-picture.svg" alt="" /> */}
                 <div className='bg-white/[.50] text-center'>
                     <h2 className="font-bold text-3xl"> Every Donation Matters. </h2>
                     <p className="font-medium text-lg">
-                        1% of your income can change someones life. 
+                        1% of your income can change someones life.
                     </p>
                 </div>
             </div>
