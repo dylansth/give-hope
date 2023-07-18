@@ -1,9 +1,9 @@
 import React from 'react';
-import Card from 'react-bootstrap/Card';
 import Auth from '../utils/auth';
 import { useQuery } from '@apollo/client';
 import { QUERY_GET_ME } from '../utils/queries';
 import { Link } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
 import '../styles/style.css'
 
 function Home() {
@@ -15,21 +15,25 @@ function Home() {
     }
     return (
 
-        <div>
+        <Container fluid>
+            <h1 class="my-6 ml-6">
+                GiveHope
+            </h1>
             {Auth.loggedIn() ? (
-                <>
-                    <Card body>Welcome to GiveHope {username}</Card>
-                </>
+                <div>
+                        <p>
+                            Welcome, {username}
+                        </p>
+                </div>
             ) : (
-                <>
-                    <Card body><p>
-                        Welcome to GiveHope! Please <Link to="/sign-in">Sign In</Link> Or{' '}
-                        <Link to="/sign-up">Sign Up</Link> to Donate or Create a Fundraiser.
-                    </p></Card>
-                </>
+                <div className="mt-4">
+                        <p>
+                            Welcome! Please <Link to="/sign-in">Sign In</Link> Or{' '}
+                            <Link to="/sign-up">Sign Up</Link> to Donate or Create a Fundraiser.
+                        </p>
+                </div>
             )}
-            <img src ="home-picture.svg" alt="nature"/>
-        </div>
+        </Container>
     );
 }
 
