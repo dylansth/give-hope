@@ -53,10 +53,15 @@ const typeDef = gql`
     createdAt: String
   }
 
+  type Success {
+    session: ID
+  }
+
   type Auth {
     token: ID!
     user: User
   }
+  
 
   input ReviewInput {
     description: String
@@ -94,6 +99,14 @@ const typeDef = gql`
     reviews: [ID] 
   }
 
+  input DonationInput {
+    _id: ID!
+    campaignId: [ID]
+    donorId: [ID]
+    amount: Int
+    createdAt: String
+  }
+
   type Mutation {
     addUser(username: String!, email: String!, password: String!, annualSalary: Int!): Auth
     login(email: String!, password: String!): Auth
@@ -111,6 +124,7 @@ const typeDef = gql`
     users: [User]
     campaigns: [Campaign]
     donations: [Donation]
+    success(donations: [DonationInput]): Success
   }
 `;
 

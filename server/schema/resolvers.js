@@ -23,18 +23,16 @@ const resolvers = {
             { path: 'reviews', model: 'Review' },
           ],
         })
-        .populate({
-          path: 'donatedCampaigns',
-          populate: [
-            { path: 'creatorId', model: 'User' },
-            { path: 'donations', model: 'Donation' },
-            { path: 'reviews', model: 'Review' },
-          ],
-        })
-
-;
+          .populate({
+            path: 'donatedCampaigns',
+            populate: [
+              { path: 'creatorId', model: 'User' },
+              { path: 'donations', model: 'Donation' },
+              { path: 'reviews', model: 'Review' },
+            ],
+          });
       }
-      
+
       throw new AuthenticationError('You need to be logged in!');
     },
     campaigns: async () => {
@@ -43,6 +41,38 @@ const resolvers = {
     donations: async () => {
       return Donation.find();
     },
+    success: async (parent, args, context) => {
+      const url = new URL(context.headers.referer).origin;
+      // We map through the list of products sent by the client to extract the _id of each item and create a new Order.
+      await Order.create({ donations: args.donations.map(({ _id }) => _id) });
+      const line_items = [];
+
+      for (const donation of args.donations) {
+        line_items.push({
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: product.name,
+              description: product.description,
+              images: [`${url}/images/${product.image}`],
+            },
+            unit_amount: product.price * 100,
+          },
+          quantity: product.purchaseQuantity,
+        });
+      }
+
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items,
+        mode: 'payment',
+        success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${url}/`,
+      });
+
+      return { session: session.id };
+    },
+
   },
 
   Mutation: {
@@ -124,57 +154,57 @@ const resolvers = {
         throw new Error('User not authenticated.');
       }
       const userId = context.user._id;
-    
+
       const campaign = await Campaign.findById(campaignId);
       if (!campaign) {
         throw new Error('Campaign not found');
       }
-    
+
       const deleteCampaign = await Campaign.findOneAndDelete({ _id: campaignId });
-    
+
       const user = await User.findById(userId);
       user.createdCampaigns.pull(deleteCampaign._id);
       await user.save();
-    console.log(deleteCampaign)
-    
+      console.log(deleteCampaign)
+
       return deleteCampaign;
     },
 
-      
-      makeDonation: async (parent, { campaignId, amount }, context) => {
-        if (!context.user) {
-          throw new Error('User not authenticated.');
-        }
-      
-        const userId = context.user._id;
-        
-        const campaign = await Campaign.findById(campaignId);
-        
-        if (!campaign) {
-          throw new Error('Campaign not found');
-        }
-        
-        try {
-          const createDonation = await Donation.create({
-            amount: amount,
-            creatorId: userId,
-            campaignId: campaign._id,
-            createdAt: new Date().toISOString(),
-          });
-      
-          campaign.donations.push(createDonation._id);
-          await campaign.save();
-          
-          const user = await User.findById(userId);
-          user.donatedCampaigns.push(createDonation._id);
-          await user.save();
-      
-          return createDonation;
-        } catch (error) {
-          console.error(error);
-          throw new Error('Failed to save donation.');
-        }
-      },
+
+    makeDonation: async (parent, { campaignId, amount }, context) => {
+      if (!context.user) {
+        throw new Error('User not authenticated.');
+      }
+
+      const userId = context.user._id;
+
+      const campaign = await Campaign.findById(campaignId);
+
+      if (!campaign) {
+        throw new Error('Campaign not found');
+      }
+
+      try {
+        const createDonation = await Donation.create({
+          amount: amount,
+          creatorId: userId,
+          campaignId: campaign._id,
+          createdAt: new Date().toISOString(),
+        });
+
+        campaign.donations.push(createDonation._id);
+        await campaign.save();
+
+        const user = await User.findById(userId);
+        user.donatedCampaigns.push(createDonation._id);
+        await user.save();
+
+        return createDonation;
+      } catch (error) {
+        console.error(error);
+        throw new Error('Failed to save donation.');
+      }
+    },
 
     createReview: async (parent, { campaignId, description }, context) => {
       if (!context.user) {
@@ -210,17 +240,17 @@ const resolvers = {
       if (!context.user) {
         throw new Error('User not authenticated.');
       }
-      
+
       const review = await Review.findById(reviewId)
       if (!reviewId) {
         throw new Error('Review not found');
       }
-        const deleteReview = await Review.findOneAndDelete(
-          { _id: reviewId },
-        )
-        return deleteReview;
-      }
-  
+      const deleteReview = await Review.findOneAndDelete(
+        { _id: reviewId },
+      )
+      return deleteReview;
+    }
+
   }
 }
 module.exports = resolvers;
