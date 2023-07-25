@@ -5,27 +5,13 @@ import '../styles/style.css'
 import Countdown from '../components/Countdown';
 import { ProgressBar, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
+import { Link } from 'react-router-dom'
+import millisecondsToDateString from '../utils/getMilliseconds'
+import createImageUrlFromBase64 from '../utils/imageConvert';
 
 
-const millisecondsToDateString = (milliseconds) => {
-  const date = new Date();
-  date.setTime(milliseconds);
-
-  const year = date.getUTCFullYear();
-  const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-  const day = String(date.getUTCDate()).padStart(2, '0');
-  const hours = String(date.getUTCHours()).padStart(2, '0');
-  const minutes = String(date.getUTCMinutes()).padStart(2, '0');
-  const seconds = String(date.getUTCSeconds()).padStart(2, '0');
-
-  const dateString = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}Z`;
-
-  return dateString;
-};
 
 function Explore() {
-
-
 
   const { loading, data } = useQuery(QUERY_CAMPAIGN
   );
@@ -43,7 +29,7 @@ function Explore() {
   });
   return (
     <div className="flex flex-col">
-      <div className="flex flex-wrap -m-4 justify-center ">
+      <div className="flex flex-wrap justify-center ">
         {campaignList.map((campaign) => {
           // Format Money
           const moneyformatted = USDollar.format(campaign.targetAmount);
@@ -59,10 +45,9 @@ function Explore() {
           );
   
           // Format % and color  progress bar
+        
           const percentageDifference = (campaign.currentAmount / campaign.targetAmount) * 100;
-  
           let variant = 'success';
-  
           if (percentageDifference >= 65) {
             variant = 'success';
           } else if (percentageDifference >= 40) {
@@ -71,42 +56,29 @@ function Explore() {
             variant = 'danger';
           }
   
+          
           // conditional rendering
           const today = Date.now();
           const isCampaignDisplaying  = campaign.currentAmount < campaign.targetAmount;
       
-
-
-        /// Thanks to https://stackoverflow.com/questions/21797299/convert-base64-string-to-arraybuffer and Cam Sloan 
-            const base64String = campaign.image.data;
-
-            const binaryData = atob(base64String);
-
-            // Create an array buffer from the binary data
-            const arrayBuffer = new ArrayBuffer(binaryData.length);
-            const view = new Uint8Array(arrayBuffer);
-            for (let i = 0; i < binaryData.length; i++) {
-              view[i] = binaryData.charCodeAt(i);
-            }
-          
-            // Create a Blob object from the array buffer
-            const blob = new Blob([arrayBuffer], { type: 'image/jpeg' });
-
-            const imageUrl = URL.createObjectURL(blob);
+          const image = createImageUrlFromBase64(campaign.image.data)
+        
 
           return (
             (isCampaignDisplaying) && (
-              <div className="campaign-card sm:w-1/4 w-1/4 p-4 m-5 border-solid border-3 border-indigo-600" key={campaign.title}>
+             
+              <div className="campaign-card sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-4 m-5 border-solid border-3 border-indigo-600" key={campaign.title}>
+                <Link to={`/fundraiser/${campaign._id}`} key={campaign.title}>
                 <div className="h-80 relative bg-slate-400">
                   <img
                     alt="gallery"
                     className="w-full h-full object-cover object-center"
-                    src={imageUrl}
+                    src={image}
                   />
                 </div>
                 <div className="campaign-text bottom-0 left-0 right-0 bg-sky-600 text-white p-0">
                   <h1 className="text-white title-font text-3xl font-medium mb-3 text-center">
-                    {campaign.title}
+                    {campaign.title} 
                   </h1>
                   <p className="text-white leading-relaxed text-center">
                     🥅 Target Amount: {moneyformatted}
@@ -120,6 +92,7 @@ function Explore() {
                     <p>⌛End:</p><Countdown dateString={dateString} />
                   </div>
                 </div>
+              </Link>
               </div>
             )
           );

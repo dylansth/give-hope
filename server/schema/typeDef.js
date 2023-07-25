@@ -111,6 +111,7 @@ const typeDef = gql`
     users: [User]
     campaigns: [Campaign]
     donations: [Donation]
+    reviews: [Review]
   }
 `;
 
