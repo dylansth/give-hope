@@ -60,9 +60,8 @@ const resolvers = {
     },
 
     reviews: async () => {
-      return Review.find
-      .populate('campaignId', 'title')
-      .populate('donorId', 'username');
+      return Review.find()
+     
     },
   },
 

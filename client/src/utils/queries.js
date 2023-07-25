@@ -66,9 +66,6 @@ export const QUERY_CAMPAIGN = gql`
       _id
       description
       createdAt
-      campaigns {
-        _id
-      }
     }
   }
 }
