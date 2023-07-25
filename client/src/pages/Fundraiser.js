@@ -66,7 +66,7 @@ function Fundraiser() {
 
   return (
     <div className="single-campaign flex justify-center" >
-      <div className="campaign-card p-4 m-5 border-solid border-3 border-indigo-600 w-48">
+      <div className="campaign-card p-4 m-5 border-solid border-3 border-indigo-600">
         <div className="relative bg-slate-400">
           <img
             alt="gallery"
@@ -109,7 +109,7 @@ function Fundraiser() {
 
           return <p key={review.id}> {review.description} created at {review.createdAt} </p>
         })}
-        <div className='flex justify-center'>
+        <div className='flex justify-center pt-5'>
         <button className='py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75rounded md:rounded-lg'> Make a donation </button>
         </div>
       </div>
