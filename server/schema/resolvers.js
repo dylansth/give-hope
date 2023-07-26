@@ -181,6 +181,10 @@ const resolvers = {
             campaignId: campaign._id,
             createdAt: new Date().toISOString(),
           });
+
+          campaign.currentAmount -= amount;
+
+          await campaign.save();
       
           campaign.donations.push(createDonation._id);
           await campaign.save();
