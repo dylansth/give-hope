@@ -37,10 +37,30 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in!');
     },
     campaigns: async () => {
-      return Campaign.find();
+      return Campaign.find().populate({
+        path: 'reviews',
+        populate: 
+        {path: 'creatorId', model: 'User'},
+      })
+      .populate({
+        path: 'donations',
+        populate: [
+          { path: 'donorId', model: 'User' },
+          { path: 'reviews', model: 'Review' },
+        ],
+      })
+      .populate('creatorId', 'username');
     },
+
     donations: async () => {
-      return Donation.find();
+      return Donation.find()
+      .populate('campaignId', 'title')
+      .populate('donorId', 'username');
+    },
+
+    reviews: async () => {
+      return Review.find()
+     
     },
     checkout: async (_, { amount }, context) => {
       const url = new URL(context.headers.referer).origin;

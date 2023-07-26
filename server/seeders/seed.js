@@ -12,7 +12,7 @@ require('dotenv').config();
 const { createClient }= require('pexels');
 const { listenerCount } = require('../models/user');
 
-const client = createClient(process.env.API_KEY);
+const client = createClient(vxI9VIXjoPg1mbZuoRuV05yUUpqzVJSJ4QQg253KXabgiArZhw5MUQn8);
 
 const apiKey = process.env.API_KEY;
 const searchQuery = 'poverty'; 

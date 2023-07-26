@@ -72,7 +72,7 @@ function App() {
                 element={<Profile />}
               />
               <Route
-                path="/fundraiser/:id"
+                path="/fundraiser/:campaignId"
                 element={<Fundraiser />}
               />
               <Route

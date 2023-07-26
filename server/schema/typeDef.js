@@ -116,6 +116,7 @@ const typeDef = gql`
     campaigns: [Campaign]
     donations(camapaignId: ID): [Donation]
     checkout(amount: Int): Checkout
+
   }
 `;
 
