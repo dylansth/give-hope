@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { QUERY_CAMPAIGN } from '../utils/queries';
 import '../styles/style.css'
 import Countdown from '../components/Countdown';
 import { ProgressBar, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
+import Auth from '../utils/auth';
 
 
 const millisecondsToDateString = (milliseconds) => {
@@ -25,8 +27,8 @@ const millisecondsToDateString = (milliseconds) => {
 
 function Explore() {
 
-
-
+  const [amount, setAmount] = useState(0);
+  const navigate = useNavigate();
   const { loading, data } = useQuery(QUERY_CAMPAIGN
   );
   const campaignList = data?.campaigns || [];
@@ -41,6 +43,29 @@ function Explore() {
     style: 'currency',
     currency: 'USD',
   });
+  const handleChange = (event) => {
+
+    if (event.target.name === "amount") {
+      const inputValue = parseFloat(event.target.value);
+      setAmount(isNaN(inputValue) ? 0 : inputValue);
+    }
+  };
+
+  const handleDonate = (title, campaignId) => {
+    const donation = {
+      campaignId: campaignId,
+      donorId: Auth.getProfile().data._id,
+      amount: amount
+    }
+    localStorage.setItem("donation", JSON.stringify(donation))
+
+    navigate("/checkout", {
+      state: {
+        amount,
+        title
+      }
+    })
+  }
   return (
     <div className="flex flex-col">
       <div className="flex flex-wrap -m-4 justify-center ">
@@ -50,19 +75,19 @@ function Explore() {
           // Format timer
           const milliseconds = campaign.endDate;
           const dateString = millisecondsToDateString(milliseconds);
-  
+
           // Hover progress bar and see the amount 
           const tooltip = (
             <Tooltip id="tooltip">
               Current Amount: {`$${campaign.currentAmount}`}
             </Tooltip>
           );
-  
+
           // Format % and color  progress bar
           const percentageDifference = (campaign.currentAmount / campaign.targetAmount) * 100;
-  
+
           let variant = 'success';
-  
+
           if (percentageDifference >= 65) {
             variant = 'success';
           } else if (percentageDifference >= 40) {
@@ -70,29 +95,29 @@ function Explore() {
           } else {
             variant = 'danger';
           }
-  
+
           // conditional rendering
           const today = Date.now();
-          const isCampaignDisplaying  = campaign.currentAmount < campaign.targetAmount;
-      
+          const isCampaignDisplaying = campaign.currentAmount < campaign.targetAmount;
 
 
-        /// Thanks to https://stackoverflow.com/questions/21797299/convert-base64-string-to-arraybuffer and Cam Sloan 
-            const base64String = campaign.image.data;
 
-            const binaryData = atob(base64String);
+          /// Thanks to https://stackoverflow.com/questions/21797299/convert-base64-string-to-arraybuffer and Cam Sloan 
+          const base64String = campaign.image.data;
 
-            // Create an array buffer from the binary data
-            const arrayBuffer = new ArrayBuffer(binaryData.length);
-            const view = new Uint8Array(arrayBuffer);
-            for (let i = 0; i < binaryData.length; i++) {
-              view[i] = binaryData.charCodeAt(i);
-            }
-          
-            // Create a Blob object from the array buffer
-            const blob = new Blob([arrayBuffer], { type: 'image/jpeg' });
+          const binaryData = atob(base64String);
 
-            const imageUrl = URL.createObjectURL(blob);
+          // Create an array buffer from the binary data
+          const arrayBuffer = new ArrayBuffer(binaryData.length);
+          const view = new Uint8Array(arrayBuffer);
+          for (let i = 0; i < binaryData.length; i++) {
+            view[i] = binaryData.charCodeAt(i);
+          }
+
+          // Create a Blob object from the array buffer
+          const blob = new Blob([arrayBuffer], { type: 'image/jpeg' });
+
+          const imageUrl = URL.createObjectURL(blob);
 
           return (
             (isCampaignDisplaying) && (
@@ -113,11 +138,17 @@ function Explore() {
                   </p>
                   <div className="px-5 pb-2">
                     <OverlayTrigger placement="top" overlay={tooltip}>
-                      <ProgressBar  animated={true} max={campaign.targetAmount} now={campaign.currentAmount} label={<span className="custom-label"> {`$${campaign.currentAmount}`}</span>} variant={variant} striped={true} />
+                      <ProgressBar animated={true} max={campaign.targetAmount} now={campaign.currentAmount} label={<span className="custom-label"> {`$${campaign.currentAmount}`}</span>} variant={variant} striped={true} />
                     </OverlayTrigger>
                   </div>
                   <div className="text-white leading-relaxed text-center">
                     <p>⌛End:</p><Countdown dateString={dateString} />
+                  </div>
+                  <div>
+                    $<input type="number" placeholder="amount" value={amount} onChange={handleChange} disabled={false} />
+                    <button className="inline-block border-e p-3 text-gray-700 hover:bg-indigo-50 focus:relative tx-center" onClick={handleDonate}> Make a donation
+                    </button>
+
                   </div>
                 </div>
               </div>

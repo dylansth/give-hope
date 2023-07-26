@@ -2,6 +2,7 @@ const { Campaign, User, Donation, Purchase_power, Review } = require('../models'
 const { ObjectId } = require('mongoose')
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
+const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
 
 
@@ -41,31 +42,26 @@ const resolvers = {
     donations: async () => {
       return Donation.find();
     },
-    success: async (parent, args, context) => {
+    checkout: async (_, { amount }, context) => {
       const url = new URL(context.headers.referer).origin;
-      // We map through the list of products sent by the client to extract the _id of each item and create a new Order.
-      await Order.create({ donations: args.donations.map(({ _id }) => _id) });
-      const line_items = [];
 
-      for (const donation of args.donations) {
-        line_items.push({
+      const line_items = [
+        {
           price_data: {
-            currency: 'usd',
+            currency: "usd",
             product_data: {
-              name: product.name,
-              description: product.description,
-              images: [`${url}/images/${product.image}`],
+              name: "donation",
             },
-            unit_amount: product.price * 100,
+            unit_amount: amount * 100,
           },
-          quantity: product.purchaseQuantity,
-        });
-      }
+          quantity: 1,
+        },
+      ];
 
       const session = await stripe.checkout.sessions.create({
-        payment_method_types: ['card'],
+        payment_method_types: ["card"],
         line_items,
-        mode: 'payment',
+        mode: "payment",
         success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${url}/`,
       });
@@ -171,14 +167,16 @@ const resolvers = {
     },
 
 
-    makeDonation: async (parent, { campaignId, amount }, context) => {
+    makeDonation: async (parent, args, context) => {
       if (!context.user) {
         throw new Error('User not authenticated.');
       }
-
+      console.log(args.donationData.campaignId);
       const userId = context.user._id;
+      const { campaignId, amount } = args.donationData
 
       const campaign = await Campaign.findById(campaignId);
+      console.log(campaign, "data");
 
       if (!campaign) {
         throw new Error('Campaign not found');
@@ -187,15 +185,18 @@ const resolvers = {
       try {
         const createDonation = await Donation.create({
           amount: amount,
-          creatorId: userId,
+          donorId: userId,
           campaignId: campaign._id,
-          createdAt: new Date().toISOString(),
+          // createdAt: new Date().toISOString(),
         });
 
         campaign.donations.push(createDonation._id);
+        const updatedTotal = campaign.currentAmount + amount;
+        campaign.currentAmount = updatedTotal;
         await campaign.save();
 
         const user = await User.findById(userId);
+        console.log(user);
         user.donatedCampaigns.push(createDonation._id);
         await user.save();
 
