@@ -29,12 +29,10 @@ const typeDef = gql`
     contentType: String
   }
 
- 
-
   type Donation {
     _id: ID!
-    campaignId: [Campaign]
-    donorId: [User]
+    campaignId: ID
+    donorId: ID
     amount: Int
     createdAt: String
   }
@@ -53,10 +51,15 @@ const typeDef = gql`
     createdAt: String
   }
 
+  type Checkout {
+    session: ID
+  }
+
   type Auth {
     token: ID!
     user: User
   }
+  
 
   input ReviewInput {
     description: String
@@ -94,13 +97,14 @@ const typeDef = gql`
     reviews: [ID] 
   }
 
+
   type Mutation {
     addUser(username: String!, email: String!, password: String!, annualSalary: Int!): Auth
     login(email: String!, password: String!): Auth
     createCampaign(campaignData: CampaignInput!): Campaign
     updateCampaign(_id: ID!, campaignData: UpdateCampaignInput!): Campaign
     deleteCampaign(campaignId: ID!): Campaign
-    makeDonation(campaignId: ID!, amount: Int!): Donation
+    makeDonation(campaignId: ID, donorId: ID, amount:Int ): Donation
     createReview(campaignId: ID!, description: String!, creatorId: ID, createdAt: String): Review
     deleteReview(reviewId: ID!): Review
   }
@@ -110,8 +114,9 @@ const typeDef = gql`
     user: User
     users: [User]
     campaigns: [Campaign]
-    donations: [Donation]
-    reviews: [Review]
+    donations(camapaignId: ID): [Donation]
+    checkout(amount: Int): Checkout
+
   }
 `;
 
