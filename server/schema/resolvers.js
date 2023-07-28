@@ -182,7 +182,7 @@ const resolvers = {
             createdAt: new Date().toISOString(),
           });
 
-          campaign.currentAmount -= amount;
+          campaign.currentAmount += amount;
 
           await campaign.save();
       
