@@ -68,7 +68,7 @@ mutation DeleteCampaign($campaignId: ID!) {
 
 export const MAKE_DONATION = gql`
 mutation Mutation($campaignId: ID!, $amount: Int!) {
-  makeDonation(campaignId: $campaignId, amount: $amount) {
+  makeDonation(donationData: DonationInput, amount: Int) {
     amount
     createdAt
     donorId {
