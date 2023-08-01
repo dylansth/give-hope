@@ -114,8 +114,9 @@ const typeDef = gql`
     user: User
     users: [User]
     campaigns: [Campaign]
-    donations(camapaignId: ID): [Donation]
+    donations(campaignId: ID): [Donation]
     checkout(amount: Int): Checkout
+    reviews: [Review]
 
   }
 `;
