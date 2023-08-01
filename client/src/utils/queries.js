@@ -35,7 +35,7 @@ export const QUERY_GET_ME = gql`
 
 export const QUERY_CAMPAIGN = gql`
     {
-      campaigns {
+  campaigns {
     _id
     createdAt
     creatorId {
@@ -44,27 +44,17 @@ export const QUERY_CAMPAIGN = gql`
     }
     currentAmount
     description
+    endDate
     image {
       data
     }
-    title
-    targetAmount
-    endDate
-    donations {
-      _id
-      amount
-      createdAt
-      donorId {
-        _id
-        username
-      }
-      campaignId {
-        _id
-      }
-    }
     reviews {
-      _id
       description
+    }
+    targetAmount
+    title
+    donations {
+      amount
       createdAt
     }
   }
