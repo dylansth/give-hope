@@ -7,10 +7,10 @@ const donationSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Campaign',
     }],
-    donorId: [{
+    donorId: {
         type: Schema.Types.ObjectId,
         ref: 'User',
-    }],
+    },
     amount: {
         type: Number,
         required: true,
