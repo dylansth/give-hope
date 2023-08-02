@@ -136,7 +136,7 @@ function Fundraiser() {
       <ReviewForm onReviewCreate={handleReviewCreate} campaignId={campaign._id} />
        </div>
        )}
-        <CampaignReviews reviews={review}/>
+       {review.length > 0 ? <CampaignReviews reviews={review} /> : <p>This campaign does not have reviews.</p>}
       
       </Accordion.Body>
     </Accordion.Item>
