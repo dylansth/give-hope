@@ -58,10 +58,14 @@ const resolvers = {
       .populate('donorId', 'username');
     },
 
+    
+
     reviews: async () => {
-      return Review.find()
-     
+      return Review.find().populate('creatorId');
     },
+
+
+
     checkout: async (_, { amount }, context) => {
       const url = new URL(context.headers.referer).origin;
 
@@ -237,6 +241,7 @@ const resolvers = {
         throw new Error('Campaign not found');
       }
       // console.log(campaign._id)
+      
       try {
         const createReview = await Review.create({
           description: description,

@@ -46,8 +46,8 @@ const typeDef = gql`
   type Review {
     _id: ID!
     description: String
-    creatorId: [User]
-    campaigns: [Campaign]
+    creatorId: User
+    campaigns: Campaign
     createdAt: String
   }
 
