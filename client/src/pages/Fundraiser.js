@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { QUERY_CAMPAIGN } from '../utils/queries';
 import Countdown from '../components/Countdown';
 import { ProgressBar, OverlayTrigger, Tooltip } from 'react-bootstrap';
@@ -8,9 +8,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 import millisecondsToDateString from '../utils/getMilliseconds';
 import createImageUrlFromBase64 from '../utils/imageConvert';
 import '../styles/style.css';
-import { ADD_REVIEW } from '../utils/mutations'
 import CampaignReviews from '../components/CampaignReviews';
 import ReviewForm from '../components/ReviewForm'
+import Accordion from 'react-bootstrap/Accordion';
+
+
 
 
 function Fundraiser() {
@@ -20,11 +22,7 @@ function Fundraiser() {
   });
 
   const [views, setReview] = useState([]); 
-
-  // const [inputValue, setInputValue] = useState('');
- 
-  // const [addReviewMutation] = useMutation(ADD_REVIEW);
-
+  
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -79,31 +77,6 @@ function Fundraiser() {
 
    const isAuthenticated = token ? true : false;
 
-  // const handleInputChange = (e) => {
-  //   setInputValue(e.target.value);
-  // };
-
-
-  // const handleCreateReview = async () => {
-  //   if (!isAuthenticated) {
-  //     console.error('Please login to create a review.')
-  //   }
-
-  //   try {
-  //     await addReviewMutation({
-  //       variables: {
-  //       campaignId:campaign._id,
-  //       description: inputValue,
-  //       },
-  //     });
-  //     setInputValue('');
-  //     console.log('Review created successfully');
-  //     window.location.reload();
-
-  //   } catch (error) {
-  //     console.error('Failed to create review:', error.message);
-  //   }
-  // };
 
   const handleReviewCreate = (newReview) => {
     setReview([
@@ -153,16 +126,23 @@ function Fundraiser() {
           </div>
 
           {/* Review Input */}
-         
         </div>
+        <Accordion>
+        <Accordion.Item eventKey='1'>
+        <Accordion.Header>Reviews</Accordion.Header>
+        <Accordion.Body>
+        {isAuthenticated && (
+        <div>
+      <ReviewForm onReviewCreate={handleReviewCreate} campaignId={campaign._id} />
+       </div>
+       )}
         <CampaignReviews reviews={review}/>
-      {isAuthenticated && (
-  <div>
-    <ReviewForm onReviewCreate={handleReviewCreate} campaignId={campaign._id} />
+      
+      </Accordion.Body>
+    </Accordion.Item>
+    </Accordion>
 
-    </div>
 
-)}
 
       </div>
     </div>

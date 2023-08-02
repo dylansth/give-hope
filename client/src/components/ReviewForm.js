@@ -32,26 +32,25 @@ function ReviewForm({ onReviewCreate, campaignId }) {
 
   return (
     <div>
-      <div className="flex justify-center pt-5">
-        <form onSubmit={handleCreateReview} className="w-full max-w-md">
-          <input
-            className="text-black"
-            type="text"
-            name="description"
-            value={inputValue}
-            onChange={handleInputChange}
-            placeholder="Enter your review here"
-          />
-        </form>
-      </div>
-      <div className="flex justify-center pt-5">
-        <button
-          className="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 rounded md:rounded-lg"
-          onClick={handleCreateReview}
-        >
-          Create a review
-        </button>
-      </div>
+   <div className="flex flex-col items-center py-5">
+  <form onSubmit={handleCreateReview} className="w-full max-w-md">
+    <input
+      className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+      type="text"
+      name="description"
+      value={inputValue}
+      onChange={handleInputChange}
+      placeholder="Enter your review here"
+    />
+  </form>
+  <button
+    className="mt-4 py-2 px-4 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
+    onClick={handleCreateReview}
+  >
+    Create a review
+  </button>
+</div>
+
     </div>
   );
 }

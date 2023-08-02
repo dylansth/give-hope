@@ -50,6 +50,8 @@ export const QUERY_CAMPAIGN = gql`
     }
     reviews {
       description
+      createdAt
+
     }
     targetAmount
     title
