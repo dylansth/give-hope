@@ -1,19 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_CAMPAIGN } from '../utils/queries';
 import Countdown from '../components/Countdown';
 import { ProgressBar, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import millisecondsToDateString from '../utils/getMilliseconds'
+import millisecondsToDateString from '../utils/getMilliseconds';
 import createImageUrlFromBase64 from '../utils/imageConvert';
-import '../styles/style.css'
+import '../styles/style.css';
+import { ADD_REVIEW } from '../utils/mutations'
+import CampaignReviews from '../components/CampaignReviews';
+import ReviewForm from '../components/ReviewForm'
+
 
 function Fundraiser() {
   const { campaignId } = useParams();
   const { loading, data } = useQuery(QUERY_CAMPAIGN, {
     variables: { campaignId: campaignId },
   });
+
+  const [views, setReview] = useState([]); 
+
+  // const [inputValue, setInputValue] = useState('');
+ 
+  // const [addReviewMutation] = useMutation(ADD_REVIEW);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -39,7 +49,7 @@ function Fundraiser() {
   const moneyformatted = USDollar.format(campaign.targetAmount);
 
   const milliseconds = campaign.endDate;
-  const dateString = millisecondsToDateString(milliseconds)
+  const dateString = millisecondsToDateString(milliseconds);
 
   const tooltip = (
     <Tooltip id="tooltip">
@@ -58,14 +68,52 @@ function Fundraiser() {
     variant = 'danger';
   }
 
-  const image = createImageUrlFromBase64(campaign.image.data)
+  const image = createImageUrlFromBase64(campaign.image.data);
+
+  const review = campaign.reviews;
+
+  console.log(review)
+ 
+
+  const token = localStorage.getItem('id_token');
+
+   const isAuthenticated = token ? true : false;
+
+  // const handleInputChange = (e) => {
+  //   setInputValue(e.target.value);
+  // };
 
 
-  const review = campaign.reviews
+  // const handleCreateReview = async () => {
+  //   if (!isAuthenticated) {
+  //     console.error('Please login to create a review.')
+  //   }
 
+  //   try {
+  //     await addReviewMutation({
+  //       variables: {
+  //       campaignId:campaign._id,
+  //       description: inputValue,
+  //       },
+  //     });
+  //     setInputValue('');
+  //     console.log('Review created successfully');
+  //     window.location.reload();
+
+  //   } catch (error) {
+  //     console.error('Failed to create review:', error.message);
+  //   }
+  // };
+
+  const handleReviewCreate = (newReview) => {
+    setReview([
+      ...views,
+      { description: newReview }
+    ]);
+  };
 
   return (
-    <div className="single-campaign flex justify-center" >
+    <div className="single-campaign flex justify-center">
       <div className="campaign-card p-4 m-5 border-solid border-3 border-indigo-600">
         <div className="relative bg-slate-400">
           <img
@@ -79,7 +127,7 @@ function Fundraiser() {
             {campaign.title}
           </h1>
           <div className='flex justify-center'>
-          <p>{campaign.description}</p>
+            <p>{campaign.description}</p>
           </div>
           <p className="text-white leading-relaxed text-center">
             🥅 Target Amount: {moneyformatted}
@@ -100,22 +148,24 @@ function Fundraiser() {
 
           </div>
           <div className="text-white leading-relaxed text-center">
-            <p>⌛End:</p><Countdown dateString={dateString} />
+            <p>⌛End:</p>
+            <Countdown dateString={dateString} />
           </div>
 
-
+          {/* Review Input */}
+         
         </div>
-        {review.map((review) => {
-
-          return <p key={review.id}> {review.description} created at {review.createdAt} </p>
-        })}
-        <div className='flex justify-center pt-5'>
-        <button className='py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75rounded md:rounded-lg'> Make a donation </button>
-        </div>
-      </div>
+        <CampaignReviews reviews={review}/>
+      {isAuthenticated && (
+  <div>
+    <ReviewForm onReviewCreate={handleReviewCreate} campaignId={campaign._id} />
 
     </div>
 
+)}
+
+      </div>
+    </div>
   );
 }
 
