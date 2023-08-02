@@ -49,6 +49,7 @@ export const QUERY_CAMPAIGN = gql`
       data
     }
     reviews {
+      _id
       description
       createdAt
       creatorId {
