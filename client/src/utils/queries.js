@@ -51,6 +51,9 @@ export const QUERY_CAMPAIGN = gql`
     reviews {
       description
       createdAt
+      creatorId {
+      username
+    }
 
     }
     targetAmount

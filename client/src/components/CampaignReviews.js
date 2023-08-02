@@ -5,7 +5,7 @@ function CampaignReviews({ reviews }) {
     <div>
       {reviews.map((review) => (
         <p key={review.createdAt}>
-          {review.description} created at {review.createdAt}
+          {review.description} created at {review.createdAt} by {review.creatorId.username}
         </p>
       ))}
     </div>
