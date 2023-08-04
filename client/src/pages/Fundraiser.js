@@ -11,18 +11,22 @@ import '../styles/style.css';
 import CampaignReviews from '../components/CampaignReviews';
 import ReviewForm from '../components/ReviewForm'
 import Accordion from 'react-bootstrap/Accordion';
+import { useNavigate } from 'react-router-dom';
+import Auth from '../utils/auth';
 
 
 
 
 function Fundraiser() {
   const { campaignId } = useParams();
+  const [amount, setAmount] = useState(0);
+  const navigate = useNavigate();
   const { loading, data } = useQuery(QUERY_CAMPAIGN, {
     variables: { campaignId: campaignId },
   });
 
-  const [views, setReview] = useState([]); 
-  
+  const [views, setReview] = useState([]);
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -71,11 +75,11 @@ function Fundraiser() {
   const review = campaign.reviews;
 
   console.log(review)
- 
+
 
   const token = localStorage.getItem('id_token');
 
-   const isAuthenticated = token ? true : false;
+  const isAuthenticated = token ? true : false;
 
 
   const handleReviewCreate = (newReview) => {
@@ -83,6 +87,29 @@ function Fundraiser() {
       ...views,
       { description: newReview }
     ]);
+  };
+  const handleDonate = (title, campaignId) => {
+    const parsedAmount = parseFloat(amount);
+    const donation = {
+      campaignId: campaignId,
+      donorId: Auth.getProfile().data._id,
+      amount: isNaN(parsedAmount) ? 0 : parsedAmount
+    }
+    localStorage.setItem("donation", JSON.stringify(donation))
+
+    navigate("/checkout", {
+      state: {
+        amount: isNaN(parsedAmount) ? 0 : parsedAmount,
+        title
+      }
+    })
+  };
+  const handleChange = (event) => {
+
+    if (event.target.name === "amount") {
+      const inputValue = parseFloat(event.target.value);
+      setAmount(isNaN(inputValue) ? 0 : inputValue);
+    }
   };
 
   return (
@@ -124,23 +151,31 @@ function Fundraiser() {
             <p>⌛End:</p>
             <Countdown dateString={dateString} />
           </div>
+{/* Donation section */}
+          <div>
+            $<input type="number" placeholder="amount" value={amount} onChange={handleChange} disabled={false} />
+            <button className="inline-block border-e p-3 text-gray-700 hover:bg-indigo-50 focus:relative tx-center" onClick={handleDonate}> Make a donation
+            </button>
+
+          </div>
+
 
           {/* Review Input */}
         </div>
         <Accordion>
-        <Accordion.Item eventKey='1'>
-        <Accordion.Header>Reviews</Accordion.Header>
-        <Accordion.Body>
-        {isAuthenticated && (
-        <div>
-      <ReviewForm onReviewCreate={handleReviewCreate} campaignId={campaign._id} />
-       </div>
-       )}
-       {review.length > 0 ? <CampaignReviews reviews={review} /> : <p>This campaign does not have reviews.</p>}
-      
-      </Accordion.Body>
-    </Accordion.Item>
-    </Accordion>
+          <Accordion.Item eventKey='1'>
+            <Accordion.Header>Reviews</Accordion.Header>
+            <Accordion.Body>
+              {isAuthenticated && (
+                <div>
+                  <ReviewForm onReviewCreate={handleReviewCreate} campaignId={campaign._id} />
+                </div>
+              )}
+              {review.length > 0 ? <CampaignReviews reviews={review} /> : <p>This campaign does not have reviews.</p>}
+
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
 
 
 
