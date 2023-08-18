@@ -81,3 +81,11 @@ export const QUERY_DONATION = gql`
   }
 }}
 `
+
+export const QUERY_CHECKOUT = gql`
+  query getCheckout($products: [ProductInput]) {
+    checkout(products: $products) {
+      session
+    }
+  }
+`;

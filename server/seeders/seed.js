@@ -8,13 +8,12 @@ const reviewSeeds = require('./reviewSeeds.json');
 const calculationSeeds = require('./calculationSeeds.json')
 require('dotenv').config();
 
-
 const { createClient }= require('pexels');
 const { listenerCount } = require('../models/user');
 
-const client = createClient(vxI9VIXjoPg1mbZuoRuV05yUUpqzVJSJ4QQg253KXabgiArZhw5MUQn8);
+const client = createClient("Ye2UshXYnHmNK57q4gdWYAVanWcVnieomiPaZ2vgEY9t31mbHCLYvChY");
 
-const apiKey = process.env.API_KEY;
+const apiKey = "Ye2UshXYnHmNK57q4gdWYAVanWcVnieomiPaZ2vgEY9t31mbHCLYvChY";
 const searchQuery = 'poverty'; 
 const offset =0;
 const apiUrl = `https://api.pexels.com/v1/search?query=${encodeURIComponent(searchQuery)}&per_page=20&page=${offset}`;

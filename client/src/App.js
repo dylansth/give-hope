@@ -17,6 +17,7 @@ import Explore from './pages/Explore';
 import Fundraiser from './pages/Fundraiser';
 import CreateFundraiser from './pages/CreateFundraiser';
 import NotFound from './pages/NotFound';
+import Checkout from './components/Checkout';
 // import '../src/styles/style.css'
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -78,6 +79,10 @@ function App() {
               <Route
                 path="/create-fundraiser"
                 element={<CreateFundraiser />}
+              />
+               <Route
+                path="/checkout"
+                element={<Checkout/>}
               />
               <Route
                 path="*"

@@ -13,7 +13,7 @@ import ReviewForm from '../components/ReviewForm'
 import Accordion from 'react-bootstrap/Accordion';
 import { useNavigate } from 'react-router-dom';
 import Auth from '../utils/auth';
-
+import { Link } from 'react-router-dom';
 
 
 
@@ -100,7 +100,7 @@ function Fundraiser() {
     navigate("/checkout", {
       state: {
         amount: isNaN(parsedAmount) ? 0 : parsedAmount,
-        title
+        title: campaign.title
       }
     })
   };
@@ -152,12 +152,13 @@ function Fundraiser() {
             <Countdown dateString={dateString} />
           </div>
 {/* Donation section */}
+        {isAuthenticated ?
           <div>
-            $<input type="number" placeholder="amount" value={amount} onChange={handleChange} disabled={false} />
+            $ <input className='text-black' type="number" placeholder="amount" name='amount' value={amount} onChange={handleChange} disabled={false} />
             <button className="inline-block border-e p-3 text-gray-700 hover:bg-indigo-50 focus:relative tx-center" onClick={handleDonate}> Make a donation
             </button>
-
-          </div>
+          </div> : <p> If you want to make a donation, please <Link to="/sign-in">Sign In</Link> Or{' '}
+                        <Link to="/sign-up">Sign Up</Link>.</p>}
 
 
           {/* Review Input */}
@@ -171,7 +172,8 @@ function Fundraiser() {
                   <ReviewForm onReviewCreate={handleReviewCreate} campaignId={campaign._id} />
                 </div>
               )}
-              {review.length > 0 ? <CampaignReviews reviews={review} /> : <p>This campaign does not have reviews.</p>}
+              {review.length > 0 ? <CampaignReviews reviews={review} /> : <p>This campaign does not have reviews. If you want to create a review, please <Link to="/sign-in">Sign In</Link> Or{' '}
+                        <Link to="/sign-up">Sign Up</Link>.</p>}
 
             </Accordion.Body>
           </Accordion.Item>
