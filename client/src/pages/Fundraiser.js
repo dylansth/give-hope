@@ -100,7 +100,7 @@ function Fundraiser() {
     navigate("/checkout", {
       state: {
         amount: isNaN(parsedAmount) ? 0 : parsedAmount,
-        title
+        title: campaign.title
       }
     })
   };
@@ -154,7 +154,7 @@ function Fundraiser() {
 {/* Donation section */}
         {isAuthenticated ?
           <div>
-            $<input type="number" placeholder="amount" value={amount} onChange={handleChange} disabled={false} />
+            $ <input className='text-black' type="number" placeholder="amount" name='amount' value={amount} onChange={handleChange} disabled={false} />
             <button className="inline-block border-e p-3 text-gray-700 hover:bg-indigo-50 focus:relative tx-center" onClick={handleDonate}> Make a donation
             </button>
           </div> : <p> If you want to make a donation, please <Link to="/sign-in">Sign In</Link> Or{' '}

@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
-import { QUERY_CHECKOUT } from "..//utils/queries";
+import { QUERY_CHECKOUT } from "../utils/queries";
 import Auth from "../utils/auth";
 import { useLocation } from "react-router-dom"
 import { useLazyQuery } from "@apollo/client";
+import { useMutation } from '@apollo/client';
+import { MAKE_DONATION } from '../utils/mutations'; 
 
 const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
 
-export default function Checkout() {
+
+
+
+function Checkout() {
+    const [makeDonation] = useMutation(MAKE_DONATION)
     const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
     const { state } = useLocation();
-    const { amount, title } = state;
+    const { amount, title, campaignId } = state;
 
     useEffect(() => {
         if (data) {
@@ -26,7 +32,17 @@ export default function Checkout() {
             variables: {
                 amount: parseInt(amount),
             },
-        });
+        }).then(response => {
+            makeDonation({
+              variables: {
+                campaignId: campaignId, 
+                amount: parseInt(amount),
+              },
+            });
+          });
+        
+        
+        ; // I have to PASS CAMPAIGN._ID AS A PROPS
     }
     return (
         <div className="text-center">
@@ -41,3 +57,5 @@ export default function Checkout() {
         </div>
     );
 }
+
+export default Checkout

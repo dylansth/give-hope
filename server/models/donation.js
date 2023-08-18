@@ -3,10 +3,10 @@ const dateFormat = require('../utils/dateFormat');
 
 
 const donationSchema = new Schema({
-    campaignId: [{
+    campaignId: {
         type: Schema.Types.ObjectId,
         ref: 'Campaign',
-    }],
+    },
     donorId: {
         type: Schema.Types.ObjectId,
         ref: 'User',
