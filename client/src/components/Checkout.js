@@ -16,7 +16,9 @@ function Checkout() {
     const [makeDonation] = useMutation(MAKE_DONATION)
     const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
     const { state } = useLocation();
-    const { amount, title, campaignId } = state;
+    const { amount, title, _id } = state;
+
+    console.log(state)
 
     useEffect(() => {
         if (data) {
@@ -35,7 +37,7 @@ function Checkout() {
         }).then(response => {
             makeDonation({
               variables: {
-                campaignId: campaignId, 
+                campaignId: _id, 
                 amount: parseInt(amount),
               },
             });
