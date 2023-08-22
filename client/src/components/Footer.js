@@ -1,28 +1,22 @@
 import React from 'react';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
 
 
 function Footer() {
     return (
-        <footer>
-
-            <div className='flex justify-center items-center'>
-
-                <div className="social-icons w-14 pt-2">
-                    <a href="https://www.facebook.com/givehopeglobal/" target="_blank" rel="noopener noreferrer">
-                        <img src="/fb.png" alt="Facebook" />
-                    </a>
-                </div>
-                <div className='pr-3 pl-3 font-bold '>
-                    <p className='p-footer justify-center flex flex-wrap pt-2 '>Join us in making a difference. Together, we can create a brighter future. Your support matters!</p>
-                </div>
-                <div className="social-icons w-14 pt-2">
-                    <a href="https://www.instagram.com/give__hope/?hl=en" target="_blank" rel="noopener noreferrer">
-                        <img src="/ig.png" alt="Instagram" />
-                    </a>
-                </div>
-            </div>
-        </footer>
-
+        <div className='h-16 bg-blue-200 h-full flex justify-center items-center'>
+            <a href='https://github.com/dylansth/give-hope' target='_blank' rel='noopener noreferrer'>
+              <GitHubIcon className='text-black hover:text-gray-300 mx-2'/>
+            </a>
+            <a href='https://www.instagram.com/' target='_blank' rel='noopener noreferrer'>
+              <InstagramIcon className='text-black hover:text-gray-300 mx-2'/>
+            </a>
+            <a href='https://www.facebook.com/' target='_blank' rel='noopener noreferrer'>
+              <FacebookIcon className='text-black hover:text-gray-300 mx-2'/>
+            </a>
+      </div>
     )
 }
 
