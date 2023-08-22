@@ -22,7 +22,7 @@ function Explore() {
     return <div>Loading...</div>
   }
 
-  console.log(campaignList)
+ 
 
   const USDollar = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -40,7 +40,6 @@ function Explore() {
           // Format timer
           const milliseconds = campaign.endDate;
           const dateString = millisecondsToDateString(milliseconds);
-
           // Hover progress bar and see the amount 
           const tooltip = (
             <Tooltip id="tooltip">
@@ -85,7 +84,7 @@ function Explore() {
                   </div>
                   <div className="campaign-text bottom-0 left-0 right-0 bg-sky-600 text-white p-0">
                     <h1 className="text-white title-font text-3xl font-medium mb-3 text-center">
-                      {campaign.title}
+                      {campaign.title} 
                     </h1>
                     <p className="text-white leading-relaxed text-center">
                       🥅 Target Amount: {moneyformatted}

@@ -2,7 +2,9 @@ const { Campaign, User, Donation, Purchase_power, Review } = require('../models'
 const { ObjectId } = require('mongoose')
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
-const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
+require('dotenv').config();
+
+const stripe = require('stripe')(process.env.STRIPE_SK_TEST);
 
 
 

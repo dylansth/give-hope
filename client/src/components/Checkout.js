@@ -7,7 +7,7 @@ import { useLazyQuery } from "@apollo/client";
 import { useMutation } from '@apollo/client';
 import { MAKE_DONATION } from '../utils/mutations'; 
 
-const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
+const stripePromise = loadStripe("pk_test_51NhZWxJXm36fL6cJY41Jv1eir7FhiVCyFHmHjUFN9r4XGPPZo4FQ6WfTbBBLbN8tOU9Y3Q8PyGXcKeoosSQRNxWC00NHYTObft");
 
 
 
@@ -16,7 +16,7 @@ function Checkout() {
     const [makeDonation] = useMutation(MAKE_DONATION)
     const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
     const { state } = useLocation();
-    const { amount, title, _id } = state;
+    const { amount, title, campaignId } = state;
 
     console.log(state)
 
@@ -36,19 +36,21 @@ function Checkout() {
             },
         }).then(response => {
             makeDonation({
-              variables: {
-                campaignId: _id, 
-                amount: parseInt(amount),
-              },
+                variables: {
+                    campaignId: campaignId, 
+                    amount: parseInt(amount),
+                },
+            }).then(response => {
+                console.log("Mutation", response);
+            }).catch(error => {
+                console.error('Mutation error:', error);
             });
-          });
-        
-        
-        ; // I have to PASS CAMPAIGN._ID AS A PROPS
+        }); // Properly balanced parentheses
     }
+    
     return (
         <div className="text-center">
-            <h2>You are donating ${amount} to {title}. </h2>
+            <h2>You are donating ${amount} to {title} id {campaignId}. </h2>
             <h3>{title} is thankful for your generosity!</h3>
             <h4>If you wish to proceed, click the button to finish the checkout.</h4>
             {Auth.loggedIn() ? (
