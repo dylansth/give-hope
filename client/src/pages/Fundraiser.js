@@ -100,7 +100,8 @@ function Fundraiser() {
     navigate("/checkout", {
       state: {
         amount: isNaN(parsedAmount) ? 0 : parsedAmount,
-        title: campaign.title
+        title: campaign.title,
+        campaignId: campaign._id
       }
     })
   };

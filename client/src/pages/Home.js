@@ -110,40 +110,40 @@ function Home() {
                     </p>
                 </div>
             </div>
-            <div class="bg-blue-400 px-4 py-6 grid md:grid-cols-2 lg:grid-cols-4 text-center gap-4">
-                <div class="mt-2 bg-white/[.50] border border-black rounded-lg px-2">
-                    <p class="mt-3 font-bold">
+            <div className="bg-blue-400 px-4 py-6 grid md:grid-cols-2 lg:grid-cols-4 text-center gap-4">
+                <div className="mt-2 bg-white/[.50] border border-black rounded-lg px-2">
+                    <p className="mt-3 font-bold">
                         Sponsorship
                     </p>
                     <img src={cardheader1} alt="sponsorship header" className='w-2/3 mx-auto'/>
-                    <p class="mt-1 mx-2">
+                    <p className="mt-1 mx-2">
                         Sponsorship provides a unique opportunity to make a profound impact in the lives of those in need. The act of sponsoring not only offers direct support but also fosters a sense of connection and shared responsibility.
                     </p>
                 </div>
-                <div class="mt-2 bg-white/[.50] border border-black rounded-lg px-2">
-                    <p class="mt-3 font-bold">
+                <div className="mt-2 bg-white/[.50] border border-black rounded-lg px-2">
+                    <p className="mt-3 font-bold">
                         Our Vision
                     </p>
                     <img src={cardheader2} alt="sponsorship header" className='w-2/3 mx-auto'/>
-                    <p class="mt-1 mx-2">
+                    <p className="mt-1 mx-2">
                         At GiveHope, we hold a fundamental belief that every contribution, no matter its size, has the power to create meaningful change. Our vision is to establish a platform where everyone can come together to make a difference.
                     </p>
                 </div>
-                <div class="mt-2 bg-white/[.50] border border-black rounded-lg px-2">
-                    <p class="mt-3 font-bold">
+                <div className="mt-2 bg-white/[.50] border border-black rounded-lg px-2">
+                    <p className="mt-3 font-bold">
                         Why GiveHope?
                     </p>
                     <img src={cardheader3} alt="sponsorship header" className='w-2/3 mx-auto'/>
-                    <p class="mt-1 mx-2">
+                    <p className="mt-1 mx-2">
                         GiveHope is non-profit, and your contributions go straight to verified causes. At GiveHope, your donations are channeled directly to those in need. We're committed to ensuring that your support brings direct and meaningful change to the lives and communities you care about.
                     </p>
                 </div>
-                <div class="mt-2 bg-white/[.50] border border-black rounded-lg px-2">
-                    <p class="mt-3 font-bold">
+                <div className="mt-2 bg-white/[.50] border border-black rounded-lg px-2">
+                    <p className="mt-3 font-bold">
                         Process
                     </p>
                     <img src={cardheader4} alt="sponsorship header" className='w-2/3 mx-auto'/>
-                    <p class="mt-1 mx-2">
+                    <p className="mt-1 mx-2">
                         At GiveHope, making a difference is easy. Once your account is created, browse through a variety of campaigns from anywhere in the world. Everyone is free to interact with each other, comment on campaigns to connect with those in need or like-minded individuals who share your passion for positive change.
                     </p>
                 </div>
