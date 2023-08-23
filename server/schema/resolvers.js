@@ -48,7 +48,6 @@ const resolvers = {
         path: 'donations',
         populate: [
           { path: 'donorId', model: 'User' },
-          { path: 'reviews', model: 'Review' },
         ],
       })
       .populate('creatorId', 'username');

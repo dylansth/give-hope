@@ -9,6 +9,7 @@ import millisecondsToDateString from '../utils/getMilliseconds';
 import createImageUrlFromBase64 from '../utils/imageConvert';
 import '../styles/style.css';
 import CampaignReviews from '../components/CampaignReviews';
+import CampaignDonations from '../components/CampaignDonations';
 import ReviewForm from '../components/ReviewForm'
 import Accordion from 'react-bootstrap/Accordion';
 import { useNavigate } from 'react-router-dom';
@@ -41,7 +42,7 @@ function Fundraiser() {
     return <div>Campaign not found.</div>;
   }
 
-
+console.log(campaign)
 
 
   const USDollar = new Intl.NumberFormat('en-US', {
@@ -75,6 +76,10 @@ function Fundraiser() {
   const review = campaign.reviews;
 
   console.log(review)
+
+  const donation = campaign.donations;
+
+  console.log(donation)
 
 
   const token = localStorage.getItem('id_token');
@@ -192,9 +197,20 @@ function Fundraiser() {
           </Accordion.Item>
         </Accordion>
 
+        <Accordion>
+          <Accordion.Item eventKey='1'>
+            <Accordion.Header>Donations</Accordion.Header>
+            <Accordion.Body>
+             
+              {donation.length > 0 ? <CampaignDonations donations={donation} /> : <p>This campaign does not have donations. Make one!!!.</p>}
 
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
 
       </div>
+
+      
     </div>
   );
 }

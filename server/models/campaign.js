@@ -34,7 +34,7 @@ const campaignSchema = new Schema({
     },
     donations: [{
         type: Schema.Types.ObjectId,
-        ref: 'Campaign'
+        ref: 'Donation'
     }],
     createdAt: {
         type: Date,
