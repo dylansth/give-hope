@@ -66,34 +66,60 @@ const resolvers = {
       return Review.find().populate('creatorId');
     },
 
+    createCheckoutSession: async (_, __, context) => {
+      try {
+        const session = await stripe.checkout.sessions.create({
+          payment_method_types: ['card'],
+          line_items,
+          // line_items: [{
+          //   price: 'price_1NiEUjJXm36fL6cJLQ2AsOFw',
+          //   quantity: 1,
+          //   unit_amount: 'USD'
+          // }],
+          mode: 'payment',
+          success_url: 'https://yourwebsite.com/success', // Customize this
+          cancel_url: 'https://yourwebsite.com/cancel'    // Customize this
+        });
+
+        return { session: session.id }; 
+      } catch (error) {
+        console.error('Error creating checkout session:', error);
+        throw new Error('Failed to create checkout session.');
+      }
+    }
 
 
-    checkout: async (_, { amount }, context) => {
-      const url = new URL(context.headers.referer).origin;
-
-      const line_items = [
-        {
-          price_data: {
-            currency: "usd",
-            product_data: {
-              name: "donation",
-            },
-            unit_amount: amount * 100,
-          },
-          quantity: 1,
-        },
-      ];
-
-      const session = await stripe.checkout.sessions.create({
-        payment_method_types: ["card"],
-        line_items,
-        mode: "payment",
-        success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${url}/`,
-      });
-
-      return { session: session.id };
-    },
+  //   checkout: async (_, { amount }, context) => {
+  //     try {
+  //       const url = new URL(context.headers.referer).origin;
+    
+  //       const line_items = [
+  //         {
+  //           price_data: {
+  //             currency: 'usd',
+  //             product_data: {
+  //               name: 'Donation',
+  //             },
+  //             unit_amount: amount * 100,
+  //           },
+  //           quantity: 1,
+  //         },
+  //       ];
+    
+  //       const session = await stripe.checkout.sessions.create({
+  //         payment_method_types: ['card'],
+  //         line_items,
+  //         mode: 'payment',
+  //         success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
+  //         cancel_url: `${url}/cancel`,
+  //       });
+    
+  //       return { session: session.id };
+  //     } catch (error) {
+  //       console.error('Checkout error:', error);
+  //       throw new Error('Error creating checkout session');
+  //     }
+  //   },
 
   },
 
@@ -315,6 +341,7 @@ const resolvers = {
       return deleteReview;
     }
 
-  }
+  },
+
 }
 module.exports = resolvers;

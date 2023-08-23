@@ -51,7 +51,7 @@ const typeDef = gql`
     createdAt: String
   }
 
-  type Checkout {
+  type CheckoutSession {
     session: ID
   }
 
@@ -107,6 +107,8 @@ const typeDef = gql`
     makeDonation(campaignId: ID, donorId: ID, amount:Int ): Donation
     createReview(campaignId: ID!, description: String!, creatorId: ID, createdAt: String): Review
     deleteReview(reviewId: ID!): Review
+    # createCheckoutSession: CheckoutSession
+
   }
 
   type Query {
@@ -115,7 +117,7 @@ const typeDef = gql`
     users: [User]
     campaigns: [Campaign]
     donations(campaignId: ID): [Donation]
-    checkout(amount: Int): Checkout
+    createCheckoutSession(campaigns:ID!): CheckoutSession
     reviews: [Review]
 
   }
