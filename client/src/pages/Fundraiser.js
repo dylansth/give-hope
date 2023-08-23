@@ -88,23 +88,28 @@ function Fundraiser() {
       { description: newReview }
     ]);
   };
-  const handleDonate = (title, campaignId) => {
-    const parsedAmount = parseFloat(amount);
+  const handleDonate = (title, campaignId, selectedAmount) => {
+    const parsedAmount = parseFloat(selectedAmount);
     const donation = {
       campaignId: campaignId,
       donorId: Auth.getProfile().data._id,
       amount: isNaN(parsedAmount) ? 0 : parsedAmount
-    }
-    localStorage.setItem("donation", JSON.stringify(donation))
-
+    };
+    localStorage.setItem("donation", JSON.stringify(donation));
+  
     navigate("/checkout", {
       state: {
         amount: isNaN(parsedAmount) ? 0 : parsedAmount,
         title: campaign.title,
         campaignId: campaign._id
       }
-    })
+    });
   };
+
+  
+  
+  
+  
   const handleChange = (event) => {
 
     if (event.target.name === "amount") {
@@ -112,6 +117,8 @@ function Fundraiser() {
       setAmount(isNaN(inputValue) ? 0 : inputValue);
     }
   };
+
+  // const donationOptions = [10, 15, 20, 30, 50];
 
   return (
     <div className="single-campaign flex justify-center">
@@ -155,10 +162,15 @@ function Fundraiser() {
 {/* Donation section */}
         {isAuthenticated ?
           <div>
-            $ <input className='text-black' type="number" placeholder="amount" name='amount' value={amount} onChange={handleChange} disabled={false} />
-            <button className="inline-block border-e p-3 text-gray-700 hover:bg-indigo-50 focus:relative tx-center" onClick={handleDonate}> Make a donation
+        
+            <button
+              className="inline-block border-e p-3 text-gray-700 hover:bg-indigo-50 focus:relative tx-center"
+              onClick={() => handleDonate(campaign.title)}
+            >
+            Donate!
             </button>
-          </div> : <p> If you want to make a donation, please <Link to="/sign-in">Sign In</Link> Or{' '}
+
+        </div> : <p> If you want to make a donation, please <Link to="/sign-in">Sign In</Link> Or{' '}
                         <Link to="/sign-up">Sign Up</Link>.</p>}
 
 
