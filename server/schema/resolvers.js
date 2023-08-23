@@ -69,30 +69,35 @@ const resolvers = {
 
 
     checkout: async (_, { amount }, context) => {
-      const url = new URL(context.headers.referer).origin;
-
-      const line_items = [
-        {
-          price_data: {
-            currency: "usd",
-            product_data: {
-              name: "donation",
+      try {
+        const url = new URL(context.headers.referer).origin;
+    
+        const line_items = [
+          {
+            price_data: {
+              currency: 'usd',
+              product_data: {
+                name: 'Donation',
+              },
+              unit_amount: amount * 100,
             },
-            unit_amount: amount * 100,
+            quantity: 1,
           },
-          quantity: 1,
-        },
-      ];
-
-      const session = await stripe.checkout.sessions.create({
-        payment_method_types: ["card"],
-        line_items,
-        mode: "payment",
-        success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${url}/`,
-      });
-
-      return { session: session.id };
+        ];
+    
+        const session = await stripe.checkout.sessions.create({
+          payment_method_types: ['card'],
+          line_items,
+          mode: 'payment',
+          success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
+          cancel_url: `${url}/cancel`,
+        });
+    
+        return { session: session.id };
+      } catch (error) {
+        console.error('Checkout error:', error);
+        throw new Error('Error creating checkout session');
+      }
     },
 
   },
