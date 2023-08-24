@@ -14,19 +14,19 @@ function Profile() {
 
     const username = data?.me?.username || [];
     const userId = data?.me?._id || [];
-    // const annualSalary = data?.me?.annualSalary || [];
+    const annualSalary = data?.me?.annualSalary || [];
     const userCampaigns = data?.campaigns || [];
     const donations = data?.me?.donatedCampaigns || [];
 
     console.log(donations)
 
-    // function divideSalary() {
-        // Calculate 2% of the annual salary
-        // const twoPercent = annualSalary * 0.02;
+    function divideSalary() {
+        // Calculate 2% of the annual salary a
+        const twoPercent = annualSalary * 0.02;
 
-    //     return twoPercent;
-    // }
-    // const dividedSalaray = divideSalary(annualSalary);
+        return twoPercent;
+    }
+    const dividedSalaray = divideSalary(annualSalary);
 
 
     const handleDeleteCampaign = async (campaignId) => {
@@ -49,16 +49,16 @@ function Profile() {
     return (
         <div className='bg-blue-200'>
             {Auth.loggedIn() ? (
-                <div className='bg-blue-200 pt-4'>
+                <div>
+                   
 
-                    <div className='mb-3 w-2/3 md:w-1/3 p-2 bg-white/[.66] border border-black flex justify-center mx-auto'>
-                        <img src={GiveHopeLogoHome} alt="Give-Hope-Logo" />
-                    </div>
-                    <p className="py-2 mx-auto text-center" >Hello {username}</p>
+                        <p className="mt-4 mx-auto text-center font-bold" >Hello {username.toUpperCase()}</p>
+                        <p className="mx-auto text-center" > Your Annual Salary: ${annualSalary}</p>
+                        <p className="mx-auto text-center" > 2% of your Annual Salary is ${dividedSalaray}</p>
 
-                    <h3 className="font-bold py-4 pt-3 mx-auto text-center">
-                        My Fundraisers
-                    </h3>
+                        <h3 className="py-2 mx-auto text-center">
+                            Your Campaigns
+                        </h3>
 
 
                     <div className='flex flex-row flex-wrap justify-center'>
@@ -104,6 +104,7 @@ function Profile() {
                             );
                         })}
                     </div>
+                    
 
                     <div>
                         <h3 className="py-2 mx-auto text-center">
