@@ -119,7 +119,7 @@ const CampaignForm = () => {
   return (
     <div className="flex flex-col items-center mt-8">
       <h1 className="text-2xl font-bold mb-4">Create Campaign</h1>
-      <form onSubmit={handleFormSubmit} className="w-full max-w-md">
+      <form onSubmit={handleFormSubmit} className="w-80 max-w-md">
         <div className="mb-4">
           <label className="block font-semibold mb-1" htmlFor="title">
             Title:
@@ -213,7 +213,7 @@ const CampaignForm = () => {
       </div>
       
         {!isFormValid() && (
-  <p className="text-red-500">Please fill in all the required fields before submitting.</p>
+  <p className="text-red-500 text-center p-2">Please fill in all the required fields before submitting.</p>
 )}
       </form>
     </div>

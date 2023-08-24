@@ -139,7 +139,7 @@ console.log(campaign)
           <h1 className="text-white title-font text-3xl font-medium mb-3 text-center">
             {campaign.title}
           </h1>
-          <div className='flex justify-center m-2'>
+          <div className='flex justify-center m-2 text-center'>
             <p>{campaign.description}</p>
           </div>
           <p className="text-white leading-relaxed text-center">
@@ -175,7 +175,7 @@ console.log(campaign)
             Donate!
             </button>
 
-        </div> : <p className='text-center'> If you want to make a donation, please <Link className='text-black m-2' to="/sign-in">Sign In</Link> or{' '}
+        </div> : <p className='text-center'> If you want to make a donation or a review, please <Link className='text-black m-2' to="/sign-in">Sign In</Link> or{' '}
                         <Link className='text-black m-2' to="/sign-up">Sign Up</Link></p>}
 
 

@@ -21,8 +21,11 @@ function DonationsProfile() {
                 {donations.map((donation) => {
 
                     return (
-                        <div key={donation.createdAt} className='hover:bg-white drop-shadow-lg bg-white/[.66] p-4 mx-auto items-center mb-12'>
+                        <div className='m-3'>
+                        <div key={donation.createdAt} className='hover:bg-white drop-shadow-lg bg-white/[.66] p-1 mx-auto items-center m-1'>
                             <p className='font-bold text-center'>You donated ${donation.amount} to {donation.campaignId.title} by {donation.createdAt}</p> 
+                        </div>
+
                         </div>
                     );
                 })}
