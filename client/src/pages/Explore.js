@@ -95,7 +95,7 @@ function Explore() {
                       </OverlayTrigger>
                     </div>
                     <div className="text-white leading-relaxed text-center">
-                      <p>⌛End:</p><Countdown dateString={dateString} />
+                      <p className='mb-0'>⌛End:</p><Countdown dateString={dateString} />
                     </div>
 
                   </div>

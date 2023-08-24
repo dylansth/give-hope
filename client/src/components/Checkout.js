@@ -84,7 +84,10 @@ const availablePrices = [
     { id: "price_1NiL6pJXm36fL6cJRq9yl1DO", amount: 200 }, // 2 usd
     { id: "price_1NiKNmJXm36fL6cJgEdKEG8T", amount: 300 }, // 3 usd
     { id: "price_1NiKNwJXm36fL6cJRNYgWNO2", amount: 500 }, // 5 usd
-    { id: "price_1NiEUjJXm36fL6cJLQ2AsOFw", amount: 1000 }, //10 usd
+    { id: "price_1NiKNWJXm36fL6cJBtlQcUk1", amount: 2000 }, // 20 usd
+    { id: "price_1Nin0KJXm36fL6cJENvteosH", amount: 3000 }, // 30 usd
+    { id: "price_1Nin0zJXm36fL6cJofh742re", amount: 4000 }, // 40 usd
+
      // Amount in cents
   
   ];
