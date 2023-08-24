@@ -73,7 +73,7 @@ function Explore() {
           return (
             (isCampaignDisplaying) && (
 
-              <div className="campaign-card sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-4 m-5 border-solid border-3 border-indigo-600" key={campaign.title}>
+              <div className="campaign-card sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-4 m-5 border-solid border-3 border-indigo-600 hover:brightness-125" key={campaign.title}>
                 <Link style={{textDecoration: 'none'}} to={`/fundraiser/${campaign._id}`} key={campaign.title}>
                   <div className="h-80 relative bg-slate-400">
                     <img
@@ -82,7 +82,7 @@ function Explore() {
                       src={image}
                     />
                   </div>
-                  <div className="campaign-text bottom-0 left-0 right-0 bg-sky-600 text-white p-0">
+                  <div className="campaign-text bottom-0 left-0 right-0 bg-sky-600 text-white p-0 ">
                     <h1 className="text-white title-font text-3xl font-medium mb-3 text-center">
                       {campaign.title} 
                     </h1>
