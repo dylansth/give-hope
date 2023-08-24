@@ -5,6 +5,8 @@ import { QUERY_GET_ME } from '../utils/queries';
 import { Link } from 'react-router-dom';
 import { DELETE_CAMPAIGN } from '../utils/mutations';
 import DonationsProfile from '../components/DonationsProfile';
+import GiveHopeLogoHome from '../assets/givehopehomelogo.svg';
+import ClearIcon from '@mui/icons-material/Clear';
 
 function Profile() {
     const { data, loading } = useQuery(QUERY_GET_ME);
@@ -12,19 +14,19 @@ function Profile() {
 
     const username = data?.me?.username || [];
     const userId = data?.me?._id || [];
-    const annualSalary = data?.me?.annualSalary || [];
+    // const annualSalary = data?.me?.annualSalary || [];
     const userCampaigns = data?.campaigns || [];
     const donations = data?.me?.donatedCampaigns || [];
 
     console.log(donations)
 
-    function divideSalary() {
+    // function divideSalary() {
         // Calculate 2% of the annual salary
-        const twoPercent = annualSalary * 0.02;
+        // const twoPercent = annualSalary * 0.02;
 
-        return twoPercent;
-    }
-    const dividedSalaray = divideSalary(annualSalary);
+    //     return twoPercent;
+    // }
+    // const dividedSalaray = divideSalary(annualSalary);
 
 
     const handleDeleteCampaign = async (campaignId) => {
@@ -45,18 +47,18 @@ function Profile() {
     }
 
     return (
-        <div>
+        <div className='bg-blue-200'>
             {Auth.loggedIn() ? (
                 <div>
+                   
 
+                        <p className="mt-4 mx-auto text-center" >Hello {username}</p>
+                        <p className="mx-auto text-center" > Your Annual Salary: {annualSalary}</p>
+                        <p className="mx-auto text-center" > 2% of your Annual Salary is {dividedSalaray}</p>
 
-                    <p className="mt-4 mx-auto text-center" >Hello {username}</p>
-                    <p className="mx-auto text-center" > Your Annual Salary: {annualSalary}</p>
-                    <p className="mx-auto text-center" > 2% of your Annual Salary is {dividedSalaray}</p>
-
-                    <h3 className="py-2 mx-auto text-center">
-                        Your Campaigns
-                    </h3>
+                        <h3 className="py-2 mx-auto text-center">
+                            Your Campaigns
+                        </h3>
 
 
                     <div className='flex flex-row flex-wrap justify-center'>
@@ -74,31 +76,29 @@ function Profile() {
                             const imageUrl = URL.createObjectURL(blob);
 
                             return (
-                           
-                                
-                                    <div key={campaign._id} className='flex flex-col justify-center items-center py-2 border-2 border-black rounded-xl w-1/3 m-5'>
-                                        <div className="h-120 relative bg-slate-400">
-                                        <Link to={`/fundraiser/${campaign._id}`}>
-                                            <img
-                                                alt="gallery"
-                                                className="w-full h-full object-cover object-center"
-                                                src={imageUrl}
-                                            />
-                                            <p>{campaign.title}</p>
-                                            </Link>
+
+                                <div className='grid md:grid-cols-1 mx-6'>
+                                    <Link style={{textDecoration: 'none'}} to={`/fundraiser/${campaign._id}`}>
+                                        <div key={campaign._id} className='hover:bg-white drop-shadow-lg bg-white/[.66] p-4 mx-auto items-center mb-12'>
+                                            <div className="">
+                                                <img
+                                                    alt="gallery"
+                                                    className="h-full object-cover object-center"
+                                                    src={imageUrl}
+                                                />
+                                                    </div>
+                                            <div className='pb-4 text-center'>
+                                                <p>{campaign.title}</p>
+                                                <div className=''>
+                                                    <button
+                                                        className="hover:bg-red-300 hover:ease-in-out duration-300 bg-gray border-2 border-red-800 p-1 px-3 rounded-xl"
+                                                        onClick={() => handleDeleteCampaign(campaign._id)}>
+                                                        <ClearIcon className='text-red-800'/>
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
-                                       
-                                            
-                                        
-                                        <button
-                                            className="bg-red-600 w-1/4 rounded-xl"
-                                            onClick={() => handleDeleteCampaign(campaign._id)}>
-                                            Delete
-                                        </button>
-                            
-
-                                 
-
+                                    </Link>
                                 </div>
 
                             );
