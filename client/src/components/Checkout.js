@@ -125,7 +125,7 @@ function Checkout() {
       {availablePrices.map((price) => (
         <button
           key={price.id}
-          className="btn btn-primary"
+          className="inline-block p-2 bg-blue-800 text-white hover:bg-blue-300 hover:text-black focus:relative tx-center m-3"
           onClick={() => handleClick(price.id, price.amount)}
         >
           Donate ${price.amount / 100}

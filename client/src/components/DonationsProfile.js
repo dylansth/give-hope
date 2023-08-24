@@ -21,11 +21,8 @@ function DonationsProfile() {
                 {donations.map((donation) => {
 
                     return (
-                        <div key={donation.createdAt} className='flex flex-col justify-center items-center py-2 border-2 border-black rounded-xl w-1/3 m-5'>
-                            <p className='font-bold'>Campaign: {donation.campaignId.title}</p>
-                            <p className='font-bold'>Amount: ${donation.amount}</p>
-                            <p className='font-bold'>Donated:{donation.createdAt}</p>
-                        
+                        <div key={donation.createdAt} className='hover:bg-white drop-shadow-lg bg-white/[.66] p-4 mx-auto items-center mb-12'>
+                            <p className='font-bold text-center'>You donated ${donation.amount} to {donation.campaignId.title} by {donation.createdAt}</p> 
                         </div>
                     );
                 })}

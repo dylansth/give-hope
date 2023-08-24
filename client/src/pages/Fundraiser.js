@@ -166,10 +166,10 @@ console.log(campaign)
           </div>
 {/* Donation section */}
         {isAuthenticated ?
-          <div>
+          <div className='flex justify-center'>
         
             <button
-              className="inline-block border-e p-3 text-gray-700 hover:bg-indigo-50 focus:relative tx-center"
+              className="inline-block p-2 bg-blue-800 text-white-700 hover:bg-pink-50 hover:text-black focus:relative tx-center m-3"
               onClick={() => handleDonate(campaign.title)}
             >
             Donate!

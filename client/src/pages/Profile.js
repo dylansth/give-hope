@@ -14,19 +14,19 @@ function Profile() {
 
     const username = data?.me?.username || [];
     const userId = data?.me?._id || [];
-    // const annualSalary = data?.me?.annualSalary || [];
+    const annualSalary = data?.me?.annualSalary || [];
     const userCampaigns = data?.campaigns || [];
     const donations = data?.me?.donatedCampaigns || [];
 
     console.log(donations)
 
-    // function divideSalary() {
+    function divideSalary() {
         // Calculate 2% of the annual salary
-        // const twoPercent = annualSalary * 0.02;
+        const twoPercent = annualSalary * 0.02;
 
-    //     return twoPercent;
-    // }
-    // const dividedSalaray = divideSalary(annualSalary);
+        return twoPercent;
+    }
+    const dividedSalaray = divideSalary(annualSalary);
 
 
     const handleDeleteCampaign = async (campaignId) => {
@@ -52,9 +52,9 @@ function Profile() {
                 <div>
                    
 
-                        <p className="mt-4 mx-auto text-center" >Hello {username}</p>
-                        <p className="mx-auto text-center" > Your Annual Salary: {annualSalary}</p>
-                        <p className="mx-auto text-center" > 2% of your Annual Salary is {dividedSalaray}</p>
+                        <p className="mt-4 mx-auto text-center font-bold" >Hello {username.toUpperCase()}</p>
+                        <p className="mx-auto text-center" > Your Annual Salary: ${annualSalary}</p>
+                        <p className="mx-auto text-center" > 2% of your Annual Salary is ${dividedSalaray}</p>
 
                         <h3 className="py-2 mx-auto text-center">
                             Your Campaigns
