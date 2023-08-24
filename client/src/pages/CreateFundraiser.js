@@ -60,7 +60,7 @@ const CampaignForm = () => {
         image: { data: '', contentType: 'image/jpeg' },
         // Reset other fields as well
       });
-      window.location.href = 'https://givehopedonating.herokuapp.com/'
+      window.location.href = 'https://givehopedonating-c48150689fc8.herokuapp.com/'
     } catch (error) {
       console.error(error); // Handle error response
     }
