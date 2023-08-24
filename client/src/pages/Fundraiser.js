@@ -139,7 +139,7 @@ console.log(campaign)
           <h1 className="text-white title-font text-3xl font-medium mb-3 text-center">
             {campaign.title}
           </h1>
-          <div className='flex justify-center'>
+          <div className='flex justify-center m-2'>
             <p>{campaign.description}</p>
           </div>
           <p className="text-white leading-relaxed text-center">
@@ -175,8 +175,8 @@ console.log(campaign)
             Donate!
             </button>
 
-        </div> : <p> If you want to make a donation, please <Link to="/sign-in">Sign In</Link> Or{' '}
-                        <Link to="/sign-up">Sign Up</Link>.</p>}
+        </div> : <p className='text-center'> If you want to make a donation, please <Link className='text-black m-2' to="/sign-in">Sign In</Link> or{' '}
+                        <Link className='text-black m-2' to="/sign-up">Sign Up</Link></p>}
 
 
           {/* Review Input */}
@@ -202,7 +202,7 @@ console.log(campaign)
             <Accordion.Header>Donations</Accordion.Header>
             <Accordion.Body>
              
-              {donation.length > 0 ? <CampaignDonations donations={donation} /> : <p>This campaign does not have donations. Make one!!!.</p>}
+              {donation.length > 0 ? <CampaignDonations donations={donation} /> : <p>This campaign does not have donations.</p>}
 
             </Accordion.Body>
           </Accordion.Item>
