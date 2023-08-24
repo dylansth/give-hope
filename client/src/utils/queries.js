@@ -76,6 +76,7 @@ export const QUERY_CAMPAIGN = gql`
 
 export const QUERY_DONATION = gql`
  {   donations {
+    _id
     amount
     campaignId {
       _id

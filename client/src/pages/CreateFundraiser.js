@@ -201,14 +201,16 @@ const CampaignForm = () => {
             />
           )}
         </div>
-    
+    <div className="flex justify-center">
         <button
         disabled={!isFormValid()} 
           type="submit"
-          className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600"
+          className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 mb-3"
         >
           Create Campaign
         </button>
+
+      </div>
       
         {!isFormValid() && (
   <p className="text-red-500">Please fill in all the required fields before submitting.</p>

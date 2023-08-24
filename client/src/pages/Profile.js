@@ -8,6 +8,7 @@ import DonationsProfile from '../components/DonationsProfile';
 import GiveHopeLogoHome from '../assets/givehopehomelogo.svg';
 import ClearIcon from '@mui/icons-material/Clear';
 
+
 function Profile() {
     const { data, loading } = useQuery(QUERY_GET_ME);
     const [deleteCampaign, { error }] = useMutation(DELETE_CAMPAIGN);
@@ -34,9 +35,12 @@ function Profile() {
             const { data } = await deleteCampaign({
                 variables: { campaignId },
                 // refetchQueries: update other queries in the application
-                refetchQueries: [{ query: QUERY_GET_ME }],
+                // refetchQueries: [{ query: QUERY_GET_ME }],
             });
             console.log('Deleted campaign:', data.deleteCampaign);
+            window.location.reload();
+
+
         } catch (err) {
             console.error(err);
         }
@@ -52,13 +56,15 @@ function Profile() {
                 <div>
                    
 
-                        <p className="mt-4 mx-auto text-center font-bold" >Hello {username.toUpperCase()}</p>
-                        <p className="mx-auto text-center" > Your Annual Salary: ${annualSalary}</p>
-                        <p className="mx-auto text-center" > 2% of your Annual Salary is ${dividedSalaray}</p>
-
-                        <h3 className="py-2 mx-auto text-center">
-                            Your Campaigns
-                        </h3>
+                   <div className='mb-3 w-2/3 md:w-1/3 p-2 bg-white/[.66] border border-black flex justify-center mx-auto mt-3'>
+                        <img src={GiveHopeLogoHome} alt="Give-Hope-Logo" />
+                    </div>
+                    <p className="mt-4 mx-auto text-center font-bold" >Hello {username.toUpperCase()}</p>
+                  
+                    <h3 className="font-bold py-4 pt-3 mx-auto text-center">
+                        My Fundraisers
+                    </h3>
+                   
 
 
                     <div className='flex flex-row flex-wrap justify-center'>
@@ -75,42 +81,42 @@ function Profile() {
                             const blob = new Blob([arrayBuffer], { type: 'image/jpeg' });
                             const imageUrl = URL.createObjectURL(blob);
 
+                            const hasDonations = campaign.donations.length > 0
+
                             return (
 
-                                <div className='grid md:grid-cols-1 mx-6'>
-                                    <Link style={{textDecoration: 'none'}} to={`/fundraiser/${campaign._id}`}>
-                                        <div key={campaign._id} className='hover:bg-white drop-shadow-lg bg-white/[.66] p-4 mx-auto items-center mb-12'>
+                                    <div key={campaign._id} className='hover:bg-white drop-shadow-lg bg-white/[.66] p-4 mx-auto items-center mb-12'>
+                                        <Link style={{ textDecoration: 'none' }} to={`/fundraiser/${campaign._id}`}>
                                             <div className="">
                                                 <img
                                                     alt="gallery"
                                                     className="h-full object-cover object-center"
                                                     src={imageUrl}
                                                 />
-                                                    </div>
+                                            </div>
                                             <div className='pb-4 text-center'>
                                                 <p>{campaign.title}</p>
-                                                <div className=''>
-                                                    <button
-                                                        className="hover:bg-red-300 hover:ease-in-out duration-300 bg-gray border-2 border-red-800 p-1 px-3 rounded-xl"
-                                                        onClick={() => handleDeleteCampaign(campaign._id)}>
-                                                        <ClearIcon className='text-red-800'/>
-                                                    </button>
-                                                </div>
                                             </div>
+                                        </Link>
+                                        <div className='flex justify-center'>
+                                            <button
+                                                className={`hover:bg-red-300 hover:ease-in-out duration-300 bg-gray border-2 border-red-800 justify-center p-1 px-3 rounded-xl ${hasDonations ? 'cursor-not-allowed' : ''}`}
+                                                onClick={() => !hasDonations && handleDeleteCampaign(campaign._id)}
+                                                disabled={hasDonations}>
+                                                <ClearIcon className={`text-red-800 ${hasDonations ? 'opacity-50' : ''}`} />
+                                                {hasDonations && <span className="tooltip-text">In progress</span>}
+                                            </button>
                                         </div>
-                                    </Link>
-                                </div>
-
-                            );
-                        })}
-                    </div>
-                    
+                                    </div>
+                                );
+                            })}
+                        </div>
 
                     <div>
                         <h3 className="py-2 mx-auto text-center">
                             Your Donations
                         </h3>
-                        <DonationsProfile></DonationsProfile>
+                        <DonationsProfile> </DonationsProfile>
                     </div>
                 </div>
 
