@@ -48,15 +48,15 @@ function Profile() {
         <div>
             {Auth.loggedIn() ? (
                 <div>
-                   
 
-                        <p className="mt-4 mx-auto text-center" >Hello {username}</p>
-                        <p className="mx-auto text-center" > Your Annual Salary: {annualSalary}</p>
-                        <p className="mx-auto text-center" > 2% of your Annual Salary is {dividedSalaray}</p>
 
-                        <h3 className="py-2 mx-auto text-center">
-                            Your Campaigns
-                        </h3>
+                    <p className="mt-4 mx-auto text-center" >Hello {username}</p>
+                    <p className="mx-auto text-center" > Your Annual Salary: {annualSalary}</p>
+                    <p className="mx-auto text-center" > 2% of your Annual Salary is {dividedSalaray}</p>
+
+                    <h3 className="py-2 mx-auto text-center">
+                        Your Campaigns
+                    </h3>
 
 
                     <div className='flex flex-row flex-wrap justify-center'>
@@ -74,27 +74,37 @@ function Profile() {
                             const imageUrl = URL.createObjectURL(blob);
 
                             return (
+                           
+                                
+                                    <div key={campaign._id} className='flex flex-col justify-center items-center py-2 border-2 border-black rounded-xl w-1/3 m-5'>
+                                        <div className="h-120 relative bg-slate-400">
+                                        <Link to={`/fundraiser/${campaign._id}`}>
+                                            <img
+                                                alt="gallery"
+                                                className="w-full h-full object-cover object-center"
+                                                src={imageUrl}
+                                            />
+                                            <p>{campaign.title}</p>
+                                            </Link>
+                                        </div>
+                                       
+                                            
+                                        
+                                        <button
+                                            className="bg-red-600 w-1/4 rounded-xl"
+                                            onClick={() => handleDeleteCampaign(campaign._id)}>
+                                            Delete
+                                        </button>
                             
-                                <div key={campaign._id} className='flex flex-col justify-center items-center py-2 border-2 border-black rounded-xl w-1/3 m-5'>
-                                    <div className="h-80 relative bg-slate-400">
-                                        <img
-                                            alt="gallery"
-                                            className="w-full h-full object-cover object-center"
-                                            src={imageUrl}
-                                        />
-                                    </div>
 
-                                    <p>{campaign.title}</p>
-                                    <button
-                                        className="bg-red-600 w-1/4 rounded-xl"
-                                        onClick={() => handleDeleteCampaign(campaign._id)}>
-                                        Delete
-                                    </button>
+                                 
+
                                 </div>
-                          
+
                             );
                         })}
                     </div>
+                    
 
                     <div>
                         <h3 className="py-2 mx-auto text-center">
@@ -103,7 +113,7 @@ function Profile() {
                         <DonationsProfile></DonationsProfile>
                     </div>
                 </div>
-                            
+
             ) : (
                 <>
                     <p>
