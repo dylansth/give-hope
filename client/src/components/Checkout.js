@@ -101,14 +101,14 @@ function Checkout() {
       lineItems: [{ price: selectedPriceId, quantity: 1 }],
       mode: "payment",
       successUrl: `${window.location.origin}/success?campaignId=${state.campaignId}&amount=${selectedAmount/100}&title=${title}`,
-      cancelUrl: `${window.location.origin}/cancel`,
+      cancelUrl: `${window.location.origin}/cancel`, //the page is not ready
     });
 
     if (result.error) {
       console.error("Redirect error:", result.error);
     } else {
       // Navigate to Success with the necessary data including campaignId, title, and amount
-      navigate("givehopedonating-c48150689fc8.herokuapp.com/success", {
+      navigate("/success", {
         state: {
           campaignId: state.campaignId,
           amount: selectedAmount/100,
