@@ -74,7 +74,7 @@ function Explore() {
             (isCampaignDisplaying) && (
 
               <div className="campaign-card sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-4 m-5 border-solid border-3 border-indigo-600" key={campaign.title}>
-                <Link to={`/fundraiser/${campaign._id}`} key={campaign.title}>
+                <Link style={{textDecoration: 'none'}} to={`/fundraiser/${campaign._id}`} key={campaign.title}>
                   <div className="h-80 relative bg-slate-400">
                     <img
                       alt="gallery"
