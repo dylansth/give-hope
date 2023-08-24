@@ -7,7 +7,7 @@ const typeDef = gql`
     email: String!
     annualSalary: Int!
     createdCampaigns: [Campaign]
-    donatedCampaigns: [Campaign]
+    donatedCampaigns: [Donation]
   }
 
   type Campaign {
@@ -31,8 +31,8 @@ const typeDef = gql`
 
   type Donation {
     _id: ID!
-    campaignId: ID
-    donorId: ID
+    campaignId: Campaign
+    donorId: User
     amount: Int
     createdAt: String
   }

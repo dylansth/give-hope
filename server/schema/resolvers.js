@@ -29,9 +29,7 @@ const resolvers = {
           .populate({
             path: 'donatedCampaigns',
             populate: [
-              { path: 'creatorId', model: 'User' },
-              { path: 'donations', model: 'Donation' },
-              { path: 'reviews', model: 'Review' },
+              { path: 'campaignId', model: 'Campaign' },
             ],
           });
       }
@@ -54,13 +52,15 @@ const resolvers = {
     },
 
     donations: async () => {
-      return Donation.find()
-      .populate('campaignId', 'title')
-      .populate('donorId', 'username');
+      return Donation.find().populate({
+        path: 'campaignId',
+      })
+      .populate ({
+        path: 'donorId'
+      })
     },
 
-    
-
+ 
     reviews: async () => {
       return Review.find().populate('creatorId');
     },

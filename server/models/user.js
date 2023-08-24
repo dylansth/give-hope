@@ -28,7 +28,7 @@ const userSchema = new Schema({
     }],
     donatedCampaigns: [{
         type: Schema.Types.ObjectId,
-        ref: 'Campaign',
+        ref: 'Donation',
     }],
 },
     {
