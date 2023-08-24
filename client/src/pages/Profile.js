@@ -38,8 +38,7 @@ function Profile() {
                 // refetchQueries: [{ query: QUERY_GET_ME }],
             });
             console.log('Deleted campaign:', data.deleteCampaign);
-            window.location.href = 'https://givehopedonating-c48150689fc8.herokuapp.com/'
-
+            window.location.reload()
         } catch (err) {
             console.error(err);
         }
