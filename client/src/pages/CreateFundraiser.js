@@ -60,7 +60,7 @@ const CampaignForm = () => {
         image: { data: '', contentType: 'image/jpeg' },
         // Reset other fields as well
       });
-      window.location.href = 'https://powerful-oasis-64063-6b2a0502a18f.herokuapp.com/'
+      window.location.href = 'https://givehopedonating.herokuapp.com/'
     } catch (error) {
       console.error(error); // Handle error response
     }
