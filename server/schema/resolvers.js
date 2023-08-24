@@ -163,6 +163,7 @@ const resolvers = {
           creatorId: userId,
           targetAmount: campaignData.targetAmount,
           endDate: campaignData.endDate,
+          currentAmount: 0,
           createdAt: new Date().toISOString(),
         }
         );

@@ -20,6 +20,7 @@ const CampaignForm = () => {
     description: '',
     endDate: '',
     targetAmount: '',
+    currentAmount: 0,
     image: { data: '', contentType: 'image/jpeg' },
     
   });
@@ -57,6 +58,7 @@ const CampaignForm = () => {
         description: '',
         endDate: '',
         targetAmount: '',
+        currentAmount: 0,
         image: { data: '', contentType: 'image/jpeg' },
         // Reset other fields as well
       });
@@ -78,6 +80,7 @@ const CampaignForm = () => {
       setImage(reader.result);
       setFormData((prevData) => ({
         ...prevData,
+        currentAmount: 0,
         image: {
           // ...prevData.image,
           data: base64String,
@@ -173,7 +176,7 @@ const CampaignForm = () => {
             onChange={(e) =>
               setFormData({
                 ...formData,
-                targetAmount: parseInt(e.target.value, 10),
+                targetAmount: parseInt(e.target.value),
               })
             }
             placeholder="Enter a target amount"
