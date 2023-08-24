@@ -70,9 +70,6 @@ export const MAKE_DONATION = gql`
 mutation Mutation($campaignId: ID, $amount: Int) {
   makeDonation(campaignId: $campaignId, amount: $amount) {
     amount
-    createdAt
-    donorId
-    campaignId
   }
 }
 `;
