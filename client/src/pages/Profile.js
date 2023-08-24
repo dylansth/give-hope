@@ -21,7 +21,7 @@ function Profile() {
     console.log(donations)
 
     function divideSalary() {
-        // Calculate 2% of the annual salary
+        // Calculate 2% of the annual salary a
         const twoPercent = annualSalary * 0.02;
 
         return twoPercent;
