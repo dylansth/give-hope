@@ -73,7 +73,7 @@ const SignUp = () => {
             <Link to="/">Home</Link>
           </p>
         ) : (
-          <form onSubmit={handleFormSubmit} className="w-full max-w-md">
+          <form onSubmit={handleFormSubmit} className="w-80 max-w-md">
             <input
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 mb-4"
               placeholder="Your username"
@@ -110,6 +110,7 @@ const SignUp = () => {
               onChange={handleChange}
               required
             />
+            <div className='flex justify-center'>
             <button
               className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600"
               style={{ cursor: 'pointer' }}
@@ -117,8 +118,9 @@ const SignUp = () => {
             >
               Submit
             </button>
+            </div>
             {!isFormValid() && (
-  <p className="text-red-500">Please fill in all the required fields before submitting.</p>
+  <p className="text-red-500 text-center p-2">Please fill in all the required fields before submitting.</p>
 )}
           </form>
         )}

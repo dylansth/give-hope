@@ -65,7 +65,7 @@ function Profile() {
                    
 
 
-                    <div className='flex flex-row flex-wrap justify-center'>
+                    <div className='flex flex-row flex-wrap justify-center m-3'>
                         {userCampaigns.filter(campaign => campaign.creatorId._id === userId).map((campaign) => {
                             const base64String = campaign.image.data;
                             const binaryData = atob(base64String);
@@ -82,7 +82,7 @@ function Profile() {
                             const hasDonations = campaign.donations.length > 0
 
                             return (
-
+                                
                                     <div key={campaign._id} className='hover:bg-white drop-shadow-lg bg-white/[.66] p-4 mx-auto items-center mb-12'>
                                         <Link style={{ textDecoration: 'none' }} to={`/fundraiser/${campaign._id}`}>
                                             <div className="">
@@ -102,7 +102,7 @@ function Profile() {
                                                 onClick={() => !hasDonations && handleDeleteCampaign(campaign._id)}
                                                 disabled={hasDonations}>
                                                 <ClearIcon className={`text-red-800 ${hasDonations ? 'opacity-50' : ''}`} />
-                                                {hasDonations && <span className="tooltip-text">In progress</span>}
+                                                {hasDonations && <span className="tooltip-text">In Progress</span>}
                                             </button>
                                         </div>
                                     </div>
