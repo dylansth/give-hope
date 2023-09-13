@@ -4,23 +4,28 @@ import { CREATE_CAMPAIGN } from '../utils/mutations';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { QUERY_GET_ME } from '../utils/queries';
+import { useNavigate } from 'react-router-dom'; //new
 
 
 
 
 const CampaignForm = () => {
+
+  const navigate = useNavigate()
+
   const { data, loading } = useQuery(QUERY_GET_ME);
   const username = data?.me?._id || [];
 
   console.log(username)
 
   const client = useApolloClient();
+  const [error, setError] = useState(null); //new
+
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     endDate: '',
     targetAmount: '',
-    currentAmount: 0,
     image: { data: '', contentType: 'image/jpeg' },
     
   });
@@ -58,13 +63,16 @@ const CampaignForm = () => {
         description: '',
         endDate: '',
         targetAmount: '',
-        currentAmount: 0,
         image: { data: '', contentType: 'image/jpeg' },
         // Reset other fields as well
       });
-      window.location.href = 'http://localhost:3000/'
+     
+      navigate('/explore') //new
     } catch (error) {
-      console.error(error); // Handle error response
+      console.error(error)
+      setError(`An error occurred while creating the campaign: ${error.message}`); // new
+      ;
+       // Handle error response
     }
   };
 
@@ -80,7 +88,6 @@ const CampaignForm = () => {
       setImage(reader.result);
       setFormData((prevData) => ({
         ...prevData,
-        currentAmount: 0,
         image: {
           // ...prevData.image,
           data: base64String,
@@ -120,9 +127,11 @@ const CampaignForm = () => {
   
   
   return (
+
+  <div> 
     <div className="flex flex-col items-center mt-8">
       <h1 className="text-2xl font-bold mb-4">Create Campaign</h1>
-      <form onSubmit={handleFormSubmit} className="w-80 max-w-md">
+      <form onSubmit={handleFormSubmit} className="w-full max-w-md">
         <div className="mb-4">
           <label className="block font-semibold mb-1" htmlFor="title">
             Title:
@@ -176,7 +185,7 @@ const CampaignForm = () => {
             onChange={(e) =>
               setFormData({
                 ...formData,
-                targetAmount: parseInt(e.target.value),
+                targetAmount: parseInt(e.target.value, 10),
               })
             }
             placeholder="Enter a target amount"
@@ -205,22 +214,27 @@ const CampaignForm = () => {
           )}
         </div>
     <div className="flex justify-center">
+
+      {/* <Link to="/explore">   */}
         <button
         disabled={!isFormValid()} 
           type="submit"
           className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 mb-3"
+          onClick={handleFormSubmit} 
         >
           Create Campaign
         </button>
-
+       {/* </Link> */}
       </div>
       
         {!isFormValid() && (
-  <p className="text-red-500 text-center p-2">Please fill in all the required fields before submitting.</p>
+  <p className="text-red-500">Please fill in all the required fields before submitting.</p>
 )}
       </form>
+      {error && <div className="error-message">{error}</div>} 
     </div>
-  );
+    </div> 
+  ); 
 };
 
 export default CampaignForm;

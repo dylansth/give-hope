@@ -20,12 +20,16 @@ const server = new ApolloServer({
 });
 
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+// app.use(express.json());
+app.use(express.json({limit: '50mb'}));
+
+
 
 
 /// handle images
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+
  
 app.set("view engine", "ejs");
 const storage = multer.diskStorage({
@@ -84,6 +88,25 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
+app.get("/success", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+});
+
+app.get("/create-fundraiser", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+}); 
+
+app.get("/fundraiser/:campaignId", (req, res) => {
+  const campaignId = req.params.campaignId;
+  console.log("Campaign ID:", campaignId);
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+}); 
+
+app.get("/explore", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+}); 
+
+
 const startApolloServer = async () => {
   await server.start();
   server.applyMiddleware({ app });
@@ -96,4 +119,4 @@ const startApolloServer = async () => {
   })
 };
 
-startApolloServer();
+startApolloServer(); 
