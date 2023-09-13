@@ -4,7 +4,7 @@ import { CREATE_CAMPAIGN } from '../utils/mutations';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { QUERY_GET_ME } from '../utils/queries';
-
+import { Link } from 'react-router-dom'; //new
 
 
 
@@ -62,7 +62,7 @@ const CampaignForm = () => {
         image: { data: '', contentType: 'image/jpeg' },
         // Reset other fields as well
       });
-      window.location.href = 'http://localhost:3000/'
+      // window.location.href = 'http://localhost:3000/'
     } catch (error) {
       console.error(error); // Handle error response
     }
@@ -209,6 +209,7 @@ const CampaignForm = () => {
         disabled={!isFormValid()} 
           type="submit"
           className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 mb-3"
+          onClick={handleFormSubmit}
         >
           Create Campaign
         </button>

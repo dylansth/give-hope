@@ -96,6 +96,17 @@ app.get("/create-fundraiser", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
 }); 
 
+app.get("/fundraiser/:campaignId", (req, res) => {
+  const campaignId = req.params.campaignId;
+  console.log("Campaign ID:", campaignId);
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+}); //new 
+
+app.get("/explore", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+}); //new
+
+
 const startApolloServer = async () => {
   await server.start();
   server.applyMiddleware({ app });
