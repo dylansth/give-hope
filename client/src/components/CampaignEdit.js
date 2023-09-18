@@ -59,25 +59,29 @@ function CampaignEdit({ campaign }) {
 
   return (
     <div>
+      <div className="flex flex-col items-center mt-8">
+      <h1 className="text-2xl font-bold mb-4">Editing Campaign</h1>
       <form onSubmit={handleEditCampaign}>
-        <div>
-          <label>Title:</label>
+        <div className="mb-4">
+          <label className="block font-semibold mb-1" htmlFor="title">Title:</label>
           <input
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
             type="text"
             name="title"
             value={formData.title}
             onChange={handleInputChange}
           />
         </div>
-        <div>
-          <label>Description:</label>
+        <div className="mb-4">
+        <label className="block font-semibold mb-1" htmlFor="description">Description:</label>
           <textarea
             name="description"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
             value={formData.description}
             onChange={handleInputChange}
           />
         </div>
-        <div>
+        <div className="mb-4">
           <label className="block font-semibold mb-1">End Date:</label>
           <DatePicker
             dateFormat="yyyy/MM/dd"
@@ -88,9 +92,10 @@ function CampaignEdit({ campaign }) {
             onChange={handleDateInputChange}
           />
         </div>
-        <div>
-          <label>Target Amount:</label>
+        <div className="mb-4">
+          <label className="block font-semibold mb-1" htmlFor="targetAmount">Target Amount:</label>
           <input
+           className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
             type="number"
             name="targetAmount"
             value={formData.targetAmount}
@@ -105,6 +110,7 @@ function CampaignEdit({ campaign }) {
         </button>
       </form>
       {error && <div className="error-message">{error.message}</div>}
+    </div>
     </div>
   );
 }
