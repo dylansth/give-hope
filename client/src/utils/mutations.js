@@ -45,16 +45,16 @@ mutation CreateCampaign($campaignData: CampaignInput!) {
 
 
 export const UPDATE_CAMPAIGN = gql`
-mutation UpdateCampaign($id: ID!, $campaignData: updateCampaignInput!) {
+mutation UpdateCampaign($id: ID!, $campaignData: UpdateCampaignInput) {
   updateCampaign(_id: $id, campaignData: $campaignData) {
-    description
+    createdAt
     title
-    _id
-    endDate
-    targetAmount
   }
 }
 `;
+
+
+
 
 export const DELETE_CAMPAIGN = gql`
 mutation DeleteCampaign($campaignId: ID!) {

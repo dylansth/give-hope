@@ -67,13 +67,20 @@ const resolvers = {
 
     createCheckoutSession: async (_, __, context) => {
       try {
+        const {amount} = req.body; 
+        const amountToCharge = parseInt(amount*100)
+
         const session = await stripe.checkout.sessions.create({
+    
           payment_method_types: ['card'],
           line_items,
           // line_items: [{
-          //   price: 'price_1NiEUjJXm36fL6cJLQ2AsOFw',
-          //   quantity: 1,
-          //   unit_amount: 'USD'
+          //   unit_amount: amountToCharge,
+          //   currency: 'usd',
+          //   product_data: {
+          //     name: 'My Donation',
+          //     description: 'I am giving Hope'
+          //   }
           // }],
           mode: 'payment',
           success_url: 'https://yourwebsite.com/success', // Customize this
@@ -188,10 +195,7 @@ const resolvers = {
           title: campaignData.title,
           description: campaignData.description,
           targetAmount: campaignData.targetAmount,
-          currentAmount: campaignData.currentAmount,
           endDate: campaignData.endDate,
-          donations: campaignData.donations,
-          reviews: campaignData.reviews
         },
         { new: true }
       );

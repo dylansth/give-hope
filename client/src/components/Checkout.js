@@ -102,6 +102,7 @@ function Checkout() {
 
     const result = await stripe.redirectToCheckout({
       lineItems: [{ price: selectedPriceId, quantity: 1 }],
+      submitType: 'donate', //new
       mode: "payment",
       successUrl: `${window.location.origin}/success?campaignId=${state.campaignId}&amount=${selectedAmount/100}&title=${title}`,
       cancelUrl: `${window.location.origin}/cancel`, //the page is not ready
@@ -121,11 +122,22 @@ function Checkout() {
     }
   };
 
+  const stripePickPrice = 'https://buy.stripe.com/test_9AQaH335Xbef6aY4gj';
+
+  const successUrl = `${window.location.origin}/success?campaignId=${encodeURIComponent(state.campaignId)}&amount=${encodeURIComponent(amount.total)}&title=${encodeURIComponent(title)}`;
+  
+  const handlePickPrice = () => {
+    window.open(`${stripePickPrice}?successUrl=${encodeURIComponent(successUrl)}`, '_blank');
+  };
+  
+
   return (
     <div className="text-center">
     <h2>Choose a Donation Amount for {title}</h2>
     <div className="price-buttons">
-      {availablePrices.map((price) => (
+
+ 
+       {availablePrices.map((price) => (
         <button
           key={price.id}
           className="inline-block p-2 bg-blue-800 text-white hover:bg-blue-300 hover:text-black focus:relative tx-center m-3"
@@ -134,6 +146,11 @@ function Checkout() {
           Donate ${price.amount / 100}
         </button>
       ))}
+      
+      <button
+      onClick={handlePickPrice}> Select your amount
+
+      </button>
     </div>
     {Auth.loggedIn() ? (
       <div>

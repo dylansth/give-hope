@@ -90,11 +90,7 @@ const typeDef = gql`
     title: String
     description: String
     targetAmount: Int
-    currentAmount: Int
-    creatorId: ID
     endDate: String
-    donations: [ID]
-    reviews: [ID] 
   }
 
 
@@ -102,7 +98,7 @@ const typeDef = gql`
     addUser(username: String!, email: String!, password: String!, annualSalary: Int!): Auth
     login(email: String!, password: String!): Auth
     createCampaign(campaignData: CampaignInput!): Campaign
-    updateCampaign(_id: ID!, campaignData: UpdateCampaignInput!): Campaign
+    updateCampaign(_id: ID!, campaignData: UpdateCampaignInput): Campaign
     deleteCampaign(campaignId: ID!): Campaign
     makeDonation(campaignId: ID, donorId: ID, amount:Int ): Donation
     createReview(campaignId: ID!, description: String!, creatorId: ID, createdAt: String): Review
