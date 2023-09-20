@@ -96,7 +96,7 @@ function Profile() {
                                     </Link>
                                     <div className='flex justify-center'>
                                         <button
-                                            className={`hover:bg-red-300 hover:ease-in-out duration-300 bg-gray border-2 border-red-800 justify-center p-1 px-3 rounded-xl ${hasDonations ? 'cursor-not-allowed' : ''}`}
+                                            className={`hover:bg-red-300 hover:ease-in-out duration-300 bg-gray m-2 border-2 border-red-800 justify-center p-1 px-3 rounded-xl ${hasDonations ? 'cursor-not-allowed' : ''}`}
                                             onClick={() => !hasDonations && handleDeleteCampaign(campaign._id)}
                                             disabled={hasDonations}
                                         >
@@ -104,8 +104,8 @@ function Profile() {
                                             {hasDonations && <span className="tooltip-text">In Progress</span>}
                                         </button>
                                         <button
-                                            onClick={() => !hasDonations && handleEditCampaign(campaign._id)}
-                                            className={`hover:bg-red-300 hover:ease-in-out duration-300 bg-gray border-2 border-red-800 justify-center p-1 px-3 rounded-xl`}
+                                            onClick={() => handleEditCampaign(campaign._id)}
+                                            className={`hover:bg-green-300 hover:ease-in-out duration-300 bg-gray m-2 border-2 border-green-800 justify-center p-1 px-3 rounded-xl`}
                                         >
                                             Edit Campaign
                                         </button>

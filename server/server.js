@@ -106,6 +106,9 @@ app.get("/explore", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
 }); 
 
+app.get("/me", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+}); 
 
 const startApolloServer = async () => {
   await server.start();
