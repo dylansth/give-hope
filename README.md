@@ -2,7 +2,7 @@
 
 A purpose driven web application designed to improve sponsor-style fundraising, GiveHope focuses on fundraising based on someone's weekly needs.
 
-[Link to the Deployed Application](https://powerful-oasis-64063-6b2a0502a18f.herokuapp.com/)
+[Link to the Deployed Application](https://givehopedonating-c48150689fc8.herokuapp.com/)
 
 <details open>
 <summary>Table Of Contents</summary>
