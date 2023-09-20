@@ -24,6 +24,8 @@
     "axios": "^1.4.0",
     "graphql": "^15.8.0",
     "jsonwebtoken": "^9.0.1",
-    "pexels": "^1.4.0"
+    "pexels": "^1.4.0",
+    "react-icons": "^4.11.0",
+    "react-modal": "^3.16.1"
   }
 }
